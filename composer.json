@@ -51,6 +51,14 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ricpelo/yii2-apidoc"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ricpelo/Specify"
         }
     ]
 }

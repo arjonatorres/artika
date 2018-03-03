@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en" />
+        <link href="./assets/d4fb7010/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/ee0fc996/solarized_light.css" rel="stylesheet">
+<link href="./assets/63ecc1cf/style.css" rel="stylesheet">
+<script src="./assets/a8102610/jquery.js"></script>
+<script src="./assets/d4fb7010/js/bootstrap.js"></script>
+<script src="./assets/b2911852/jssearch.js"></script>    <title>Guía del proyecto</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w130" class="navbar-inverse navbar-fixed-top navbar"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w130-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button><a class="navbar-brand" href="./index.html">Guía del proyecto</a></div><div id="w130-collapse" class="collapse navbar-collapse"><ul id="w131" class="navbar-nav nav"><li><a href="./api/index.html">Class reference</a></li>
+<li><a href="./README.html">Guide</a></li></ul><div class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+  </div>
+</div>
+</div></nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+    
+<div class="row">
+    <div class="col-md-2">
+                <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-120" data-toggle="collapse" data-parent="#navigation">Descripción general <b class="caret"></b></a><div id="navigation-120" class="submenu panel-collapse collapse"><a class="list-group-item" href="./descripcion.html#funcionalidad-principal-de-la-aplicacion">Funcionalidad principal de la aplicación</a>
+<a class="list-group-item" href="./descripcion.html#objetivos-generales">Objetivos generales</a>
+<a class="list-group-item" href="./descripcion.html#url-del-repositorio">URL del repositorio</a>
+<a class="list-group-item" href="./descripcion.html#url-de-la-documentacion">URL de la documentación</a></div>
+<a class="list-group-item" href="#navigation-121" data-toggle="collapse" data-parent="#navigation">Instrucciones de instalación y despliegue <b class="caret"></b></a><div id="navigation-121" class="submenu panel-collapse collapse"><a class="list-group-item" href="./instalacion.html#en-local">En local</a>
+<a class="list-group-item" href="./instalacion.html#en-la-nube">En la nube</a></div>
+<a class="list-group-item" href="#navigation-122" data-toggle="collapse" data-parent="#navigation">Catálogo de requisitos <b class="caret"></b></a><div id="navigation-122" class="submenu panel-collapse collapse"><a class="list-group-item" href="./requisitos.html#cuadro-resumen">Cuadro resumen</a></div>
+<a class="list-group-item" href="#navigation-123" data-toggle="collapse" data-parent="#navigation">Manual de usuario <b class="caret"></b></a><div id="navigation-123" class="submenu panel-collapse collapse"><a class="list-group-item" href="./manual.html">Manual de usuario</a></div>
+<a class="list-group-item" href="#navigation-124" data-toggle="collapse" data-parent="#navigation">Decisiones adoptadas <b class="caret"></b></a><div id="navigation-124" class="submenu panel-collapse collapse"><a class="list-group-item" href="./decisiones.html">Decisiones adoptadas</a></div>
+<a class="list-group-item" href="#navigation-125" data-toggle="collapse" data-parent="#navigation">Dificultades encontradas <b class="caret"></b></a><div id="navigation-125" class="submenu panel-collapse collapse"><a class="list-group-item" href="./dificultades.html">Dificultades encontradas</a></div>
+<a class="list-group-item" href="#navigation-126" data-toggle="collapse" data-parent="#navigation">Diagramas <b class="caret"></b></a><div id="navigation-126" class="submenu panel-collapse collapse"><a class="list-group-item" href="./diagramas.html#diagramas-de-clases">Diagramas de clases</a>
+<a class="list-group-item" href="./diagramas.html#diagramas-de-estructura-logica-de-datos">Diagramas de estructura lógica de datos</a></div>
+<a class="list-group-item" href="#navigation-127" data-toggle="collapse" data-parent="#navigation">Glosario de términos <b class="caret"></b></a><div id="navigation-127" class="submenu panel-collapse collapse"><a class="list-group-item" href="./glosario.html">Glosario de términos</a></div>
+<a class="list-group-item" href="#navigation-128" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-128" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
+<a class="list-group-item" href="#navigation-129" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-129" class="submenu panel-collapse collapse"><a class="list-group-item" href="./anexos.html">Anexos</a></div></div>    </div>
+    <div class="col-md-9 guide-content" role="main">
+        <h1>Catálogo de requisitos <span id="catalogo-de-requisitos"></span><a href="#catalogo-de-requisitos" class="hashlink">&para;</a></h1><table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R01</strong>     </th><th align="left"><strong>Alta del usuario</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación contendrá un formulario de registro, en el cual el usuario debe indicar un nombre de usuario, una dirección de e-mail válida y una contraseña. Si el nombre de usuario o el e-mail ya existen o es de un formato incorrecto, el registro no se llevará a cabo y se le comunicará al usuario.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/1">1</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R02</strong>     </th><th align="left"><strong>Modificación del usuario</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación dispondrá de una sección que permitirá la modificación de los datos de su cuenta.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/2">2</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R03</strong>     </th><th align="left"><strong>Baja del usuario</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación permitirá dar de baja al usuario y su borrado de la base de datos.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/3">3</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R04</strong>     </th><th align="left"><strong>Inicio de sesión del usuario</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación contendrá un formulario de inicio de sesión, en el cual un usuario que ya haya sido registrado y confirmado podrá iniciar sesión en la aplicación indroduciendo su nombre de usuario y su contraseña. En caso de que no fueran correctos se le comunicará al usuario.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/4">4</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R05</strong>     </th><th align="left"><strong>Cerrar sesión</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación, cuando un usuario tenga la sesión abierta, permitirá el cierre de la sesión.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/5">5</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R06</strong>     </th><th align="left"><strong>Correo de confirmación</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Una vez el usuario haya completado el formulario de registro se le enviará un correo de confirmación al e-mail especificado. Si no se confirma en el tiempo estipulado, el inicio de sesión en la aplicación no será posible.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/6">6</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R07</strong>     </th><th align="left"><strong>Reenvío de correo de confirmación</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación permitirá el reenvío del correo de confirmación.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong></td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/7">7</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R08</strong>     </th><th align="left"><strong>Recuperación de contraseña</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">En caso de olvido o pérdida de la contraseña, la aplicación permitirá su recuperación vía e-mail.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/8">8</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R09</strong>     </th><th align="left"><strong>El usuario que no confirme el correo en 24 horas será eliminado</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario que no confirme el correo al darse de alta en un plazo de 24 horas, será borrado y deberá darse de alta de nuevo.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/9">9</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R10</strong>     </th><th align="left"><strong>Editar el perfil</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá editar todos sus datos personales y su zona horaria.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/10">10</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R11</strong>     </th><th align="left"><strong>Permite guardar geolocalización en el perfil</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Uno de los datos del perfil será la geolocalización del usuario, dato que será usado por el administrador para visualizar en un mapa la ubicación de todos los usuarios.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/11">11</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R12</strong>     </th><th align="left"><strong>Cambiar avatar del usuario</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá modificar su imagen de avatar  en la pantalla de edición del perfil.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/12">12</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R13</strong>     </th><th align="left"><strong>Crear sección de la casa</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Crea una sección(planta alta, baja…) en la casa del usuario.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/13">13</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R14</strong>     </th><th align="left"><strong>Crear habitación en una sección de la casa</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Crea una habitación dentro de una sección de la casa del usuario. El usuario podrá elegir el nombre y una imagen que la identifique.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/14">14</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R15</strong>     </th><th align="left"><strong>Añadir módulos a una habitación</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario puede añadir los módulos de domótica que estén en la habitación seleccionada.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/15">15</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R16</strong>     </th><th align="left"><strong>Modificar sección de la casa</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá modificar el nombre de la sección de la casa.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/16">16</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R17</strong>     </th><th align="left"><strong>Modificar habitación</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá modificar el nombre de la habitación, su imagen y la sección de la casa a la que pertenece.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/17">17</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R18</strong>     </th><th align="left"><strong>Modificar módulos</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá modificar el nombre del módulo y cambiar la habitación a la que pertenece.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/18">18</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R19</strong>     </th><th align="left"><strong>Borrar sección</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá borrar una sección de la casa con todo lo que contenga dentro.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/19">19</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R20</strong>     </th><th align="left"><strong>Borrar habitación</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá borrar una habitación con todos los módulos que pertenezcan a ella.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/20">20</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R21</strong>     </th><th align="left"><strong>Borrar módulo</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá borrar un módulo que pertenezca a una habitación.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/21">21</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R22</strong>     </th><th align="left"><strong>Añadir cámaras de videovigilancia</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá añadir cámaras de videovigilancia y podrán visualizarse a través de la aplicación.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/22">22</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R23</strong>     </th><th align="left"><strong>Crear un log con cada evento</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Cada vez que se active o desactive algún módulo se creará un registro en un log indicando el evento y la fecha y hora del mismo.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/23">23</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R24</strong>     </th><th align="left"><strong>Visualizar un archivo GPX</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La aplicación tendrá un apartado que permitirá la visualización de un recorrido o ruta en el Google Maps guardado en un archivo tipo GPX.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/24">24</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R25</strong>     </th><th align="left"><strong>Crear publicación en el tablón</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá crear una nueva publicación en un tablón.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/25">25</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R26</strong>     </th><th align="left"><strong>Modificar publicación en el tablón</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá modificar una publicación que haya creado él mismo en el tablón.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/26">26</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R27</strong>     </th><th align="left"><strong>Borrar publicación en el tablón</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El usuario podrá borrar una publicación que haya creado él mismo en el tablón.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/27">27</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R28</strong>     </th><th align="left"><strong>El tablón podrá ser visualizado sin estar logueado</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">La lista de todas las publicaciones del tablón podrán ser visualizadas por cualquier visitante de la página.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/28">28</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R29</strong>     </th><th align="left"><strong>Los usuarios pueden comentar las publicaciones de otros usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Los usuarios puden comentar las publicaciones que hayan realizado otros usuarios.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/29">29</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R30</strong>     </th><th align="left"><strong>Los usuarios podrán mandar mensajes privados a otros usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Los usuarios podrán mandar mensajes privados a otros usuarios. lo recibirán en su buzón de entrada.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/30">30</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R31</strong>     </th><th align="left"><strong>Los usuarios podrán consultar los mensajes privados enviados a  otros usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Los usuarios podrán consultar los mensajes privados enviados a  otros usuarios, los cuales estarán en la bandeja de salida.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/31">31</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R32</strong>     </th><th align="left"><strong>Los usuarios podrán borrar los mensajes recibidos y enviados a otros usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Los usuarios podrán borrar tanto los mensajes recibidos por otros usuarios o los mensajes que hayan enviado ellos.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/32">32</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R33</strong>     </th><th align="left"><strong>Al usuario se le mandará un correo electrónico cada vez que reciba un mensaje privado</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Los usuarios que reciban un mensaje privado serán avisados con un correo electrónico.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/33">33</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R34</strong>     </th><th align="left"><strong>El administrador podrá ver a los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá consultar en una lista todos los usuarios existentes.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/34">34</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R35</strong>     </th><th align="left"><strong>El administrador podrá modificar a los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá modificar los datos de los usuarios.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/35">35</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R36</strong>     </th><th align="left"><strong>El administrador podrá borrar a los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá borrar a los usuarios.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/36">36</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R37</strong>     </th><th align="left"><strong>El administrador podrá borrar las publicaciones de los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá borrar las publicaciones que los usuarios hayan realizado en el tablón.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Opcional</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/37">37</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R38</strong>     </th><th align="left"><strong>El administrador podrá mandar mensajes en grupo a todos los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá mandar mensajes que lleguen a todos los usuarios a la vez.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/38">38</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R39</strong>     </th><th align="left"><strong>El administrador podrá ver en un mapa la geolocalización de los usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">El administrador podrá consultar en un mapa la geolocalización de todos los usuarios a través de marcadores.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Funcional</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/39">39</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R40</strong>     </th><th align="left"><strong>Usuarios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De los usuarios se almacenará su nombre de usuario, contraseña, email, nombre y apellidos, dirección, teléfono, sexo, zona horaria, geolocalización y su avatar.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/40">40</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R41</strong>     </th><th align="left"><strong>Secciones</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De las secciones de la casa se almacenará su nombre y el usuario al que pertenece.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/41">41</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R42</strong>     </th><th align="left"><strong>Habitaciones</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De las habitaciones se almacenará su nombre, la sección a la que pertenece y su icono.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/42">42</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R43</strong>     </th><th align="left"><strong>Cámaras de videovigilancia</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De las cámaras se almacenará su nombre, su dirección ip y el usuario al que pertenece.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/43">43</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R44</strong>     </th><th align="left"><strong>Módulos de domótica</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De los módulos de domótica se almacenará su nombre, tipo, habitación a la que pertenece y su estado.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/44">44</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R45</strong>     </th><th align="left"><strong>Logs</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De los logs se almacenará el módulo de domótica, el estado y la fecha y hora del mismo.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/45">45</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R46</strong>     </th><th align="left"><strong>Publicaciones del tablón</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De las publicaciones se almacenará el usuario, el mensaje y la fecha y hora de publicación.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/46">46</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R47</strong>     </th><th align="left"><strong>Comentarios a publicaciones del tablón</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">De los comentarios se almacenará el usuario, la publicación a la que se refiere, el mensaje y la fecha y hora del comentario.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/47">47</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R48</strong>     </th><th align="left"><strong>Mensajes privados</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong> </td><td align="left">Del mensaje privado se almacenará el usuario origen, el usuario destino, el mensaje y la fecha y hora de envío.</td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Importante</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Información</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/48">48</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R49</strong>     </th><th align="left"><strong>Validación de los formularios</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/49">49</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R50</strong>     </th><th align="left"><strong>Gestión de ventanas</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/50">50</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R51</strong>     </th><th align="left"><strong>Uso de mecanismos de manejo de eventos</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/51">51</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R52</strong>     </th><th align="left"><strong>Uso y manipulación del DOM</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/52">52</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R53</strong>     </th><th align="left"><strong>Almacenamiento en el lado del cliente</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/53">53</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R54</strong>     </th><th align="left"><strong>Uso de JQUERY</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/54">54</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R55</strong>     </th><th align="left"><strong>Uso de algún plugin</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/55">55</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R56</strong>     </th><th align="left"><strong>Uso de AJAX</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/56">56</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R57</strong>     </th><th align="left"><strong>PHP 7.1</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/57">57</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R58</strong>     </th><th align="left"><strong>Yii2 2.0.10</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/58">58</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R59</strong>     </th><th align="left"><strong>PostgreSQL 9.6</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/59">59</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R60</strong>     </th><th align="left"><strong>Despliegue en Heroku</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/60">60</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R61</strong>     </th><th align="left"><strong>Pruebas con Codeception</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/61">61</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R62</strong>     </th><th align="left"><strong>Validar con Code Climate</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/62">62</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R63</strong>     </th><th align="left"><strong>Escalabilidad</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/63">63</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R64</strong>     </th><th align="left"><strong>Uso de HTML5</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/64">64</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R65</strong>     </th><th align="left"><strong>Uso de CSS</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v1</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/65">65</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R66</strong>     </th><th align="left"><strong>Diseño flexible</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v2</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/66">66</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R67</strong>     </th><th align="left"><strong>Existencia de transiciones, transformaciones, animaciones y contenido multimedia</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/67">67</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R68</strong>     </th><th align="left"><strong>Validación de HTML y CSS, nivel de accesibilidad AA y prueba del seis</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/68">68</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R69</strong>     </th><th align="left"><strong>Implementar para varias resoluciones</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Difícil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/69">69</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R70</strong>     </th><th align="left"><strong>Comprobación en varios navegadores</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/70">70</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R71</strong>     </th><th align="left"><strong>Desplegar en un Host</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Fácil</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/71">71</a></td></tr>
+</tbody>
+</table>
+<table class="table table-bordered table-striped">
+<thead>
+<tr><th align="right"><strong>R72</strong>     </th><th align="left"><strong>Desplegar en un servidor local</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="right"><strong>Descripción</strong></td></tr>
+<tr><td align="right"><strong>Prioridad</strong>   </td><td align="left">Mínimo</td></tr>
+<tr><td align="right"><strong>Tipo</strong>        </td><td align="left">Técnico</td></tr>
+<tr><td align="right"><strong>Complejidad</strong> </td><td align="left">Media</td></tr>
+<tr><td align="right"><strong>Entrega</strong>     </td><td align="left">v3</td></tr>
+<tr><td align="right"><strong>Incidencia</strong>  </td><td align="left"><a href="https://github.com/arjonatorres/artika/issues/72">72</a></td></tr>
+</tbody>
+</table>
+<h2>Cuadro resumen <span id="cuadro-resumen"></span><a href="#cuadro-resumen" class="hashlink">&para;</a></h2><table class="table table-bordered table-striped">
+<thead>
+<tr><th align="left"><strong>Requisito</strong> </th><th align="center"><strong>Prioridad</strong> </th><th align="center"><strong>Tipo</strong> </th><th align="center"><strong>Complejidad</strong> </th><th align="center"><strong>Entrega</strong> </th><th align="center"><strong>Incidencia</strong></th></tr>
+</thead>
+<tbody>
+<tr><td align="left">(<strong>R01</strong>) Alta del usuario </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/1">1</a></td></tr>
+<tr><td align="left">(<strong>R02</strong>) Modificación del usuario </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/2">2</a></td></tr>
+<tr><td align="left">(<strong>R03</strong>) Baja del usuario </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/3">3</a></td></tr>
+<tr><td align="left">(<strong>R04</strong>) Inicio de sesión del usuario </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/4">4</a></td></tr>
+<tr><td align="left">(<strong>R05</strong>) Cerrar sesión </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/5">5</a></td></tr>
+<tr><td align="left">(<strong>R06</strong>) Correo de confirmación </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/6">6</a></td></tr>
+<tr><td align="left">(<strong>R07</strong>) Reenvío de correo de confirmación </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center"> </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/7">7</a></td></tr>
+<tr><td align="left">(<strong>R08</strong>) Recuperación de contraseña </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/8">8</a></td></tr>
+<tr><td align="left">(<strong>R09</strong>) El usuario que no confirme el correo en 24 horas será eliminado </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/9">9</a></td></tr>
+<tr><td align="left">(<strong>R10</strong>) Editar el perfil </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/10">10</a></td></tr>
+<tr><td align="left">(<strong>R11</strong>) Permite guardar geolocalización en el perfil </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/11">11</a></td></tr>
+<tr><td align="left">(<strong>R12</strong>) Cambiar avatar del usuario </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/12">12</a></td></tr>
+<tr><td align="left">(<strong>R13</strong>) Crear sección de la casa </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/13">13</a></td></tr>
+<tr><td align="left">(<strong>R14</strong>) Crear habitación en una sección de la casa </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/14">14</a></td></tr>
+<tr><td align="left">(<strong>R15</strong>) Añadir módulos a una habitación </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/15">15</a></td></tr>
+<tr><td align="left">(<strong>R16</strong>) Modificar sección de la casa </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/16">16</a></td></tr>
+<tr><td align="left">(<strong>R17</strong>) Modificar habitación </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/17">17</a></td></tr>
+<tr><td align="left">(<strong>R18</strong>) Modificar módulos </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/18">18</a></td></tr>
+<tr><td align="left">(<strong>R19</strong>) Borrar sección </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/19">19</a></td></tr>
+<tr><td align="left">(<strong>R20</strong>) Borrar habitación </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/20">20</a></td></tr>
+<tr><td align="left">(<strong>R21</strong>) Borrar módulo </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/21">21</a></td></tr>
+<tr><td align="left">(<strong>R22</strong>) Añadir cámaras de videovigilancia </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/22">22</a></td></tr>
+<tr><td align="left">(<strong>R23</strong>) Crear un log con cada evento </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/23">23</a></td></tr>
+<tr><td align="left">(<strong>R24</strong>) Visualizar un archivo GPX </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/24">24</a></td></tr>
+<tr><td align="left">(<strong>R25</strong>) Crear publicación en el tablón </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/25">25</a></td></tr>
+<tr><td align="left">(<strong>R26</strong>) Modificar publicación en el tablón </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/26">26</a></td></tr>
+<tr><td align="left">(<strong>R27</strong>) Borrar publicación en el tablón </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/27">27</a></td></tr>
+<tr><td align="left">(<strong>R28</strong>) El tablón podrá ser visualizado sin estar logueado </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/28">28</a></td></tr>
+<tr><td align="left">(<strong>R29</strong>) Los usuarios pueden comentar las publicaciones de otros usuarios </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/29">29</a></td></tr>
+<tr><td align="left">(<strong>R30</strong>) Los usuarios podrán mandar mensajes privados a otros usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/30">30</a></td></tr>
+<tr><td align="left">(<strong>R31</strong>) Los usuarios podrán consultar los mensajes privados enviados a  otros usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/31">31</a></td></tr>
+<tr><td align="left">(<strong>R32</strong>) Los usuarios podrán borrar los mensajes recibidos y enviados a otros usuarios </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/32">32</a></td></tr>
+<tr><td align="left">(<strong>R33</strong>) Al usuario se le mandará un correo electrónico cada vez que reciba un mensaje privado </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/33">33</a></td></tr>
+<tr><td align="left">(<strong>R34</strong>) El administrador podrá ver a los usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/34">34</a></td></tr>
+<tr><td align="left">(<strong>R35</strong>) El administrador podrá modificar a los usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/35">35</a></td></tr>
+<tr><td align="left">(<strong>R36</strong>) El administrador podrá borrar a los usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/36">36</a></td></tr>
+<tr><td align="left">(<strong>R37</strong>) El administrador podrá borrar las publicaciones de los usuarios </td><td align="center">Opcional </td><td align="center">Funcional </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/37">37</a></td></tr>
+<tr><td align="left">(<strong>R38</strong>) El administrador podrá mandar mensajes en grupo a todos los usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/38">38</a></td></tr>
+<tr><td align="left">(<strong>R39</strong>) El administrador podrá ver en un mapa la geolocalización de los usuarios </td><td align="center">Importante </td><td align="center">Funcional </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/39">39</a></td></tr>
+<tr><td align="left">(<strong>R40</strong>) Usuarios </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/40">40</a></td></tr>
+<tr><td align="left">(<strong>R41</strong>) Secciones </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/41">41</a></td></tr>
+<tr><td align="left">(<strong>R42</strong>) Habitaciones </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/42">42</a></td></tr>
+<tr><td align="left">(<strong>R43</strong>) Cámaras de videovigilancia </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/43">43</a></td></tr>
+<tr><td align="left">(<strong>R44</strong>) Módulos de domótica </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/44">44</a></td></tr>
+<tr><td align="left">(<strong>R45</strong>) Logs </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/45">45</a></td></tr>
+<tr><td align="left">(<strong>R46</strong>) Publicaciones del tablón </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/46">46</a></td></tr>
+<tr><td align="left">(<strong>R47</strong>) Comentarios a publicaciones del tablón </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/47">47</a></td></tr>
+<tr><td align="left">(<strong>R48</strong>) Mensajes privados </td><td align="center">Importante </td><td align="center">Información </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/48">48</a></td></tr>
+<tr><td align="left">(<strong>R49</strong>) Validación de los formularios </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/49">49</a></td></tr>
+<tr><td align="left">(<strong>R50</strong>) Gestión de ventanas </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/50">50</a></td></tr>
+<tr><td align="left">(<strong>R51</strong>) Uso de mecanismos de manejo de eventos </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/51">51</a></td></tr>
+<tr><td align="left">(<strong>R52</strong>) Uso y manipulación del DOM </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/52">52</a></td></tr>
+<tr><td align="left">(<strong>R53</strong>) Almacenamiento en el lado del cliente </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/53">53</a></td></tr>
+<tr><td align="left">(<strong>R54</strong>) Uso de JQUERY </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/54">54</a></td></tr>
+<tr><td align="left">(<strong>R55</strong>) Uso de algún plugin </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/55">55</a></td></tr>
+<tr><td align="left">(<strong>R56</strong>) Uso de AJAX </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/56">56</a></td></tr>
+<tr><td align="left">(<strong>R57</strong>) PHP 7.1 </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/57">57</a></td></tr>
+<tr><td align="left">(<strong>R58</strong>) Yii2 2.0.10 </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/58">58</a></td></tr>
+<tr><td align="left">(<strong>R59</strong>) PostgreSQL 9.6 </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/59">59</a></td></tr>
+<tr><td align="left">(<strong>R60</strong>) Despliegue en Heroku </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/60">60</a></td></tr>
+<tr><td align="left">(<strong>R61</strong>) Pruebas con Codeception </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/61">61</a></td></tr>
+<tr><td align="left">(<strong>R62</strong>) Validar con Code Climate </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/62">62</a></td></tr>
+<tr><td align="left">(<strong>R63</strong>) Escalabilidad </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/63">63</a></td></tr>
+<tr><td align="left">(<strong>R64</strong>) Uso de HTML5 </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/64">64</a></td></tr>
+<tr><td align="left">(<strong>R65</strong>) Uso de CSS </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v1 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/65">65</a></td></tr>
+<tr><td align="left">(<strong>R66</strong>) Diseño flexible </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v2 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/66">66</a></td></tr>
+<tr><td align="left">(<strong>R67</strong>) Existencia de transiciones, transformaciones, animaciones y contenido multimedia </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/67">67</a></td></tr>
+<tr><td align="left">(<strong>R68</strong>) Validación de HTML y CSS, nivel de accesibilidad AA y prueba del seis </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/68">68</a></td></tr>
+<tr><td align="left">(<strong>R69</strong>) Implementar para varias resoluciones </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Difícil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/69">69</a></td></tr>
+<tr><td align="left">(<strong>R70</strong>) Comprobación en varios navegadores </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/70">70</a></td></tr>
+<tr><td align="left">(<strong>R71</strong>) Desplegar en un Host </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Fácil </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/71">71</a></td></tr>
+<tr><td align="left">(<strong>R72</strong>) Desplegar en un servidor local </td><td align="center">Mínimo </td><td align="center">Técnico </td><td align="center">Media </td><td align="center">v3 </td><td align="center"><a href="https://github.com/arjonatorres/artika/issues/72">72</a></td></tr>
+</tbody>
+</table>
+        <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
+    </div>
+</div>
+
+
+</div>
+
+<footer class="footer">
+        <p class="pull-right"><small>Page generated on Sat, 03 Mar 2018 13:18:50 +0000</small></p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script>jQuery(function ($) {
+    var shiftWindow = function () { scrollBy(0, -50) };
+    if (location.hash) setTimeout(shiftWindow, 1);
+    window.addEventListener("hashchange", shiftWindow);
+var element = document.createElement("script");
+element.src = "./jssearch.index.js";
+document.body.appendChild(element);
+
+var searchBox = $('#searchbox');
+
+// search when typing in search field
+searchBox.on("keyup", function(event) {
+    var query = $(this).val();
+
+    if (query == '' || event.which == 27) {
+        $('#search-resultbox').hide();
+        return;
+    } else if (event.which == 13) {
+        var selectedLink = $('#search-resultbox a.selected');
+        if (selectedLink.length != 0) {
+            document.location = selectedLink.attr('href');
+            return;
+        }
+    } else if (event.which == 38 || event.which == 40) {
+        $('#search-resultbox').show();
+
+        var selected = $('#search-resultbox a.selected');
+        if (selected.length == 0) {
+            $('#search-results').find('a').first().addClass('selected');
+        } else {
+            var next;
+            if (event.which == 40) {
+                next = selected.parent().next().find('a').first();
+            } else {
+                next = selected.parent().prev().find('a').first();
+            }
+            if (next.length != 0) {
+                var resultbox = $('#search-results');
+                var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                selected.removeClass('selected');
+                next.addClass('selected');
+            }
+        }
+
+        return;
+    }
+    $('#search-resultbox').show();
+    $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+    var result = jssearch.search(query);
+
+    if (result.length > 0) {
+        var i = 0;
+        var resHtml = '';
+
+        for (var key in result) {
+            if (i++ > 20) {
+                break;
+            }
+            resHtml = resHtml +
+            '<li><a href="' + result[key].file.u.substr(3) +'"><span class="title">' + result[key].file.t + '</span>' +
+            '<span class="description">' + result[key].file.d + '</span></a></li>';
+        }
+        $('#search-results').html(resHtml);
+    }
+});
+
+// hide the search results on ESC
+$(document).on("keyup", function(event) { if (event.which == 27) { $('#search-resultbox').hide(); } });
+// hide search results on click to document
+$(document).bind('click', function (e) { $('#search-resultbox').hide(); });
+// except the following:
+searchBox.bind('click', function(e) { e.stopPropagation(); });
+$('#search-resultbox').bind('click', function(e) { e.stopPropagation(); });
+
+});</script></body>
+</html>
