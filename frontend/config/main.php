@@ -15,8 +15,13 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
+        'formatter' => [
+            'timeZone' => 'Europe/Madrid',
+            'datetimeFormat' => $params['datetimeFormat'],
+            'dateFormat' => $params['dateFormat'],
+        ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'common\models\Usuarios',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],

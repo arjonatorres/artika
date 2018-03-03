@@ -12,17 +12,17 @@ class m130524_201442_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%user}}', [
-            'id' => $this->primaryKey(),
+        $this->createTable('usuarios', [
+            'id' => $this->bigprimaryKey(),
             'username' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
+            'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'email' => $this->string()->notNull()->unique(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'token_val' => $this->string()->unique(),
+            'created_at' => $this->datetime()->notNull()->defaultExpression('localtimestamp'),
+            'updated_at' => $this->datetime()->notNull()->defaultExpression('localtimestamp'),
         ], $tableOptions);
     }
 
