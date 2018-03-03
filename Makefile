@@ -34,8 +34,13 @@ api:
 guide guia:
 	guia/publish-docs.sh -g
 
-serve:
-	@[ -f .env ] && export $$(cat .env) ; ./yii serve
+servef:
+	@[ -f .env ] && export $$(cat .env) ;
+	./yii serve -t 'frontend/web'
+
+serveb:
+	@[ -f .env ] && export $$(cat .env) ;
+	./yii serve -t 'backend/web' -p 8081
 
 install:
 	composer install
