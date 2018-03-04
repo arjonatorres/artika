@@ -34,17 +34,20 @@ api:
 guide guia:
 	guia/publish-docs.sh -g
 
-servef:
-	@[ -f .env ] && export $$(cat .env) ;
-	./yii serve -t 'frontend/web'
-
-serveb:
-	@[ -f .env ] && export $$(cat .env) ;
-	./yii serve -t 'backend/web' -p 8081
-
 install:
 	composer install
 	composer run-script post-create-project-cmd
 
 psql:
 	db/psql.sh
+
+.ONESHELL:
+servef:
+	@#
+	[ -f .env ] && export $$(cat .env) ;
+	./yii serve -t 'frontend/web'
+
+serveb:
+	@#
+	[ -f .env ] && export $$(cat .env) ;
+	./yii serve -t 'backend/web' -p 8081
