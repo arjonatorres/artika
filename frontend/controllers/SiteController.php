@@ -81,7 +81,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Logs in a user.
+     * Loguea a un usuario.
      *
      * @param string $username El nombre del usuario del formulario
      * @return mixed
