@@ -11,6 +11,15 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
+$js = <<<EOT
+    var activo = $('.dropdown').find('.active');
+    if (activo.length > 0) {
+        activo.closest('.dropdown').addClass('active');
+    }
+EOT;
+
+$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,30 +38,56 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('imagenes/atk-logo2.png', [
+            'alt' => 'Artika',
+            'width' => '25px;',
+            'style' => 'display: inline; margin-top: -3px;',
+        ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Inicio', 'url' => ['/site/index']],
+        ['label' => 'Sobre', 'url' => ['/site/about']],
+        ['label' => 'Contacto', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Registro', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = [
+            'label' => 'Usuarios',
+            'items' => [
+                ['label' => 'Login', 'url' => ['/site/login']],
+                ['label' => 'Registrarse', 'url' => ['site/signup']],
+            ],
+        ];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        $menuItems[] = [
+            'label' => 'Usuarios (' . Yii::$app->user->identity->username . ')',
+            'items' => [
+                ['label' => 'Configuración', 'url' => ['usuarios/update']],
+                '<li class="divider"></li>',
+                [
+                    'label' => 'Logout',
+                    'url' => ['site/logout'],
+                    'linkOptions' => ['data-method' => 'POST'],
+                ],
+            ]
+        ];
     }
+    // if (Yii::$app->user->isGuest) {
+    //     $menuItems[] = ['label' => 'Registro', 'url' => ['/site/signup']];
+    //     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    // } else {
+    //     $menuItems[] = '<li>'
+    //         . Html::beginForm(['/site/logout'], 'post')
+    //         . Html::submitButton(
+    //             'Logout (' . Yii::$app->user->identity->username . ')',
+    //             ['class' => 'btn btn-link logout']
+    //         )
+    //         . Html::endForm()
+    //         . '</li>';
+    // }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
@@ -72,8 +107,6 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
