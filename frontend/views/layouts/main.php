@@ -38,7 +38,7 @@ $this->registerJs($js);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img('imagenes/atk-logo2.png', [
+        'brandLabel' => Html::img('imagenes/atk-logo.png', [
             'alt' => 'Artika',
             'width' => '25px;',
             'style' => 'display: inline; margin-top: -3px;',
