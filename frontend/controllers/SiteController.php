@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 
 use common\models\Usuarios;
 use common\models\LoginForm;
+use frontend\models\RequestActiveEmailForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -228,6 +229,40 @@ class SiteController extends Controller
             }
         }
         return $this->goHome();
+    }
+
+    public function actionRequestActiveEmail()
+    {
+        $model = new RequestActiveEmailForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = Usuarios::findOne([
+                'email' => $model->email,
+            ]);
+
+            if ($user !== null) {
+                if ($user->token_val === null) {
+                    Yii::$app->session->setFlash('success', 'Este usuario ya está activado.');
+                    return $this->redirect(['site/login', 'username' => $user->username]);
+                }
+                $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
+                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
+                    ->setTo($model->email)
+                    ->setSubject('Activar cuenta desde ' . Yii::$app->name)
+                    ->send();
+
+                if ($mail) {
+                    Yii::$app->session->setFlash('success', 'Compruebe su email para activar su cuenta.');
+
+                    return $this->goHome();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Lo siento, no ha sido posible enviar su email.');
+                }
+            }
+        }
+
+        return $this->render('requestActiveEmail', [
+            'model' => $model,
+        ]);
     }
 
     /**

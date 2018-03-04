@@ -41,6 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
+            <div class="text-center">
+                <?= Html::a('¿No ha recibido el email de confirmación?', ['site/request-active-email']) ?>
+            </div>
         </div>
     </div>
 </div>
