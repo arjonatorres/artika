@@ -56,21 +56,28 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            if ($this->getUser()->token_val === null) {
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
+            Yii::$app->session->setFlash(
+                'error',
+                'Su cuenta no ha sido activada aún. Para activar '
+                . 'su cuenta pulsa en el enlace del email que se le envió.'
+            );
         }
-        
+
         return false;
     }
 
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Usuarios|null
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Usuarios::findByUsername($this->username);
         }
 
         return $this->_user;
