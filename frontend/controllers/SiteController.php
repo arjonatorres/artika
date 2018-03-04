@@ -168,7 +168,7 @@ class SiteController extends Controller
                 $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
                     ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
                     ->setTo($model->email)
-                    ->setSubject('Activar cuenta de ' . Yii::$app->name)
+                    ->setSubject('Activar cuenta desde ' . Yii::$app->name)
                     ->send();
                 if ($mail) {
                     Yii::$app->session->setFlash('success', 'Gracias por registrarte. Comprueba tu correo para activar tu cuenta.');
@@ -195,11 +195,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Compruebe su email y siga las instrucciones para cambiar su contraseña.');
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', 'Lo siento, no ha sido posible enviar su email.');
             }
         }
 
@@ -246,7 +246,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Su contraseña ha sido cambiada con éxito.');
 
             return $this->goHome();
         }
