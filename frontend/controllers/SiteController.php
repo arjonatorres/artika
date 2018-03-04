@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 
+use common\models\Usuarios;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -82,15 +83,16 @@ class SiteController extends Controller
     /**
      * Logs in a user.
      *
+     * @param string $username El nombre del usuario del formulario
      * @return mixed
      */
-    public function actionLogin()
+    public function actionLogin($username = null)
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new LoginForm(['username' => $username]);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -163,9 +165,18 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
+                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
+                    ->setTo($model->email)
+                    ->setSubject('Activar cuenta de ' . Yii::$app->name)
+                    ->send();
+                if ($mail) {
+                    Yii::$app->session->setFlash('success', 'Gracias por registrarte. Comprueba tu correo para activar tu cuenta.');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ha ocurrido un error al enviar el correo.');
                 }
+                // return $this->redirect(['login', 'username' => $user->username]);
+                return $this->goHome();
             }
         }
 
@@ -195,6 +206,28 @@ class SiteController extends Controller
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Activa la cuenta del usuario a través de un token
+     * @param  [type] $token El token de validación
+     * @return mixed
+     */
+    public function actionActiveCount($token = null)
+    {
+        if ($token !== null) {
+            $usuario = Usuarios::findOne(['token_val' => $token]);
+            if ($usuario !== null) {
+                $usuario->token_val = null;
+                $usuario->save();
+                Yii::$app->session->setFlash(
+                    'success',
+                    'Su cuenta ha sido activada correctamente.'
+                );
+                return $this->redirect(['site/login', 'username' => $usuario->username]);
+            }
+        }
+        return $this->goHome();
     }
 
     /**
