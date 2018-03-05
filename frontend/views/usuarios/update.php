@@ -40,11 +40,9 @@ $accion = Yii::$app->controller->action->id;
             </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-primary">
-                <?= $this->render('_cuenta', [
+                <?= $this->render("_$accion", [
                     'model' => $model,
                     ]) ?>
-            </div>
         </div>
     </div>
 </div>

@@ -4,7 +4,9 @@ namespace frontend\controllers;
 
 use Yii;
 
+use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 use common\models\Usuarios;
 
@@ -21,10 +23,16 @@ class UsuariosController extends \yii\web\Controller
                 // 'only' => ['update'],
                 'rules' => [
                     [
-                        'actions' => ['cuenta'],
+                        // 'actions' => ['cuenta', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -42,5 +50,21 @@ class UsuariosController extends \yii\web\Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Deletes an existing Socios model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete()
+    {
+        $model = Usuarios::findOne(Yii::$app->user->id);
+        $model->delete();
+        Yii::$app->user->logout();
+        Yii::$app->session->setFlash('success', 'La cuenta ha sido borrada correctamente.');
+
+        return $this->redirect(['site/index']);
     }
 }
