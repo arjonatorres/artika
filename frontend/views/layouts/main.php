@@ -59,7 +59,7 @@ $this->registerJs($js);
             'label' => 'Usuarios',
             'items' => [
                 ['label' => 'Login', 'url' => ['/site/login']],
-                ['label' => 'Registrarse', 'url' => ['site/signup']],
+                ['label' => 'Registrarse', 'url' => ['usuarios/registro']],
             ],
         ];
     } else {

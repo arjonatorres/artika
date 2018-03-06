@@ -12,8 +12,12 @@ class m130524_201442_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
+        $this->createTable('usuarios_id', [
+            'id' => $this->bigPrimaryKey(),
+        ]);
+
         $this->createTable('usuarios', [
-            'id' => $this->bigprimaryKey(),
+            'id' => $this->bigInteger()->notNull()->unique(),
             'username' => $this->string(255)->notNull()->unique(),
             'auth_key' => $this->string(255)->notNull(),
             'password_hash' => $this->string(255)->notNull(),
@@ -24,6 +28,18 @@ class m130524_201442_init extends Migration
             'created_at' => $this->datetime()->notNull(),
             'updated_at' => $this->datetime(),
         ], $tableOptions);
+
+        $this->addPrimaryKey('pk_usuarios', 'usuarios', 'id');
+
+        $this->addForeignKey(
+            'fk_usuarios_usuarios_id',
+            'usuarios',
+            'id',
+            'usuarios_id',
+            'id',
+            'NO ACTION',
+            'CASCADE'
+        );
 
         $this->createTable('generos', [
             'id'=> $this->bigPrimaryKey(),
@@ -50,6 +66,7 @@ class m130524_201442_init extends Migration
                 'genero_id',
                 'generos',
                 'id',
+                'NO ACTION',
                 'CASCADE'
             );
 
@@ -59,6 +76,7 @@ class m130524_201442_init extends Migration
                 'usuario_id',
                 'usuarios',
                 'id',
+                'CASCADE',
                 'CASCADE'
             );
     }
