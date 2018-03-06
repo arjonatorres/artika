@@ -4,6 +4,9 @@ namespace common\models;
 
 use Yii;
 
+use yii\db\Expression;
+use yii\db\ActiveRecord;
+
 use yii\web\IdentityInterface;
 
 use yii\base\NotSupportedException;
@@ -29,6 +32,23 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return 'usuarios';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => new Expression('localtimestamp'),
+            ],
+        ];
     }
 
     /**

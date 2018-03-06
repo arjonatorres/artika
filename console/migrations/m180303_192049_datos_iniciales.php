@@ -26,6 +26,8 @@ class m180303_192049_datos_iniciales extends Migration
                 Yii::$app->security->generateRandomString()
             ],
         ]);
+
+        $this->batchInsert('generos', ['denominacion'], [['Hombre'], ['Mujer']]);
     }
 
     /**
