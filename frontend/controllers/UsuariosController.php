@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 
 use yii\widgets\ActiveForm;
 
+use common\models\Perfiles;
 use common\models\Usuarios;
 
 use frontend\models\SignupForm;
@@ -26,10 +27,10 @@ class UsuariosController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['cuenta', 'delete'],
+                'only' => ['mod-cuenta', 'mod-perfil', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['cuenta', 'delete'],
+                        'actions' => ['mod-cuenta', 'mod-perfil', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -48,13 +49,31 @@ class UsuariosController extends \yii\web\Controller
      * Actualiza los datos de la cuenta del usuario
      * @return mixed
      */
-    public function actionCuenta()
+    public function actionModCuenta()
     {
         $model = Usuarios::findOne(Yii::$app->user->id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Tu cuenta ha sido actualizada correctamente.');
-            return $this->redirect(['cuenta', 'model' => $model]);
+            return $this->redirect(['mod-cuenta', 'model' => $model]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Actualiza los datos de la cuenta del usuario
+     * @return mixed
+     */
+    public function actionModPerfil()
+    {
+        $model = Perfiles::findOne(['usuario_id' => Yii::$app->user->id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Tu perfil ha sido actualizado correctamente.');
+            return $this->redirect(['mod-perfil', 'model' => $model]);
         }
 
         return $this->render('update', [
@@ -94,6 +113,7 @@ class UsuariosController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
+                (new Perfiles(['usuario_id' => $user->id]))->save();
                 $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
                     ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
                     ->setTo($model->email)

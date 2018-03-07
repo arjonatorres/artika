@@ -5,10 +5,17 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
-use yii\bootstrap\ActiveForm;
 
 $this->title = 'Configuración';
 $this->params['breadcrumbs'][] = $this->title;
+
+$js = <<<EOT
+    var desplegable = $('#menu-principal').children('li').last();
+    desplegable.addClass('active');
+    desplegable. find('li:contains("Configuración")').addClass('active');
+EOT;
+
+$this->registerJs($js);
 
 $accion = Yii::$app->controller->action->id;
 ?>
@@ -17,20 +24,20 @@ $accion = Yii::$app->controller->action->id;
         <div class="col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><?= Html::encode($model->username) ?></h3>
+                    <h3 class="panel-title"><?= Html::encode(Yii::$app->user->identity->username) ?></h3>
                 </div>
                 <div class="panel-body">
                     <?= Nav::widget([
                     'items' => [
                         [
                             'label' => 'Cuenta',
-                            'url' => ['usuarios/cuenta'],
-                            'active' => $accion == 'cuenta',
+                            'url' => ['usuarios/mod-cuenta'],
+                            'active' => $accion == 'mod-cuenta',
                         ],
                         [
                             'label' => 'Perfil',
-                            'url' => ['usuarios/perfil'],
-                            'active' => $accion == 'perfil',
+                            'url' => ['usuarios/mod-perfil'],
+                            'active' => $accion == 'mod-perfil',
                         ],
                     ],
                     'options' => ['class' =>'nav nav-pills nav-stacked'], // set this to nav-tab to get tab-styled navigation

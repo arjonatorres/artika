@@ -12,14 +12,6 @@ use common\widgets\Alert;
 
 AppAsset::register($this);
 
-$js = <<<EOT
-    var activo = $('.dropdown').find('.active');
-    if (activo.length > 0) {
-        activo.closest('.dropdown').addClass('active');
-    }
-EOT;
-
-$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -41,7 +33,7 @@ $this->registerJs($js);
     NavBar::begin([
         'brandLabel' => Html::img('imagenes/atk-logo.png', [
             'alt' => 'Artika',
-            'width' => '25px;',
+            'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',
         ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -66,7 +58,7 @@ $this->registerJs($js);
         $menuItems[] = [
             'label' => 'Usuarios (' . Yii::$app->user->identity->username . ')',
             'items' => [
-                ['label' => 'Configuración', 'url' => ['usuarios/cuenta']],
+                ['label' => 'Configuración', 'url' => ['usuarios/mod-cuenta']],
                 '<li class="divider"></li>',
                 [
                     'label' => 'Logout',
@@ -78,6 +70,7 @@ $this->registerJs($js);
     }
 
     echo Nav::widget([
+        'id' => 'menu-principal',
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);

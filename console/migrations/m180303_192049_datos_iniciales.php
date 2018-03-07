@@ -33,6 +33,8 @@ class m180303_192049_datos_iniciales extends Migration
             ],
         ]);
 
+        $this->batchInsert('perfiles', ['usuario_id'], [[1], [2]]);
+
         $this->batchInsert('generos', ['denominacion'], [['Hombre'], ['Mujer']]);
     }
 
@@ -42,5 +44,6 @@ class m180303_192049_datos_iniciales extends Migration
     public function safeDown()
     {
         $this->delete('usuarios');
+        $this->delete('generos');
     }
 }

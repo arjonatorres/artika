@@ -83,6 +83,9 @@ class m130524_201442_init extends Migration
 
     public function down()
     {
+        $this->dropTable('perfiles');
+        $this->dropTable('generos');
         $this->dropTable('usuarios');
+        $this->dropTable('usuarios_id');
     }
 }

@@ -22,7 +22,7 @@ use yii\bootstrap\ActiveForm;
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'email')->textInput() ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-12">

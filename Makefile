@@ -51,3 +51,7 @@ serveb:
 	@#
 	[ -f .env ] && export $$(cat .env) ;
 	./yii serve -t 'backend/web' -p 8081
+
+migrate:
+	@#
+	./yii migrate/fresh --interactive 0
