@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
         ?>
 
         <?= $form->field($model, 'nombre_apellidos')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'genero_id')->textInput() ?>
+        <?= $form->field($model, 'genero_id')->dropDownList($listaGeneros, ['id' => 'lista']) ?>
         <?= $form->field($model, 'direccion')->textInput() ?>
         <?= $form->field($model, 'ciudad')->textInput() ?>
         <?= $form->field($model, 'provincia')->textInput() ?>

@@ -12,6 +12,13 @@ use common\widgets\Alert;
 
 AppAsset::register($this);
 
+$js = <<<EOT
+    var activo = $('.dropdown').find('.active');
+    if (activo.length > 0) {
+        activo.closest('.dropdown').addClass('active');
+    }
+EOT;
+$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -48,21 +55,60 @@ AppAsset::register($this);
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = [
-            'label' => 'Usuarios',
+            'label' => Html::tag(
+                'span',
+                '',
+                ['class' => 'glyphicon glyphicon-user']
+                ) . ' Usuarios',
+            'encode' => false,
             'items' => [
-                ['label' => 'Login', 'url' => ['/site/login']],
-                ['label' => 'Registrarse', 'url' => ['usuarios/registro']],
+                [
+                    'label' => Html::tag(
+                        'span',
+                        '',
+                        ['class' => 'glyphicon glyphicon-log-in']
+                        ) . ' Login',
+                    'url' => ['/site/login'],
+                    'encode' => false,
+                ],
+                [
+                    'label' => Html::tag(
+                        'span',
+                        '',
+                        ['class' => 'glyphicon glyphicon-edit']
+                        ) . ' Registrarse',
+                    'url' => ['usuarios/registro'],
+                    'encode' => false,
+                ],
             ],
         ];
     } else {
         $menuItems[] = [
-            'label' => 'Usuarios (' . Yii::$app->user->identity->username . ')',
+            'label' => Html::tag(
+                'span',
+                '',
+                ['class' => 'glyphicon glyphicon-user']
+                ) . ' Usuarios (' . Yii::$app->user->identity->username . ')',
+            'encode' => false,
             'items' => [
-                ['label' => 'Configuración', 'url' => ['usuarios/mod-cuenta']],
+                [
+                    'label' => Html::tag(
+                        'span',
+                        '',
+                        ['class' => 'glyphicon glyphicon-cog']
+                        ) . ' Configuración',
+                    'url' => ['usuarios/mod-cuenta'],
+                    'encode' => false,
+                ],
                 '<li class="divider"></li>',
                 [
-                    'label' => 'Logout',
+                    'label' => Html::tag(
+                        'span',
+                        '',
+                        ['class' => 'glyphicon glyphicon-log-out']
+                        ) . ' Logout',
                     'url' => ['site/logout'],
+                    'encode' => false,
                     'linkOptions' => ['data-method' => 'POST'],
                 ],
             ]

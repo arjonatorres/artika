@@ -49,6 +49,7 @@ $accion = Yii::$app->controller->action->id;
         <div class="col-md-9">
                 <?= $this->render("_$accion", [
                     'model' => $model,
+                    'listaGeneros' => isset($listaGeneros) ? $listaGeneros : '',
                     ]) ?>
         </div>
     </div>

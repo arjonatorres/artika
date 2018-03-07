@@ -10,8 +10,11 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 
+use yii\helpers\ArrayHelper;
+
 use yii\widgets\ActiveForm;
 
+use common\models\Generos;
 use common\models\Perfiles;
 use common\models\Usuarios;
 
@@ -76,8 +79,12 @@ class UsuariosController extends \yii\web\Controller
             return $this->redirect(['mod-perfil', 'model' => $model]);
         }
 
+        $g = Generos::find()->indexBy('id')->asArray()->all();
+        $listaGeneros = ArrayHelper::getColumn($g, 'denominacion');
+
         return $this->render('update', [
             'model' => $model,
+            'listaGeneros' => $listaGeneros,
         ]);
     }
 
