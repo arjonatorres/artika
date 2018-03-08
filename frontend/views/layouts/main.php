@@ -7,6 +7,8 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use common\helpers\IconHelper;
+
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
@@ -50,33 +52,19 @@ $this->registerJs($js);
     ]);
     $menuItems = [
         ['label' => 'Inicio', 'url' => ['/site/index']],
-        ['label' => 'Sobre', 'url' => ['/site/about']],
-        ['label' => 'Contacto', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = [
-            'label' => Html::tag(
-                'span',
-                '',
-                ['class' => 'glyphicon glyphicon-user']
-                ) . ' Usuarios',
+            'label' => IconHelper::glyphicon('user') . ' Usuarios',
             'encode' => false,
             'items' => [
                 [
-                    'label' => Html::tag(
-                        'span',
-                        '',
-                        ['class' => 'glyphicon glyphicon-log-in']
-                        ) . ' Login',
+                    'label' => IconHelper::glyphicon('log-in') . ' Login',
                     'url' => ['/site/login'],
                     'encode' => false,
                 ],
                 [
-                    'label' => Html::tag(
-                        'span',
-                        '',
-                        ['class' => 'glyphicon glyphicon-edit']
-                        ) . ' Registrarse',
+                    'label' => IconHelper::glyphicon('edit') . ' Registrarse',
                     'url' => ['usuarios/registro'],
                     'encode' => false,
                 ],
@@ -84,29 +72,18 @@ $this->registerJs($js);
         ];
     } else {
         $menuItems[] = [
-            'label' => Html::tag(
-                'span',
-                '',
-                ['class' => 'glyphicon glyphicon-user']
-                ) . ' Usuarios (' . Yii::$app->user->identity->username . ')',
+            'label' => IconHelper::glyphicon('user')
+                . ' Usuarios (' . Yii::$app->user->identity->username . ')',
             'encode' => false,
             'items' => [
                 [
-                    'label' => Html::tag(
-                        'span',
-                        '',
-                        ['class' => 'glyphicon glyphicon-cog']
-                        ) . ' Configuración',
+                    'label' => IconHelper::glyphicon('cog') . ' Configuración',
                     'url' => ['usuarios/mod-cuenta'],
                     'encode' => false,
                 ],
                 '<li class="divider"></li>',
                 [
-                    'label' => Html::tag(
-                        'span',
-                        '',
-                        ['class' => 'glyphicon glyphicon-log-out']
-                        ) . ' Logout',
+                    'label' => IconHelper::glyphicon('log-out') . ' Logout',
                     'url' => ['site/logout'],
                     'encode' => false,
                     'linkOptions' => ['data-method' => 'POST'],
