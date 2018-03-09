@@ -39,6 +39,11 @@ $accion = Yii::$app->controller->action->id;
                             'url' => ['usuarios/mod-perfil'],
                             'active' => $accion == 'mod-perfil',
                         ],
+                        [
+                            'label' => 'Avatar',
+                            'url' => ['usuarios/mod-avatar'],
+                            'active' => $accion == 'mod-avatar',
+                        ],
                     ],
                     'options' => ['class' =>'nav nav-pills nav-stacked'], // set this to nav-tab to get tab-styled navigation
                 ]);

@@ -8,7 +8,6 @@ use yii\db\Expression;
 use yii\db\ActiveRecord;
 
 use yii\web\IdentityInterface;
-
 use yii\base\NotSupportedException;
 
 /**
@@ -26,6 +25,7 @@ use yii\base\NotSupportedException;
  */
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
+
     /**
      * @inheritdoc
      */

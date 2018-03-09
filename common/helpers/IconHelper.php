@@ -4,6 +4,9 @@ namespace common\helpers;
 
 use yii\helpers\Html;
 
+/**
+ * Clase Helper relacionada con iconos
+ */
 class IconHelper
 {
     /**

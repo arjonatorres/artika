@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -30,10 +31,10 @@ class UsuariosController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['mod-cuenta', 'mod-perfil', 'delete'],
+                'only' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['mod-cuenta', 'mod-perfil', 'delete'],
+                        'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -46,6 +47,27 @@ class UsuariosController extends \yii\web\Controller
                 ],
             ],
         ];
+    }
+
+    /**
+     * Actualiza los datos del avatar del usuario
+     * @return mixed
+     */
+    public function actionModAvatar()
+    {
+        $model = Perfiles::findOne(['usuario_id' => Yii::$app->user->id]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            if ($model->save() && $model->upload()) {
+                Yii::$app->session->setFlash('success', 'Tu avatar ha sido actualizado correctamente.');
+                return $this->redirect(['mod-avatar', 'model' => $model]);
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
