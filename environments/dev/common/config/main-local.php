@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=localhost;dbname=yii2advanced',
-            'username' => 'root',
-            'password' => 'root',
+            'dsn' => 'pgsql:host=localhost;dbname=artika',
+            'username' => 'artika',
+            'password' => 'artika',
             'charset' => 'utf8',
         ],
         'mailer' => [

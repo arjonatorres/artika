@@ -8,6 +8,16 @@ if (isset($url['host']) && isset($url['user']) && isset($url['pass']) && isset($
     $username = $url['user'];
     $password = $url['pass'];
     $dbname = substr($url['path'], 1);
+    $extra = [
+        // Schema cache options (for production environment)
+        //'enableSchemaCache' => true,
+        //'schemaCacheDuration' => 60,
+        //'schemaCache' => 'cache',
+        'on afterOpen' => function ($event) {
+            // $event->sender refers to the DB connection
+            $event->sender->createCommand("SET intervalstyle = 'iso_8601'")->execute();
+        },
+    ];
 }
 
 return [
@@ -18,7 +28,7 @@ return [
             'username' => $username,
             'password' => $password,
             'charset' => 'utf8',
-        ],
+        ] + $extra,
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',

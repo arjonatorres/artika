@@ -4,8 +4,10 @@ namespace common\models;
 
 use Yii;
 
-use yii\web\IdentityInterface;
+use yii\db\Expression;
+use yii\db\ActiveRecord;
 
+use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
 
 /**
@@ -23,12 +25,30 @@ use yii\base\NotSupportedException;
  */
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'usuarios';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => new Expression('localtimestamp'),
+            ],
+        ];
     }
 
     /**
@@ -201,5 +221,21 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerfil()
+    {
+        return $this->hasOne(Perfiles::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getId0()
+    {
+        return $this->hasOne(UsuariosId::className(), ['id' => 'id'])->inverseOf('usuarios');
     }
 }

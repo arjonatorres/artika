@@ -7,6 +7,8 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use common\helpers\IconHelper;
+
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
@@ -18,7 +20,6 @@ $js = <<<EOT
         activo.closest('.dropdown').addClass('active');
     }
 EOT;
-
 $this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
@@ -41,7 +42,7 @@ $this->registerJs($js);
     NavBar::begin([
         'brandLabel' => Html::img('imagenes/atk-logo.png', [
             'alt' => 'Artika',
-            'width' => '25px;',
+            'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',
         ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -51,26 +52,40 @@ $this->registerJs($js);
     ]);
     $menuItems = [
         ['label' => 'Inicio', 'url' => ['/site/index']],
-        ['label' => 'Sobre', 'url' => ['/site/about']],
-        ['label' => 'Contacto', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = [
-            'label' => 'Usuarios',
+            'label' => IconHelper::glyphicon('user') . ' Usuarios',
+            'encode' => false,
             'items' => [
-                ['label' => 'Login', 'url' => ['/site/login']],
-                ['label' => 'Registrarse', 'url' => ['site/signup']],
+                [
+                    'label' => IconHelper::glyphicon('log-in') . ' Login',
+                    'url' => ['/site/login'],
+                    'encode' => false,
+                ],
+                [
+                    'label' => IconHelper::glyphicon('edit') . ' Registrarse',
+                    'url' => ['usuarios/registro'],
+                    'encode' => false,
+                ],
             ],
         ];
     } else {
         $menuItems[] = [
-            'label' => 'Usuarios (' . Yii::$app->user->identity->username . ')',
+            'label' => IconHelper::glyphicon('user')
+                . ' Usuarios (' . Yii::$app->user->identity->username . ')',
+            'encode' => false,
             'items' => [
-                ['label' => 'Configuración', 'url' => ['usuarios/cuenta']],
+                [
+                    'label' => IconHelper::glyphicon('cog') . ' Configuración',
+                    'url' => ['usuarios/mod-cuenta'],
+                    'encode' => false,
+                ],
                 '<li class="divider"></li>',
                 [
-                    'label' => 'Logout',
+                    'label' => IconHelper::glyphicon('log-out') . ' Logout',
                     'url' => ['site/logout'],
+                    'encode' => false,
                     'linkOptions' => ['data-method' => 'POST'],
                 ],
             ]
@@ -78,6 +93,7 @@ $this->registerJs($js);
     }
 
     echo Nav::widget([
+        'id' => 'menu-principal',
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);

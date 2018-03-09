@@ -7,6 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use common\helpers\IconHelper;
+
 $this->title = 'Iniciar sesión';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,10 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                    <?= $form->field($model, 'username', [
+                        'inputTemplate' => IconHelper::inputGlyphicon('user'),
+                        ])->textInput(['autofocus' => true]) ?>
 
-                    <?= $form->field($model, 'password')
-                        ->passwordInput()
+                    <?= $form->field($model, 'password', [
+                        'inputTemplate' => IconHelper::inputGlyphicon('lock'),
+                        ])->passwordInput()
                         ->label(
                             $model->getAttributeLabel('password') . ' ('
                             . Html::a(
@@ -35,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                     <div class="form-group">
-                        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Iniciar sesión', ['class' => 'btn btn-block btn-primary', 'name' => 'login-button']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>

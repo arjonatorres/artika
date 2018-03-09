@@ -2,22 +2,18 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Response;
 
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\widgets\ActiveForm;
 
 use common\models\Usuarios;
 use common\models\LoginForm;
 use frontend\models\RequestActiveEmailForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 
 /**
  * Site controller
@@ -118,75 +114,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
-                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
-                    ->setTo($model->email)
-                    ->setSubject('Activar cuenta desde ' . Yii::$app->name)
-                    ->send();
-                if ($mail) {
-                    Yii::$app->session->setFlash('success', 'Gracias por registrarte. Comprueba tu correo para activar tu cuenta.');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Ha ocurrido un error al enviar el correo.');
-                }
-                // return $this->redirect(['login', 'username' => $user->username]);
-                return $this->goHome();
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Requests password reset.
      *
      * @return mixed
@@ -231,6 +158,10 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Para solicitar el reenvío del mail para activar la cuenta.
+     * @return mixed
+     */
     public function actionRequestActiveEmail()
     {
         $model = new RequestActiveEmailForm();
