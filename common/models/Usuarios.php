@@ -226,7 +226,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPerfiles()
+    public function getPerfil()
     {
         return $this->hasOne(Perfiles::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }

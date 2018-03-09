@@ -19,6 +19,7 @@ use yii\imagine\Image;
  * @property int $usuario_id
  * @property string $nombre_apellidos
  * @property int $genero_id
+ * @property string $zona_horaria
  * @property string $direccion
  * @property string $ciudad
  * @property string $provincia
@@ -70,15 +71,36 @@ class Perfiles extends \yii\db\ActiveRecord
     {
         return [
             [['usuario_id'], 'required'],
-            [['usuario_id', 'genero_id'], 'default', 'value' => null],
+            [
+                [
+                    'usuario_id',
+                    'genero_id',
+                    'nombre_apellidos',
+                    'zona_horaria',
+                    'direccion',
+                    'ciudad',
+                    'provincia',
+                    'pais',
+                    'cpostal',
+                ],
+                'default'
+            ],
             [['usuario_id', 'genero_id'], 'integer'],
             [['fecha_nac'], 'filter', 'filter' => function ($value) {
-                return Yii::$app->formatter->asDate($value);
+                return $value !== '' ? Yii::$app->formatter->asDate($value) : null;
             }],
             [['fecha_nac'], 'date'],
-            [['updated_at'], 'safe'],
-            [['nombre_apellidos', 'direccion', 'ciudad', 'provincia', 'pais'], 'string', 'max' => 255],
-            [['cpostal'], 'match', 'pattern' => '/^\d{5}$/', 'message' => 'Código postal no válido'],
+            [['updated_at', 'zona_horaria'], 'safe'],
+            [
+                ['nombre_apellidos', 'direccion', 'ciudad', 'provincia', 'pais'],
+                'string', 'max' => 255
+            ],
+            [
+                ['cpostal'],
+                'match',
+                'pattern' => '/^\d{5}$/',
+                'message' => 'Código postal no válido'
+            ],
             [['usuario_id'], 'unique'],
             [['foto'], 'file', 'extensions' => 'jpg'],
             [['genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Generos::className(), 'targetAttribute' => ['genero_id' => 'id']],
@@ -103,6 +125,7 @@ class Perfiles extends \yii\db\ActiveRecord
             'usuario_id' => 'Usuario ID',
             'nombre_apellidos' => 'Nombre y apellidos',
             'genero_id' => 'Género',
+            'zona_horaria' => 'Zona horaria',
             'direccion' => 'Dirección',
             'ciudad' => 'Ciudad',
             'provincia' => 'Provincia',
@@ -124,7 +147,7 @@ class Perfiles extends \yii\db\ActiveRecord
             $this->foto->saveAs($nombre);
             Image::thumbnail($nombre, 200, null)
                 ->save($nombre, ['quality' => 80]);
-                
+
             $s3 = Yii::$app->get('s3');
             $nombreS3 = 'avatar/' . Yii::$app->user->id . '.' . $this->foto->extension;
             $s3->upload($nombreS3, $nombre);
@@ -152,7 +175,7 @@ class Perfiles extends \yii\db\ActiveRecord
      */
     public function getGenero()
     {
-        return $this->hasOne(Generos::className(), ['id' => 'genero_id'])->inverseOf('perfiles');
+        return $this->hasOne(Generos::className(), ['id' => 'genero_id'])->inverseOf('perfil');
     }
 
     /**
@@ -160,6 +183,6 @@ class Perfiles extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('perfiles');
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('perfil');
     }
 }

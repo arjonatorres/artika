@@ -51,11 +51,12 @@ class m130524_201442_init extends Migration
             'usuario_id' => $this->bigInteger()->notNull()->unique(),
             'nombre_apellidos' => $this->string(255),
             'genero_id' => $this->bigInteger(),
+            'zona_horaria' => $this->string(255),
             'direccion' => $this->string(255),
             'ciudad' => $this->string(255),
             'provincia' => $this->string(255),
             'pais'=>$this->string(255),
-            'cpostal' => $this->char(5),
+            'cpostal' => $this->string(5),
             'fecha_nac'=>$this->date(),
             'updated_at' => $this->datetime(),
             ], $tableOptions);

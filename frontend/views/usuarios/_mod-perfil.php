@@ -3,7 +3,10 @@
 use yii\jui\DatePicker;
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
+
+use common\helpers\Timezone;
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -24,6 +27,13 @@ use yii\bootstrap\ActiveForm;
 
         <?= $form->field($model, 'nombre_apellidos')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'genero_id')->dropDownList($listaGeneros, ['id' => 'lista']) ?>
+        <?= $form->field($model, 'zona_horaria')->textInput()->dropDownList(
+            ArrayHelper::map(
+                Timezone::getAll(),
+                'timezone',
+                'name'
+            ), ['prompt' => 'Seleccione una zona horaria (Por defecto: Europe/Madrid)']
+        ) ?>
         <?= $form->field($model, 'direccion')->textInput() ?>
         <?= $form->field($model, 'ciudad')->textInput() ?>
         <?= $form->field($model, 'provincia')->textInput() ?>

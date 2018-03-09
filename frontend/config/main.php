@@ -16,7 +16,7 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'formatter' => [
-            'timeZone' => 'Europe/Madrid',
+            // 'timeZone' => 'Europe/Madrid',
             'datetimeFormat' => $params['datetimeFormat'],
             'dateFormat' => $params['dateFormat'],
         ],
@@ -51,4 +51,9 @@ return [
         */
     ],
     'params' => $params,
+    'on beforeRequest' => function ($event) {
+        $zona = Yii::$app->user->identity->perfil->zona_horaria;
+        Yii::$app->formatter->timeZone =
+            $zona === null ? 'Europe/Madrid' : $zona;
+    }
 ];
