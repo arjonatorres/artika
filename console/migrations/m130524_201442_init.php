@@ -61,6 +61,8 @@ class m130524_201442_init extends Migration
             'updated_at' => $this->datetime(),
             ], $tableOptions);
 
+            // $this->addColumn('perfiles', 'telefono', 'numeric(9)');
+
             $this->addForeignKey(
                 'fk_perfiles_generos',
                 'perfiles',

@@ -52,7 +52,12 @@ return [
     ],
     'params' => $params,
     'on beforeRequest' => function ($event) {
-        $zona = Yii::$app->user->identity->perfil->zona_horaria;
+        if (Yii::$app->user->isGuest) {
+            $zona = null;
+        } else {
+            $zona = Yii::$app->user->identity->perfil->zona_horaria;
+        }
+        
         Yii::$app->formatter->timeZone =
             $zona === null ? 'Europe/Madrid' : $zona;
     }

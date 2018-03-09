@@ -26,7 +26,12 @@ use common\helpers\Timezone;
         ?>
 
         <?= $form->field($model, 'nombre_apellidos')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'genero_id')->dropDownList($listaGeneros, ['id' => 'lista']) ?>
+        <?= $form->field($model, 'genero_id')->dropDownList(
+            $listaGeneros,
+            [
+                'id' => 'lista',
+                'prompt' => 'Seleccione un género',
+            ]) ?>
         <?= $form->field($model, 'zona_horaria')->textInput()->dropDownList(
             ArrayHelper::map(
                 Timezone::getAll(),
