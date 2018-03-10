@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca44b98854e8aa19331f274b1325077d",
+    "content-hash": "dee82a3efa03b183eaead81971d5a8a9",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.52.22",
+            "version": "3.52.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f42076f6347590dfbf4de7befc19bb660be0ea22"
+                "reference": "3ce95b96c217a699168d937c4ed700e6a27ec783"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f42076f6347590dfbf4de7befc19bb660be0ea22",
-                "reference": "f42076f6347590dfbf4de7befc19bb660be0ea22",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3ce95b96c217a699168d937c4ed700e6a27ec783",
+                "reference": "3ce95b96c217a699168d937c4ed700e6a27ec783",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-03-07T22:55:58+00:00"
+            "time": "2018-03-08T22:51:35+00:00"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -5230,7 +5230,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": "~7.1.0",
+        "ext-gd": "*",
+        "ext-intl": "*"
     },
     "platform-dev": []
 }
