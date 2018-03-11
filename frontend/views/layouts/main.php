@@ -7,20 +7,13 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use common\helpers\IconHelper;
+use common\helpers\UtilHelper;
 
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
 
-$js = <<<EOT
-    var activo = $('.dropdown').find('.active');
-    if (activo.length > 0) {
-        activo.closest('.dropdown').addClass('active');
-    }
-EOT;
-$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -50,45 +43,59 @@ $this->registerJs($js);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Inicio', 'url' => ['/site/index']],
-    ];
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = [
-            'label' => IconHelper::glyphicon('user') . ' Usuarios',
-            'encode' => false,
-            'items' => [
-                [
-                    'label' => IconHelper::glyphicon('log-in') . ' Login',
-                    'url' => ['/site/login'],
-                    'encode' => false,
-                ],
-                [
-                    'label' => IconHelper::glyphicon('edit') . ' Registrarse',
-                    'url' => ['usuarios/registro'],
-                    'encode' => false,
-                ],
+        $menuItems = [
+            [
+                'label' => 'Login',
+                'url' => ['/site/login'],
+            ],
+            [
+                'label' => 'Registrarse',
+                'url' => ['usuarios/registro'],
             ],
         ];
     } else {
+        $usuario = Yii::$app->user->identity;
+        $ruta = $usuario->perfil->rutaImagen;
         $menuItems[] = [
-            'label' => IconHelper::glyphicon('user')
-                . ' Usuarios (' . Yii::$app->user->identity->username . ')',
+            'label' => Html::img($ruta,
+                ['class' => 'img-sm img-circle']
+            ),
             'encode' => false,
             'items' => [
                 [
-                    'label' => IconHelper::glyphicon('cog') . ' Configuración',
-                    'url' => ['usuarios/mod-cuenta'],
+                    'label' => '<div style="display:flex">'
+                        . '<div>'
+                        . Html::img($ruta,
+                        ['class' => 'img-md img-circle'])
+                        . '</div>'
+                        . '<div style="margin-top: 8px;">'
+                        . '<strong>' . UtilHelper::mostrarCorto(
+                            $usuario->perfil->nombre_apellidos ?: $usuario->username)
+                        . '</strong>'
+                        . '<br>'
+                        . '<p>' . UtilHelper::mostrarCorto($usuario->email) . '</p>'
+                        . Html::a(UtilHelper::glyphicon('cog') . ' Mi cuenta',
+                            ['usuarios/mod-cuenta'],
+                            ['class' => 'btn btn-sm btn-primary'])
+                        . '</div>'
+                    . '</div>',
                     'encode' => false,
                 ],
                 '<li class="divider"></li>',
-                [
-                    'label' => IconHelper::glyphicon('log-out') . ' Logout',
-                    'url' => ['site/logout'],
-                    'encode' => false,
-                    'linkOptions' => ['data-method' => 'POST'],
-                ],
-            ]
+                Html::beginForm(['/site/logout'], 'post')
+                . '<div class="col-md-offset-2 col-md-8">'
+                . Html::submitButton(
+                    UtilHelper::glyphicon('log-out') . ' Cerrar sesión',
+                    ['class' => 'btn btn-sm btn-danger btn-block']
+                    )
+                    . Html::endForm()
+                . '</div>',
+            ],
+            'options' => [
+                'class' => 'user-dropdown'
+            ],
         ];
     }
 

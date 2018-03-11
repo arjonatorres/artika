@@ -5,9 +5,9 @@ namespace common\helpers;
 use yii\helpers\Html;
 
 /**
- * Clase Helper relacionada con iconos
+ * Clase Helper
  */
-class IconHelper
+class UtilHelper
 {
     /**
      * Crea un icono de Bootstrap.
@@ -16,7 +16,11 @@ class IconHelper
      */
     public static function glyphicon(string $icon)
     {
-        return Html::tag('span', '', ['class' => "glyphicon glyphicon-$icon"]);
+        return Html::tag(
+            'span',
+            '',
+            ['class' => "glyphicon glyphicon-$icon icon-sm"]
+        );
     }
 
     /**
@@ -33,5 +37,18 @@ class IconHelper
                     </span>
                     {input}
                </div>';
+    }
+
+    /**
+     * Recorta un string a partir de 30 caracteres de logitud
+     * @param  string $cadena La cadena a recortar
+     * @return string         La cadena recortada
+     */
+    public static function mostrarCorto(string $cadena): string
+    {
+        if (mb_strlen($cadena) > 30) {
+            $cadena = mb_substr($cadena, 0, 30) . '...';
+        }
+        return $cadena;
     }
 }

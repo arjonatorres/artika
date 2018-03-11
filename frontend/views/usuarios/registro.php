@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-use common\helpers\IconHelper;
+use common\helpers\UtilHelper;
 
 $this->title = 'Registrarse';
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,21 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
                             <?= $form->field($model, 'username', [
-                                    'inputTemplate' => IconHelper::inputGlyphicon('user'),
+                                    'inputTemplate' => UtilHelper::inputGlyphicon('user'),
                                     'enableAjaxValidation' => true,
                                 ])->textInput(['autofocus' => true]) ?>
 
                                 <?= $form->field( $model, 'email', [
-                                    'inputTemplate' => IconHelper::inputGlyphicon('envelope'),
+                                    'inputTemplate' => UtilHelper::inputGlyphicon('envelope'),
                                     'enableAjaxValidation' => true,
                                 ])->textInput() ?>
 
                                 <?= $form->field($model, 'password', [
-                                    'inputTemplate' => IconHelper::inputGlyphicon('lock'),
+                                    'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
                                 ])->passwordInput() ?>
 
                                 <?= $form->field($model, 'password_repeat', [
-                                    'inputTemplate' => IconHelper::inputGlyphicon('lock'),
+                                    'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
                                 ])->passwordInput() ?>
 
                                 <div class="form-group">

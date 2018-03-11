@@ -3,12 +3,11 @@
 namespace common\models;
 
 use Yii;
+use Exception;
 
 use yii\db\Expression;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
-
-use yii\helpers\Url;
 
 use yii\imagine\Image;
 
@@ -39,6 +38,12 @@ class Perfiles extends \yii\db\ActiveRecord
      * @var UploadedFile
      */
     public $foto;
+
+    /**
+     * Lista de extensiones soportadas por el avatar
+     * @var array
+     */
+    public $extensions = ['jpg', 'png'];
 
     /**
      * @inheritdoc
@@ -87,7 +92,10 @@ class Perfiles extends \yii\db\ActiveRecord
             ],
             [['usuario_id', 'genero_id'], 'integer'],
             [['fecha_nac'], 'filter', 'filter' => function ($value) {
-                return $value !== '' ? Yii::$app->formatter->asDate($value) : null;
+                if ($value == '') {
+                    return;
+                }
+                return Yii::$app->formatter->asDate($value);
             }],
             [['fecha_nac'], 'date'],
             [['updated_at', 'zona_horaria'], 'safe'],
@@ -102,7 +110,7 @@ class Perfiles extends \yii\db\ActiveRecord
                 'message' => 'Código postal no válido'
             ],
             [['usuario_id'], 'unique'],
-            [['foto'], 'file', 'extensions' => 'jpg'],
+            [['foto'], 'file', 'extensions' => implode(',', $this->extensions)],
             [['genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Generos::className(), 'targetAttribute' => ['genero_id' => 'id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
@@ -133,41 +141,67 @@ class Perfiles extends \yii\db\ActiveRecord
             'cpostal' => 'Código postal',
             'fecha_nac' => 'Fecha de nacimiento',
             'updated_at' => 'Updated At',
+            'foto' => 'Avatar',
         ];
     }
 
+    /**
+     * Sube una foto de avatar a Amazon S3
+     * @return bool Si se ha efectuado la subida correctamente.
+     */
     public function upload()
     {
         if ($this->foto === null) {
             return true;
         }
 
-        $nombre = Yii::getAlias('@uploads/')
-                . \Yii::$app->user->id . '.' . $this->foto->extension;
-            $this->foto->saveAs($nombre);
-            Image::thumbnail($nombre, 200, null)
-                ->save($nombre, ['quality' => 80]);
-
+        $id = Yii::$app->user->id;
+        $ruta = Yii::getAlias('@avatar/') . $id . '.' . $this->foto->extension;
+        $res = $this->foto->saveAs($ruta);
+        if ($res) {
+            Image::thumbnail($ruta, 300, 300)->save($ruta, ['quality' => 80]);
             $s3 = Yii::$app->get('s3');
-            $nombreS3 = 'avatar/' . Yii::$app->user->id . '.' . $this->foto->extension;
-            $s3->upload($nombreS3, $nombre);
-
-            return true;
-        // $nombre = Yii::getAlias('@uploads/') . $this->id . '.jpg';
-        // $res = $this->foto->saveAs($nombre);
-        // if ($res) {
-        //     Image::thumbnail($nombre, 80, null)->save($nombre);
-        // }
-        // return $res;
+            foreach ($this->extensions as $ext) {
+                $rutaS3 = 'avatar/' . $id . '.' . $ext;
+                $s3->delete($rutaS3);
+            }
+            try {
+                $s3->upload($ruta, $ruta);
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        return $res;
     }
 
+    /**
+     * Devuelve la ruta hacia la imagen del avatar alojada en Amazon S3. Si no
+     * existe devuelve la imagen por defecto. En desarrollo devuelve la imagen
+     * local para no hacer peticiones contínuamente a Amazon S3.
+     * @return string La ruta del avatar
+     */
     public function getRutaImagen()
     {
-        $nombre = Yii::getAlias('@uploads/') . $this->id . '.jpg';
-        if (file_exists($nombre)) {
-            return Url::to('/uploads/') . $this->id . '.jpg';
+        $id = $this->usuario_id;
+
+        $s3 = Yii::$app->get('s3');
+
+        foreach ($this->extensions as $ext) {
+            $rutaExacta = 'avatar/' . $id . '.' . $ext;
+            if (YII_ENV_DEV) {
+                if (file_exists($rutaExacta)) {
+                    return $rutaExacta;
+                }
+            } else {
+                if ($s3->exist($rutaExacta)) {
+                    return $s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s');
+                }
+            }
         }
-        return Url::to('/uploads/') . 'default.jpg';
+        if (YII_ENV_DEV) {
+            return Yii::getAlias('@avatar/0.png');
+        }
+        return $s3->getUrl(Yii::getAlias('@avatar/0.png'));
     }
 
     /**

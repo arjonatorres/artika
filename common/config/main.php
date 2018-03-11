@@ -3,7 +3,7 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@uploads' => '@frontend/web/uploads',
+        '@avatar' => 'avatar',
     ],
     'name' => 'ArTiKa',
     'language' => 'es-ES',
