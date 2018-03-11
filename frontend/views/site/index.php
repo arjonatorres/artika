@@ -2,7 +2,6 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'ArTiKa';
 ?>
 <div class="site-index">
 

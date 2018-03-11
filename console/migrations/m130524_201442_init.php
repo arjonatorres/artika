@@ -54,6 +54,7 @@ class m130524_201442_init extends Migration
             'zona_horaria' => $this->string(255),
             'direccion' => $this->string(255),
             'ciudad' => $this->string(255),
+            'localizacion' => $this->string(255),
             'provincia' => $this->string(255),
             'pais'=>$this->string(255),
             'cpostal' => $this->string(5),

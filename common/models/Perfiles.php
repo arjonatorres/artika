@@ -21,6 +21,7 @@ use yii\imagine\Image;
  * @property string $zona_horaria
  * @property string $direccion
  * @property string $ciudad
+ * @property string $localización
  * @property string $provincia
  * @property string $pais
  * @property string $cpostal
@@ -84,6 +85,7 @@ class Perfiles extends \yii\db\ActiveRecord
                     'zona_horaria',
                     'direccion',
                     'ciudad',
+                    'localizacion',
                     'provincia',
                     'pais',
                     'cpostal',
@@ -95,10 +97,10 @@ class Perfiles extends \yii\db\ActiveRecord
                 if ($value == '') {
                     return;
                 }
-                return Yii::$app->formatter->asDate($value);
+                return Yii::$app->formatter->asDate($value, 'dd-MM-yyyy');
             }],
             [['fecha_nac'], 'date'],
-            [['updated_at', 'zona_horaria'], 'safe'],
+            [['updated_at', 'zona_horaria', 'localizacion'], 'safe'],
             [
                 ['nombre_apellidos', 'direccion', 'ciudad', 'provincia', 'pais'],
                 'string', 'max' => 255
@@ -136,6 +138,7 @@ class Perfiles extends \yii\db\ActiveRecord
             'zona_horaria' => 'Zona horaria',
             'direccion' => 'Dirección',
             'ciudad' => 'Ciudad',
+            'localizacion' => 'Localización',
             'provincia' => 'Provincia',
             'pais' => 'País',
             'cpostal' => 'Código postal',
@@ -192,7 +195,10 @@ class Perfiles extends \yii\db\ActiveRecord
                 return $rutaExacta;
             }
             if ($s3->exist($rutaExacta)) {
-                return $s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s');
+                $foto = file_get_contents($s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s'));
+                $archivo = fopen($rutaExacta, 'a');
+                fwrite($archivo, $foto);
+                return $rutaExacta;
             }
         }
         return Yii::getAlias('@avatar/0.png');

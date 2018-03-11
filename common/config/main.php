@@ -22,5 +22,16 @@ return [
             'defaultBucket' => 'artika',
             'defaultAcl' => 'public-read',
         ],
+        'assetManager' => [
+            'bundles' => [
+                'dosamigos\google\maps\MapAsset' => [
+                    'options' => [
+                        'key' => getenv('GMAPS_KEY'),
+                        'language' => 'es',
+                        'version' => '3.1.18'
+                    ]
+                ]
+            ]
+        ],
     ],
 ];

@@ -30,6 +30,10 @@ return [
                 ],
             ],
         ],
+        'formatter' => [
+            'datetimeFormat' => $params['datetimeFormat'],
+            'dateFormat' => $params['dateFormat'],
+        ],
     ],
     'params' => $params,
 ];

@@ -7,6 +7,31 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\Timezone;
+
+use dosamigos\google\maps\LatLng;
+use dosamigos\google\maps\Map;
+use dosamigos\google\maps\overlays\Marker;
+use dosamigos\google\maps\overlays\InfoWindow;
+
+$js = <<<EOT
+    $('#guardar').on('click', function (e) {
+        e.preventDefault();
+        var dir = $('#perfiles-direccion').val();
+        var ciu = $('#perfiles-ciudad').val();
+        if (dir !== '' && ciu !== '') {
+            var address = dir + ' ' + ciu;
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                var a = results[0].geometry.location;
+                $('#perfiles-localizacion').val(a.lat() + ',' + a.lng());
+                $('#perfil-form').submit();
+            });
+        }
+    });
+EOT;
+
+$this->registerJs($js);
+
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -41,6 +66,58 @@ use common\helpers\Timezone;
         ) ?>
         <?= $form->field($model, 'direccion')->textInput() ?>
         <?= $form->field($model, 'ciudad')->textInput() ?>
+        <!-- <div class="row"> -->
+            <div class="form-group" style="margin-bottom: 0px;">
+                <label class="control-label col-md-3">Localización</label>
+                <div class="col-md-8">
+                    <?php if ($model->localizacion === null): ?>
+                    <h4>
+                        <span class="label label-warning">
+                            Introduzca su dirección y ciudad para guardar su localización
+                        </span>
+                    </h4>
+                    <?php
+                        $coord = new LatLng(['lat' => 36.6850064, 'lng' => -6.126074399999993]);
+                        $zoom = 8;
+                    else:
+                        $usuario = Yii::$app->user->identity;
+                        $ruta = $usuario->perfil->rutaImagen;
+                        $a = explode(',', $model->localizacion);
+                        $coord = new LatLng(['lat' => $a[0], 'lng' => $a[1]]);
+                        $zoom = 16;
+                        $marker = new Marker([
+                            'position' => $coord,
+                            'title' => $usuario->username,
+                        ]);
+
+                        // Provide a shared InfoWindow to the marker
+                        $marker->attachInfoWindow(
+                            new InfoWindow([
+                                'content' => '<p>Protegido por ArTiKa</p>'
+                                . '<div class="text-center">'
+                                . Html::img($ruta,
+                                    ['class' => 'img-sm img-circle'])
+                                . '</div>'
+                            ])
+                        );
+
+                    endif;
+                    $map = new Map([
+                        'center' => $coord,
+                        'zoom' => $zoom,
+                        'width' => '100%',
+                        'height' => 256,
+                    ]);
+                    if (isset($marker)) {
+                        $map->addOverlay($marker);
+                    }
+                    ?>
+                    <!-- Display the map -finally :) -->
+                    <?= $map->display() ?>
+                </div>
+            </div>
+        <!-- </div> -->
+        <?= $form->field($model, 'localizacion')->hiddenInput()->label(false) ?>
         <?= $form->field($model, 'provincia')->textInput() ?>
         <?= $form->field($model, 'pais')->textInput() ?>
         <?= $form->field($model, 'cpostal')->textInput() ?>
@@ -58,7 +135,11 @@ use common\helpers\Timezone;
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-12">
-                <?= Html::submitButton('Guardar', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Guardar', [
+                    'class' => 'btn btn-success',
+                    'name' => 'login-button',
+                    'id' => 'guardar',
+                ]) ?>
             </div>
         </div>
 
