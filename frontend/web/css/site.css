@@ -152,3 +152,17 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.img-sm {
+    height: 32px;
+}
+
+.img-md {
+    margin-right: 20px;
+    height: 96px;
+}
+
+.user-dropdown > a.dropdown-toggle {
+    padding-top: 9px!important;
+    padding-bottom: 9px!important;
+}

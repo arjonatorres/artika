@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
     <div class="panel-body">
         <?php $form = ActiveForm::begin([
             'layout' => 'horizontal',
-            'id' => 'login-form',
+            'id' => 'cuenta-form',
             'fieldConfig' => [
                 'horizontalCssClasses' => [
                     'label' => 'col-md-3',

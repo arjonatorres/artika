@@ -10,9 +10,7 @@ $this->title = 'Configuración';
 $this->params['breadcrumbs'][] = $this->title;
 
 $js = <<<EOT
-    var desplegable = $('#menu-principal').children('li').last();
-    desplegable.addClass('active');
-    desplegable. find('li:contains("Configuración")').addClass('active');
+    $('#menu-principal').children('li').last().addClass('active');
 EOT;
 
 $this->registerJs($js);

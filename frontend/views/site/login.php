@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-use common\helpers\IconHelper;
+use common\helpers\UtilHelper;
 
 $this->title = 'Iniciar sesión';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                     <?= $form->field($model, 'username', [
-                        'inputTemplate' => IconHelper::inputGlyphicon('user'),
+                        'inputTemplate' => UtilHelper::inputGlyphicon('user'),
                         ])->textInput(['autofocus' => true]) ?>
 
                     <?= $form->field($model, 'password', [
-                        'inputTemplate' => IconHelper::inputGlyphicon('lock'),
+                        'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
                         ])->passwordInput()
                         ->label(
                             $model->getAttributeLabel('password') . ' ('
