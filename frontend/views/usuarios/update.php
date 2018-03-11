@@ -6,8 +6,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 
-$this->title = 'Configuración';
-$this->params['breadcrumbs'][] = $this->title;
+$title = 'Configuración';
+$this->params['breadcrumbs'][] = $title;
 
 $js = <<<EOT
     $('#menu-principal').children('li').last().addClass('active');

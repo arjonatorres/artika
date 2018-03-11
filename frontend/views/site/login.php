@@ -9,15 +9,15 @@ use yii\bootstrap\ActiveForm;
 
 use common\helpers\UtilHelper;
 
-$this->title = 'Iniciar sesión';
-$this->params['breadcrumbs'][] = $this->title;
+$title = 'Iniciar sesión';
+$this->params['breadcrumbs'][] = $title;
 ?>
 <div class="site-login">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+                    <h3 class="panel-title"><?= Html::encode($title) ?></h3>
                 </div>
                 <div class="panel-body">
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
