@@ -188,20 +188,14 @@ class Perfiles extends \yii\db\ActiveRecord
 
         foreach ($this->extensions as $ext) {
             $rutaExacta = 'avatar/' . $id . '.' . $ext;
-            if (YII_ENV_DEV) {
-                if (file_exists($rutaExacta)) {
-                    return $rutaExacta;
-                }
-            } else {
-                if ($s3->exist($rutaExacta)) {
-                    return $s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s');
-                }
+            if (file_exists($rutaExacta)) {
+                return $rutaExacta;
+            }
+            if ($s3->exist($rutaExacta)) {
+                return $s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s');
             }
         }
-        if (YII_ENV_DEV) {
-            return Yii::getAlias('@avatar/0.png');
-        }
-        return $s3->getUrl(Yii::getAlias('@avatar/0.png'));
+        return Yii::getAlias('@avatar/0.png');
     }
 
     /**
