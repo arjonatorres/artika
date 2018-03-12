@@ -61,7 +61,7 @@ class UsuariosController extends \yii\web\Controller
             $model->foto = UploadedFile::getInstance($model, 'foto');
             if ($model->save() && $model->upload()) {
                 Yii::$app->session->setFlash('success', 'Tu avatar ha sido actualizado correctamente.');
-                return $this->redirect(['mod-avatar', 'model' => $model]);
+                return $this->redirect(['mod-avatar']);
             }
         }
 
@@ -80,7 +80,7 @@ class UsuariosController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Tu cuenta ha sido actualizada correctamente.');
-            return $this->redirect(['mod-cuenta', 'model' => $model]);
+            return $this->redirect(['mod-cuenta']);
         }
 
         return $this->render('update', [
@@ -98,7 +98,7 @@ class UsuariosController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Tu perfil ha sido actualizado correctamente.');
-            return $this->redirect(['mod-perfil', 'model' => $model]);
+            return $this->redirect(['mod-perfil']);
         }
 
         $g = Generos::find()->indexBy('id')->asArray()->all();

@@ -14,18 +14,27 @@ use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
 $js = <<<EOT
+function enviar(cadena) {
+    $('#perfiles-localizacion').val(cadena);
+    $('#perfil-form').submit();
+}
     $('#guardar').on('click', function (e) {
         e.preventDefault();
         var dir = $('#perfiles-direccion').val();
         var ciu = $('#perfiles-ciudad').val();
-        if (dir !== '' && ciu !== '') {
+        if (dir !== '' || ciu !== '') {
             var address = dir + ' ' + ciu;
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
-                var a = results[0].geometry.location;
-                $('#perfiles-localizacion').val(a.lat() + ',' + a.lng());
-                $('#perfil-form').submit();
+                if (results.length == 0) {
+                    enviar('');
+                } else {
+                    var a = results[0].geometry.location;
+                    enviar(a.lat() + ',' + a.lng());
+                }
             });
+        } else {
+            enviar('');
         }
     });
 EOT;
@@ -70,10 +79,16 @@ $this->registerJs($js);
             <div class="form-group" style="margin-bottom: 0px;">
                 <label class="control-label col-md-3">Localización</label>
                 <div class="col-md-8">
-                    <?php if ($model->localizacion === null): ?>
+                    <?php if ($model->localizacion === null):
+                        if ($model->direccion !== null || $model->ciudad !== null) {
+                            $respuesta = 'válida';
+                        } else {
+                            $respuesta = '';
+                        }
+                    ?>
                     <h4>
                         <span class="label label-warning">
-                            Introduzca su dirección y ciudad para guardar su localización
+                            Introduzca una dirección y ciudad <?= $respuesta ?> para mostrar su localización
                         </span>
                     </h4>
                     <?php
@@ -137,7 +152,6 @@ $this->registerJs($js);
             <div class="col-md-offset-3 col-md-12">
                 <?= Html::submitButton('Guardar', [
                     'class' => 'btn btn-success',
-                    'name' => 'login-button',
                     'id' => 'guardar',
                 ]) ?>
             </div>
