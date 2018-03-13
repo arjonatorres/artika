@@ -3,7 +3,8 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@avatar' => 'avatar',
+        '@avatar' => '@frontend/web/avatar',
+        '@avatar_s3' => 'avatar',
     ],
     'name' => 'ArTiKa',
     'language' => 'es-ES',
@@ -32,6 +33,12 @@ return [
                     ]
                 ]
             ]
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => true,
+            // 'rules' => [
+            // ],
         ],
     ],
 ];

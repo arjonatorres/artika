@@ -14,10 +14,10 @@ use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
 $js = <<<EOT
-function enviar(cadena) {
-    $('#perfiles-localizacion').val(cadena);
-    $('#perfil-form').submit();
-}
+    function enviar(cadena) {
+        $('#perfiles-localizacion').val(cadena);
+        $('#perfil-form').submit();
+    }
     $('#guardar').on('click', function (e) {
         e.preventDefault();
         var dir = $('#perfiles-direccion').val();

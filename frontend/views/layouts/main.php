@@ -33,7 +33,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img('imagenes/atk-logo.png', [
+        'brandLabel' => Html::img('/imagenes/atk-logo.png', [
             'alt' => 'Artika',
             'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',
@@ -44,6 +44,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [];
+    $menuCasa = [];
     if (Yii::$app->user->isGuest) {
         $menuItems = [
             [
@@ -56,6 +57,26 @@ AppAsset::register($this);
             ],
         ];
     } else {
+        $menuCasa = [
+            [
+                'label' => 'Mi casa',
+                'url' => ['casas/index'],
+                // 'items' => [
+                //     [
+                //         'label' => 'Secciones',
+                //         'url' => ['casa/crear-seccion'],
+                //     ],
+                //     [
+                //         'label' => 'Habitaciones',
+                //         'url' => ['casa/crear-habitacion'],
+                //     ],
+                //     [
+                //         'label' => 'Módulos',
+                //         'url' => ['casa/crear-modulo'],
+                //     ],
+                // ],
+            ],
+        ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;
         $menuItems[] = [
@@ -98,6 +119,12 @@ AppAsset::register($this);
             ],
         ];
     }
+
+    echo Nav::widget([
+        'id' => 'menu-casa',
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menuCasa,
+    ]);
 
     echo Nav::widget([
         'id' => 'menu-principal',
