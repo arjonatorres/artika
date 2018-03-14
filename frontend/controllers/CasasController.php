@@ -26,7 +26,7 @@ class CasasController extends \yii\web\Controller
     }
 
     /**
-     * Muestra la casa con sus secciones y habitaciones
+     * Crea una sección nueva de la casa
      * @return mixed
      */
     public function actionCrearSeccion()
@@ -54,7 +54,7 @@ class CasasController extends \yii\web\Controller
     }
 
     /**
-     * Crea una sección en la casa
+     * Crea una sección de la casa vía Ajax
      * @return mixed
      */
     public function actionCrearSeccionAjax()
@@ -67,7 +67,8 @@ class CasasController extends \yii\web\Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $secciones = Secciones::findAll(['usuario_id' => Yii::$app->user->id]);
+            $secciones = Secciones::find(['usuario_id' => Yii::$app->user->id])
+            ->orderBy('id')->all();
             return $this->renderAjax('_menu-casa', [
                 'secciones' => $secciones,
             ]);
@@ -98,7 +99,7 @@ class CasasController extends \yii\web\Controller
 
     /**
      * Modifica una sección en la casa
-     * @param  int $id El id de la sección a modificar
+     * @param  int $id El id de la sección a modificar vía Ajax
      * @return mixed
      */
     public function actionModificarSeccionAjax($id)

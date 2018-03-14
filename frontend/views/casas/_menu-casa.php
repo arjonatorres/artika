@@ -3,8 +3,6 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-use yii\bootstrap\Collapse;
-
 use common\helpers\UtilHelper;
 
 $urlModificarSeccion = Url::to(['casas/modificar-seccion']);
@@ -33,27 +31,27 @@ $this->registerJs($js);
         <h3 class="panel-title">Casa</h3>
     </div>
     <div class="panel-body panel-body-principal">
-        <?php
-        foreach ($secciones as $seccion) {
-            echo Collapse::widget([
-                'items' => [
-                    [
-                        'label' => UtilHelper::glyphicon('chevron-right', 'icon-xs d')
-                            . ' ' . Html::encode($seccion->nombre)
-                            . '<span id="editar-seccion" '
-                            . "data-id=\"$seccion->id\""
-                            . 'class="text-right icon-derecha">'
-                            . UtilHelper::glyphicon('pencil', 'icon-sm')
-                            . '</span>',
-                        'content' => [],
-                        'encode' => false,
-                    ],
-                ],
-                'options' => [
-                    'class' => 'panel-seccion',
-                ],
-            ]);
-        }
-        ?>
+        <?php foreach ($secciones as $key => $seccion): ?>
+            <div id="p<?= $key ?>" class="panel-seccion panel-group" role="tablist">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#p<?= $key ?>" href="#p<?= $key ?>-collapse<?= $key ?>" aria-expanded="false" aria-controls="p<?= $key ?>-collapse<?= $key ?>">
+                              <?= UtilHelper::glyphicon('chevron-right', 'icon-xs d') ?>
+                              <?= Html::encode($seccion->nombre) ?>
+                              <span data-id="<?= $seccion->id ?>" class="text-right icon-derecha">
+                                  <?= UtilHelper::glyphicon('pencil', 'icon-sm') ?>
+                              </span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="p<?= $key ?>-collapse<?= $key ?>" class="panel-collapse collapse" role="tabpanel">
+                        <ul class="list-group">
+                            <!-- <li class="list-group-item"></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
     </div>
 </div>
