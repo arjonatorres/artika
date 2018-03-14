@@ -3,43 +3,27 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\Collapse;
-
-$title = 'Configuración';
+$title = 'Mi casa';
 $this->params['breadcrumbs'][] = $title;
 
-$css = <<<EOT
-    .panel-menu {
-        margin-bottom: 5px;
-    }
-EOT;
-
-$this->registerCss($css);
+$this->registerCssFile('/css/casa.css', [
+    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
+]);
 
 $accion = Yii::$app->controller->action->id;
 ?>
 <div class="conf-cuenta">
     <div class="row">
-        <div class="col-md-3">
-            <?= Collapse::widget([
-                'items' => [
-                    [
-                        'label' => 'Collapsible Group Item #1',
-                        'content' => 'Anim pariatur cliche...',
-                        'options' => [
-                            'class' => 'panel-primary',
-                        ],
-                    ],
-                ],
-                'options' => [
-                    'class' => 'panel-menu',
-                ],
-            ]); ?>
+        <div id="menu-casa-usuario" class="col-md-3">
+            <?= $this->render("_menu-casa", [
+                'model' => $model,
+                'secciones' => $secciones,
+                ]) ?>
         </div>
         <div class="col-md-9">
-
+            <?= $this->render("_$accion", [
+                'model' => $model,
+                ]) ?>
         </div>
     </div>
 </div>

@@ -4,8 +4,8 @@ use yii\bootstrap\ActiveForm;
 
 use kartik\file\FileInput;
 ?>
-<div class="panel panel-primary">
-    <div class="panel-heading">
+<div class="panel panel-primary panel-principal">
+    <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración del avatar</h3>
     </div>
     <div class="panel-body">

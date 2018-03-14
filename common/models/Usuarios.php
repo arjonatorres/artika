@@ -232,6 +232,14 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSecciones()
+    {
+        return $this->hasMany(Secciones::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getId0()

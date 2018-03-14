@@ -1,0 +1,20 @@
+.panel-seccion {
+    margin-bottom: 2px;
+}
+
+.panel-seccion .panel-heading {
+    background-color: #EEE;
+
+}
+
+a.collapse-toggle {
+    text-decoration: none;
+}
+
+.icon-sm {
+    font-size: 10px;
+}
+
+.panel-body-principal {
+    padding: 2px;
+}

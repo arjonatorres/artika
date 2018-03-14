@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 ?>
-<div class="panel panel-primary">
-    <div class="panel-heading">
+<div class="panel panel-primary panel-principal">
+    <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración de la cuenta</h3>
     </div>
     <div class="panel-body">
@@ -34,9 +34,10 @@ use yii\bootstrap\ActiveForm;
     </div>
 </div>
 <hr>
-<h3>Zona de peligro</h3>
-<div class="panel panel-danger">
-    <div class="panel-heading">
+
+<h3><span class="label label-danger">Zona de peligro</span></h3>
+<div class="panel panel-danger panel-principal">
+    <div class="panel-heading panel-heading-danger">
         <h3 class="panel-title">Eliminar cuenta</h3>
     </div>
     <div class="panel-body">

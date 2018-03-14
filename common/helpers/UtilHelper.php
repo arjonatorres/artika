@@ -10,16 +10,49 @@ use yii\helpers\Html;
 class UtilHelper
 {
     /**
+     * Crea un item en el menú principal, con el texto y el icono de Boostrap
+     * centrados.
+     * @param  string $texto El texto del item
+     * @param  string $icon  El nombre del icono de Boostrap
+     * @param  string $url   La url del item
+     * @return string        El código Html con el item
+     */
+    public static function menuItem(string $texto, string $icon, string $url)
+    {
+        return [
+            'label' =>  '<div class="text-center">'
+                . UtilHelper::glyphicon($icon)
+                . '</div>'
+                . '<div class="text-center">'
+                . $texto
+                . '</div>',
+            'url' => [$url],
+            'encode' => false,
+            'options' => [
+                'class' => 'menu-item-principal',
+            ],
+        ];
+
+        return '<div class="text-center">'
+            . UtilHelper::glyphicon($icon)
+            . '</div>'
+            . '<div class="text-center">'
+            . $texto
+            . '</div>';
+    }
+
+    /**
      * Crea un icono de Bootstrap.
      * @param  string $icon  Nombre del icono de Bootstrap
+     * @param  string $class Nombre de la clase a añadir
      * @return string        La etiqueta span con el icono de Bootstrap.
      */
-    public static function glyphicon(string $icon)
+    public static function glyphicon(string $icon, string $class = '')
     {
         return Html::tag(
             'span',
             '',
-            ['class' => "glyphicon glyphicon-$icon icon-sm"]
+            ['class' => "glyphicon glyphicon-$icon $class"]
         );
     }
 

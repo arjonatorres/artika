@@ -33,12 +33,16 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
+        'id' => 'menu-principal',
         'brandLabel' => Html::img('/imagenes/atk-logo.png', [
             'alt' => 'Artika',
             'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',
         ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
+        'brandOptions' => [
+            // 'style' => 'border-right: 4px solid #555;'
+        ],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -59,23 +63,10 @@ AppAsset::register($this);
     } else {
         $menuCasa = [
             [
-                'label' => 'Mi casa',
-                'url' => ['casas/index'],
-                // 'items' => [
-                //     [
-                //         'label' => 'Secciones',
-                //         'url' => ['casa/crear-seccion'],
-                //     ],
-                //     [
-                //         'label' => 'Habitaciones',
-                //         'url' => ['casa/crear-habitacion'],
-                //     ],
-                //     [
-                //         'label' => 'Módulos',
-                //         'url' => ['casa/crear-modulo'],
-                //     ],
-                // ],
+                'label' => '',
             ],
+            UtilHelper::menuItem('Mi casa', 'home', 'casas/mi-casa'),
+            UtilHelper::menuItem('Secciones', 'th-large', 'casas/secciones'),
         ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;
@@ -114,20 +105,23 @@ AppAsset::register($this);
                     . Html::endForm()
                 . '</div>',
             ],
+            'dropDownOptions' => [
+                'id' => 'menu-usuario',
+            ],
             'options' => [
-                'class' => 'user-dropdown'
+                'class' => 'user-dropdown',
             ],
         ];
     }
 
     echo Nav::widget([
         'id' => 'menu-casa',
-        'options' => ['class' => 'navbar-nav navbar-left'],
+        'options' => ['class' => 'navbar-nav navbar-left menu-item'],
         'items' => $menuCasa,
     ]);
 
     echo Nav::widget([
-        'id' => 'menu-principal',
+        'id' => 'menu-principal-user',
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);

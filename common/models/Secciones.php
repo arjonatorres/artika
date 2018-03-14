@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-
 /**
  * This is the model class for table "secciones".
  *
@@ -32,8 +30,14 @@ class Secciones extends \yii\db\ActiveRecord
             [['nombre', 'usuario_id'], 'required'],
             [['usuario_id'], 'default', 'value' => null],
             [['usuario_id'], 'integer'],
+            [['nombre'], 'trim'],
             [['nombre'], 'string', 'length' => [4, 20]],
-            [['nombre', 'usuario_id'], 'unique', 'targetAttribute' => ['nombre', 'usuario_id']],
+            [
+                ['nombre', 'usuario_id'],
+                'unique',
+                'targetAttribute' => ['nombre', 'usuario_id'],
+                'message' => 'La sección \'{value}\' ya existe',
+            ],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
     }

@@ -8,8 +8,16 @@ body {
     height: auto;
     margin: 0 auto -50px;
     padding: 0 0 60px;
-    background-color: #F0F0F0;
-    /* background: linear-gradient(#444, #333); */
+    /* background-color: #F0F0F0; */
+    background: #555;
+}
+
+hr {
+    border-top-color: #BBB;
+}
+
+.divider {
+    background-color: #BBB!important;
 }
 
 .navbar-inverse {
@@ -20,12 +28,33 @@ body {
     background-color: #337ab7!important;
 }
 
-.panel-estandar {
+.panel-heading-principal {
     background: linear-gradient(#255986, #3a8bd0);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.panel-heading-danger {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.panel-principal {
+    /* border: 0px solid; */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .panel-body {
-    /* background-color: #DDD; */
+    background-color: #EEE;
+}
+
+.menu-item {
+    border-right: 1px solid #555;
+}
+
+.menu-item-principal {
+    border-left: 1px solid #555;
 }
 
 .breadcrumb {
@@ -165,4 +194,12 @@ a.desc:after {
 .user-dropdown > a.dropdown-toggle {
     padding-top: 9px!important;
     padding-bottom: 9px!important;
+}
+
+.user-dropdown .dropdown-menu {
+    background-color: #EEE;
+}
+
+#menu-casa a {
+    padding: 5px 15px;
 }
