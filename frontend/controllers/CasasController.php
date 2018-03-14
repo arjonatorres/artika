@@ -29,17 +29,22 @@ class CasasController extends \yii\web\Controller
      * Muestra la casa con sus secciones y habitaciones
      * @return mixed
      */
-    public function actionSecciones()
+    public function actionCrearSeccion()
     {
         $model = new Secciones([
             'usuario_id' => Yii::$app->user->id,
         ]);
-        $secciones = Yii::$app->user->identity->secciones;
+        $secciones = Yii::$app->user->identity->getSecciones()->orderBy('id')->all();
 
         if (Yii::$app->request->isAjax) {
-            $model->load(Yii::$app->request->post());
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+            if ($model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            } else {
+                return $this->renderAjax('_crear-seccion', [
+                    'model' => $model,
+                ]);
+            }
         } else {
             return $this->render('index', [
                 'secciones' => $secciones,
@@ -52,8 +57,11 @@ class CasasController extends \yii\web\Controller
      * Crea una sección en la casa
      * @return mixed
      */
-    public function actionCrearSeccion()
+    public function actionCrearSeccionAjax()
     {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
         $model = new Secciones([
             'usuario_id' => Yii::$app->user->id,
         ]);
@@ -64,5 +72,52 @@ class CasasController extends \yii\web\Controller
                 'secciones' => $secciones,
             ]);
         }
+    }
+
+    /**
+     * Modifica una sección en la casa
+     * @param  int $id El id de la sección a modificar
+     * @return mixed
+     */
+    public function actionModificarSeccion($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Secciones::findOne(['id' => $id]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        return $this->renderAjax('_editar-seccion', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Modifica una sección en la casa
+     * @param  int $id El id de la sección a modificar
+     * @return mixed
+     */
+    public function actionModificarSeccionAjax($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Secciones::findOne(['id' => $id]);
+
+        if ($model->load(Yii::$app->request->post()) && ($model->save())) {
+            $secciones = Secciones::find(['usuario_id' => Yii::$app->user->id])
+            ->orderBy('id')->all();
+            return $this->renderAjax('_menu-casa', [
+                'secciones' => $secciones,
+            ]);
+        }
+        return $this->renderAjax('_editar-seccion', [
+            'model' => $model,
+        ]);
     }
 }

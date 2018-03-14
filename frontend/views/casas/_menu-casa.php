@@ -1,9 +1,32 @@
 <?php
 
+use yii\helpers\Url;
+use yii\helpers\Html;
+
 use yii\bootstrap\Collapse;
 
 use common\helpers\UtilHelper;
 
+$urlModificarSeccion = Url::to(['casas/modificar-seccion']);
+$js = <<<EOL
+    $('.icon-derecha').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var seccionId =$(this).data('id');
+        $.ajax({
+            url: '$urlModificarSeccion',
+            type: 'GET',
+            data: {
+                id: seccionId
+            },
+            success: function(data) {
+                $('#casa-usuario').html(data);
+            }
+        });
+    });
+EOL;
+
+$this->registerJs($js);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
@@ -15,9 +38,13 @@ use common\helpers\UtilHelper;
             echo Collapse::widget([
                 'items' => [
                     [
-                        'label' => UtilHelper::glyphicon('chevron-right', 'icon-sm')
-                            . ' '
-                            . $seccion->nombre . '',
+                        'label' => UtilHelper::glyphicon('chevron-right', 'icon-xs d')
+                            . ' ' . Html::encode($seccion->nombre)
+                            . '<span id="editar-seccion" '
+                            . "data-id=\"$seccion->id\""
+                            . 'class="text-right icon-derecha">'
+                            . UtilHelper::glyphicon('pencil', 'icon-sm')
+                            . '</span>',
                         'content' => [],
                         'encode' => false,
                     ],

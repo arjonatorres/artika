@@ -4,15 +4,21 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$title = 'Secciones';
+$title = 'Editar sección';
 $this->params['breadcrumbs'][] = $title;
 
-$urlCrearSeccion = Url::to(['casas/crear-seccion']);
+$urlModificarSeccionAjax = Url::to(['casas/modificar-seccion-ajax']);
+$urlSecciones = Url::to(['casas/crear-seccion']);
 $js = <<<EOL
     var max = $('#secciones-nombre').attr('maxlength');
-    $('#secciones-nombre').after($('<span id="quedan" class="label label-danger">20</span>'));
+    $('#secciones-nombre').after($('<span id="quedan" class="label"></span>'));
+    mostrarNumero();
     $('#secciones-nombre').on('input', function() {
-        var lon = max - $(this).val().length;
+        mostrarNumero();
+    });
+
+    function mostrarNumero() {
+        var lon = max - $('#secciones-nombre').val().length;
         var numero = $('#quedan');
         numero.text(lon);
         if (lon > 16) {
@@ -26,20 +32,36 @@ $js = <<<EOL
             numero.removeClass('label-warning');
             numero.addClass('label-success');
         }
-    });
+    }
 
     $('#seccion-form').on('beforeSubmit', function () {
         $.ajax({
-            url: '$urlCrearSeccion',
+            url: '$urlModificarSeccionAjax' + '?id=$model->id',
             type: 'POST',
             data: {
                 'Secciones[nombre]': $('#seccion-form').yiiActiveForm('find', 'secciones-nombre').value
             },
             success: function (data) {
                 $('#menu-casa-usuario').html(data);
+                volverCrearSeccion();
             }
         });
         return false;
+    });
+
+    function volverCrearSeccion() {
+        $.ajax({
+            url: '$urlSecciones',
+            type: 'POST',
+            data: {},
+            success: function (data) {
+                $('#casa-usuario').html(data);
+            }
+        });
+    }
+
+    $('#cancelar-button').on('click', function () {
+        volverCrearSeccion();
     });
 EOL;
 
@@ -47,28 +69,17 @@ $this->registerJs($js);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
-        <h3 class="panel-title">Añadir sección a la casa</h3>
+        <h3 class="panel-title">Modificar sección de la casa</h3>
     </div>
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-3 text-center">
-                <img src="/imagenes/plano_casa.png" alt="">
-            </div>
-            <div class="col-md-9">
-                <h4><b>Para añadir secciones y habitaciones</b></h4>
-                <p>Para añadir una sección escriba su nombre y haga click en Añadir.
-                La nueva sección se añadirá a la lista de la izquierda.</p>
-                <p>Una vez exista alguna sección podrá añadir una habitación asociada
-                a ella. Escriba un nombre para la habitación, elija la sección a
-                la que pertenece y haga click en Añadir.</p>
-            </div>
-        </div>
-        <hr>
         <div class="row">
             <div class="col-md-3 text-center">
                 <img src="/imagenes/seccion.png" alt="">
             </div>
             <div class="col-md-9">
+                <h4><span class="label label-info">
+                    Sección: <?= Html::encode($model->nombre) ?>
+                </span></h4>
                 <?php $form = ActiveForm::begin([
                     'id' => 'seccion-form',
                 ]);
@@ -86,10 +97,14 @@ $this->registerJs($js);
                         'style' => 'display: block',
                         ]) ?>
                 <div class="form-group">
-                    <?= Html::submitButton('Añadir', [
+                    <?= Html::submitButton('Modificar', [
                         'class' => 'btn btn-success',
                         'id' => 'guardar-button'
                     ]) ?>
+                    <?= Html::button('Cancelar', [
+                        'class' => 'btn btn-danger',
+                        'id' => 'cancelar-button',
+                        ]) ?>
                 </div>
                 </div>
             </div>

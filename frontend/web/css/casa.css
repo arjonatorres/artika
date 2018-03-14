@@ -11,10 +11,26 @@ a.collapse-toggle {
     text-decoration: none;
 }
 
-.icon-sm {
+.icon-xs {
     font-size: 10px;
+}
+
+.icon-sm {
+    font-size: 13px;
+}
+
+.d {
+    margin-right: 5px;
+}
+
+.i {
+    margin-left: 5px;
 }
 
 .panel-body-principal {
     padding: 2px;
+}
+
+.icon-derecha {
+    float: right;
 }

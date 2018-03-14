@@ -4,7 +4,10 @@
 /* @var $model \common\models\LoginForm */
 
 $title = 'Mi casa';
-$this->params['breadcrumbs'][] = $title;
+$this->params['breadcrumbs'][] = [
+    'label' => 'Mi casa',
+    'url' => ['mi-casa'],
+];
 
 $this->registerCssFile('/css/casa.css', [
     'depends' => [\yii\bootstrap\BootstrapAsset::className()],
@@ -20,7 +23,7 @@ $accion = Yii::$app->controller->action->id;
                 'secciones' => $secciones,
                 ]) ?>
         </div>
-        <div class="col-md-9">
+        <div id="casa-usuario" class="col-md-9">
             <?= $this->render("_$accion", [
                 'model' => $model,
                 ]) ?>

@@ -61,7 +61,7 @@ hr {
     background-color: #333;
 }
 .breadcrumb .active {
-    color: white;
+    color: #999;
 }
 
 .breadcrumb a {
