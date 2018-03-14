@@ -33,17 +33,22 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img('imagenes/atk-logo.png', [
+        'id' => 'menu-principal',
+        'brandLabel' => Html::img('/imagenes/atk-logo.png', [
             'alt' => 'Artika',
             'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',
         ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
+        'brandOptions' => [
+            // 'style' => 'border-right: 4px solid #555;'
+        ],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [];
+    $menuCasa = [];
     if (Yii::$app->user->isGuest) {
         $menuItems = [
             [
@@ -56,6 +61,13 @@ AppAsset::register($this);
             ],
         ];
     } else {
+        $menuCasa = [
+            [
+                'label' => '',
+            ],
+            UtilHelper::menuItem('Mi casa', 'home', 'casas/mi-casa'),
+            UtilHelper::menuItem('Secciones', 'th-large', 'casas/secciones'),
+        ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;
         $menuItems[] = [
@@ -93,14 +105,23 @@ AppAsset::register($this);
                     . Html::endForm()
                 . '</div>',
             ],
+            'dropDownOptions' => [
+                'id' => 'menu-usuario',
+            ],
             'options' => [
-                'class' => 'user-dropdown'
+                'class' => 'user-dropdown',
             ],
         ];
     }
 
     echo Nav::widget([
-        'id' => 'menu-principal',
+        'id' => 'menu-casa',
+        'options' => ['class' => 'navbar-nav navbar-left menu-item'],
+        'items' => $menuCasa,
+    ]);
+
+    echo Nav::widget([
+        'id' => 'menu-principal-user',
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);

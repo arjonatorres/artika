@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $title;
 <div class="site-signup">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="panel panel-primary panel-principal">
+                <div class="panel-heading panel-heading-principal">
                     <h3 class="panel-title"><?= Html::encode($title) ?></h3>
                 </div>
                 <div class="panel-body">

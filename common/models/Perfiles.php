@@ -160,16 +160,17 @@ class Perfiles extends \yii\db\ActiveRecord
 
         $id = Yii::$app->user->id;
         $ruta = Yii::getAlias('@avatar/') . $id . '.' . $this->foto->extension;
+        $rutaS3 = Yii::getAlias('@avatar_s3/') . $id . '.' . $this->foto->extension;
         $res = $this->foto->saveAs($ruta);
         if ($res) {
             Image::thumbnail($ruta, 300, 300)->save($ruta, ['quality' => 80]);
             $s3 = Yii::$app->get('s3');
             foreach ($this->extensions as $ext) {
-                $rutaS3 = 'avatar/' . $id . '.' . $ext;
-                $s3->delete($rutaS3);
+                $rutaTemp = Yii::getAlias('@avatar_s3/') . $id . '.' . $ext;
+                $s3->delete($rutaTemp);
             }
             try {
-                $s3->upload($ruta, $ruta);
+                $s3->upload($rutaS3, $ruta);
             } catch (Exception $e) {
                 return false;
             }
@@ -190,18 +191,20 @@ class Perfiles extends \yii\db\ActiveRecord
         $s3 = Yii::$app->get('s3');
 
         foreach ($this->extensions as $ext) {
-            $rutaExacta = 'avatar/' . $id . '.' . $ext;
-            if (file_exists($rutaExacta)) {
-                return $rutaExacta;
+            $ruta = 'avatar/' . $id . '.' . $ext;
+            $rutaS3 = Yii::getAlias('@avatar_s3/') . $id . '.' . $ext;
+
+            if (file_exists($ruta)) {
+                return '/' . $ruta;
             }
-            if ($s3->exist($rutaExacta)) {
-                $foto = file_get_contents($s3->getUrl($rutaExacta) . '?t=' . date('d-m-Y-H:i:s'));
-                $archivo = fopen($rutaExacta, 'a');
+            if ($s3->exist($rutaS3)) {
+                $foto = file_get_contents($s3->getUrl($rutaS3) . '?t=' . date('d-m-Y-H:i:s'));
+                $archivo = fopen($ruta, 'a');
                 fwrite($archivo, $foto);
-                return $rutaExacta;
+                return '/' . $ruta;
             }
         }
-        return Yii::getAlias('@avatar/0.png');
+        return Yii::getAlias('/avatar/0.png');
     }
 
     /**

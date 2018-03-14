@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $title;
 <div class="site-login">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="panel panel-primary panel-principal">
+                <div class="panel-heading panel-heading-principal">
                     <h3 class="panel-title"><?= Html::encode($title) ?></h3>
                 </div>
                 <div class="panel-body">
@@ -42,12 +42,12 @@ $this->params['breadcrumbs'][] = $title;
                     <div class="form-group">
                         <?= Html::submitButton('Iniciar sesión', ['class' => 'btn btn-block btn-primary', 'name' => 'login-button']) ?>
                     </div>
-
+                    <hr>
+                    <div class="text-center">
+                        <?= Html::a('¿No ha recibido el email de confirmación?', ['site/request-active-email']) ?>
+                    </div>
                     <?php ActiveForm::end(); ?>
                 </div>
-            </div>
-            <div class="text-center">
-                <?= Html::a('¿No ha recibido el email de confirmación?', ['site/request-active-email']) ?>
             </div>
         </div>
     </div>

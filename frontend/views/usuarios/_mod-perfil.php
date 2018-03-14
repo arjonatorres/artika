@@ -13,11 +13,19 @@ use dosamigos\google\maps\Map;
 use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
+$css = <<<EOT
+    .mapa {
+        border: 1px solid #CCC;
+    }
+EOT;
+
+$this->registerCss($css);
+
 $js = <<<EOT
-function enviar(cadena) {
-    $('#perfiles-localizacion').val(cadena);
-    $('#perfil-form').submit();
-}
+    function enviar(cadena) {
+        $('#perfiles-localizacion').val(cadena);
+        $('#perfil-form').submit();
+    }
     $('#guardar').on('click', function (e) {
         e.preventDefault();
         var dir = $('#perfiles-direccion').val();
@@ -42,8 +50,8 @@ EOT;
 $this->registerJs($js);
 
 ?>
-<div class="panel panel-primary">
-    <div class="panel-heading">
+<div class="panel panel-primary panel-principal">
+    <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración del perfil</h3>
     </div>
     <div class="panel-body">
@@ -122,6 +130,9 @@ $this->registerJs($js);
                         'zoom' => $zoom,
                         'width' => '100%',
                         'height' => 256,
+                        'containerOptions' => [
+                            'class' => 'mapa',
+                        ],
                     ]);
                     if (isset($marker)) {
                         $map->addOverlay($marker);
@@ -144,7 +155,7 @@ $this->registerJs($js);
                     'showOn' => 'both',
                     'changeYear' => true,
                     'changeMonth' => true,
-                    'buttonImage' => 'imagenes/calendar.png',
+                    'buttonImage' => '/imagenes/calendar.png',
                 ]
                 ]) ?>
 
