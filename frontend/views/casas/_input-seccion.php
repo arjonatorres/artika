@@ -7,7 +7,7 @@ use yii\bootstrap\ActiveForm;
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-seccion';
 
-$urlCrearSeccion = Url::to(['casas/crear-seccion-ajax']);
+$urlCrearSeccionAjax = Url::to(['casas/crear-seccion-ajax']);
 $urlModificarSeccionAjax = Url::to(['casas/modificar-seccion-ajax']);
 $urlSecciones = Url::to(['casas/crear-seccion']);
 
@@ -73,13 +73,20 @@ EOL;
     $js .= <<<EOL
     $('#seccion-form').on('beforeSubmit', function () {
         $.ajax({
-            url: '$urlCrearSeccion',
+            url: '$urlCrearSeccionAjax',
             type: 'POST',
             data: {
                 'Secciones[nombre]': $('#seccion-form').yiiActiveForm('find', 'secciones-nombre').value
             },
             success: function (data) {
-                $('#menu-casa-usuario').html(data);
+                $('#menu-casa-usuario').find('.panel-body-principal').append(data);
+                var it = $('#menu-casa-usuario').find('.panel-seccion').last();
+                it.hide();
+                it.css({opacity: 0.0})
+                it.slideDown(300).animate({opacity: 1.0}, 300);
+                $('#secciones-nombre').val('');
+                mostrarNumero();
+                funcionalidadBotones();
             }
         });
         return false;
