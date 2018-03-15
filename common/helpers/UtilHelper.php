@@ -32,27 +32,25 @@ class UtilHelper
                 'class' => 'menu-item-principal',
             ],
         ];
-
-        return '<div class="text-center">'
-            . UtilHelper::glyphicon($icon)
-            . '</div>'
-            . '<div class="text-center">'
-            . $texto
-            . '</div>';
     }
 
     /**
      * Crea un icono de Bootstrap.
-     * @param  string $icon  Nombre del icono de Bootstrap
-     * @param  string $class Nombre de la clase a añadir
-     * @return string        La etiqueta span con el icono de Bootstrap.
+     * @param  string $icon   Nombre del icono de Bootstrap
+     * @param  array $options Array de opciones del icono
+     * @return string         La etiqueta span con el icono de Bootstrap.
      */
-    public static function glyphicon(string $icon, string $class = '')
+    public static function glyphicon(string $icon, array $options = [])
     {
+        if (isset($options['class'])) {
+            $options ['class'] .= " glyphicon glyphicon-$icon";
+        } else {
+            $options ['class'] = "glyphicon glyphicon-$icon";
+        }
         return Html::tag(
             'span',
             '',
-            ['class' => "glyphicon glyphicon-$icon $class"]
+            $options
         );
     }
 
@@ -83,5 +81,44 @@ class UtilHelper
             $cadena = mb_substr($cadena, 0, 30) . '...';
         }
         return $cadena;
+    }
+
+    public static function itemMenuCasa($id, $nombre)
+    {
+        return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
+            . '<div class="panel panel-default">'
+                . '<div class="panel-heading" role="tab">'
+                    . '<h4 class="panel-title">'
+                        . "<a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"false\" aria-controls=\"p$id-collapse$id\">"
+                        . UtilHelper::glyphicon(
+                            'chevron-right',
+                            ['class' => 'chev icon-xs d']
+                        )
+                        . Html::encode($nombre)
+                        . '</a>'
+                        . Html::a(
+                            UtilHelper::glyphicon(
+                                'remove',
+                                ['class' => 'icon-sm i']
+                            ),
+                            ['casas/borrar-seccion'],
+                            ['class' => 'boton-borrar icon-derecha']
+                        )
+                        . Html::a(
+                            UtilHelper::glyphicon(
+                                'pencil',
+                                ['class' => 'icon-sm d']
+                            ),
+                            ['casas/modificar-seccion'],
+                            ['class' => 'boton-editar icon-derecha']
+                        )
+                    . '</h4>'
+                . '</div>'
+                . "<div id=\"p$id-collapse<$id\" class=\"panel-collapse collapse\" role=\"tabpanel\">"
+                    . '<ul class="list-group">'
+                    . '</ul>'
+                . '</div>'
+            . '</div>'
+        . '</div>';
     }
 }

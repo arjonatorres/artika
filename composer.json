@@ -24,7 +24,8 @@
         "yiisoft/yii2-imagine": "^2.1",
         "frostealth/yii2-aws-s3": "~2.0",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "2amigos/yii2-google-maps-library": "*"
+        "2amigos/yii2-google-maps-library": "*",
+        "kartik-v/yii2-dialog": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -6,12 +6,39 @@ use Yii;
 
 use yii\web\Response;
 
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 use yii\widgets\ActiveForm;
 
 use common\models\Secciones;
 
 class CasasController extends \yii\web\Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'borrar-seccion' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Muestra la casa con sus secciones y habitaciones
      * @return mixed
@@ -86,7 +113,10 @@ class CasasController extends \yii\web\Controller
             return $this->goHome();
         }
 
-        $model = Secciones::findOne(['id' => $id]);
+        $model = Secciones::findOne([
+            'id' => $id,
+            'usuario_id' => Yii::$app->user->id,
+        ]);
 
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -108,7 +138,10 @@ class CasasController extends \yii\web\Controller
             return $this->goHome();
         }
 
-        $model = Secciones::findOne(['id' => $id]);
+        $model = Secciones::findOne([
+            'id' => $id,
+            'usuario_id' => Yii::$app->user->id,
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && ($model->save())) {
             $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
@@ -120,5 +153,24 @@ class CasasController extends \yii\web\Controller
         return $this->renderAjax('_editar-seccion', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Borra una sección existente
+     * @param  int $id El id de la sección a borrar
+     * @return bool    Si ha podido borrarse o no
+     */
+    public function actionBorrarSeccion($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Secciones::findOne([
+            'id' => $id,
+            'usuario_id' => Yii::$app->user->id,
+        ]);
+
+        return $model->delete();
     }
 }

@@ -2,21 +2,63 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use kartik\dialog\Dialog;
 
 use common\helpers\UtilHelper;
+?>
+<?= Dialog::widget([
+    'dialogDefaults' => [
+        'alert' => [
+            'title' => 'Información',
+        ],
+        'confirm' => [
+            'type' => Dialog::TYPE_DANGER,
+            'title' => 'Confirmación',
+            'btnOKClass' => 'btn-danger',
+            'btnOKLabel' => '<span class="glyphicon glyphicon-remove"></span> ' . 'Borrar',
+            'btnCancelLabel' => '<span class="' . Dialog::ICON_CANCEL . '"></span> ' . 'Cancelar'
+        ],
+    ],
+]); ?>
+
+<?php
 
 $urlModificarSeccion = Url::to(['casas/modificar-seccion']);
 $js = <<<EOL
-    $('.icon-derecha').on('click', function (e) {
+    $('.boton-borrar').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var seccionId =$(this).data('id');
+        var enlace = $(this);
+        var panelPropio = enlace.closest('.panel-seccion');
+        var seccionId = panelPropio.data('id');
+        var nombre = (enlace.closest('h4').text()).trim();
+        krajeeDialog.confirm('¿Estás seguro que quieres borrar la sección "'
+            + nombre +
+            '" y todo el contenido que tiene dentro?', function (result) {
+            if (result) {
+                $.ajax({
+                    url: enlace.attr('href') + '?id=' + seccionId,
+                    type: 'POST',
+                    data: {},
+                    success: function(data) {
+                        if (data) {
+                            panelPropio.remove();
+                        } else {
+                            krajeeDialog.alert('No se ha podido borrar la sección.');
+                        }
+                    }
+                });
+            }
+        });
+    });
+    $('.boton-editar').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var seccionId = $(this).closest('.panel-seccion').data('id');
         $.ajax({
-            url: '$urlModificarSeccion',
+            url: $(this).attr('href') + '?id=' + seccionId,
             type: 'GET',
-            data: {
-                id: seccionId
-            },
+            data: {},
             success: function(data) {
                 $('#casa-usuario').html(data);
             }
@@ -32,26 +74,7 @@ $this->registerJs($js);
     </div>
     <div class="panel-body panel-body-principal">
         <?php foreach ($secciones as $key => $seccion): ?>
-            <div id="p<?= $key ?>" class="panel-seccion panel-group" role="tablist">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#p<?= $key ?>" href="#p<?= $key ?>-collapse<?= $key ?>" aria-expanded="false" aria-controls="p<?= $key ?>-collapse<?= $key ?>">
-                              <?= UtilHelper::glyphicon('chevron-right', 'icon-xs d') ?>
-                              <?= Html::encode($seccion->nombre) ?>
-                              <span data-id="<?= $seccion->id ?>" class="text-right icon-derecha">
-                                  <?= UtilHelper::glyphicon('pencil', 'icon-sm') ?>
-                              </span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="p<?= $key ?>-collapse<?= $key ?>" class="panel-collapse collapse" role="tabpanel">
-                        <ul class="list-group">
-                            <!-- <li class="list-group-item"></li> -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?= UtilHelper::itemMenuCasa($seccion->id, $seccion->nombre) ?>
         <?php endforeach ?>
     </div>
 </div>
