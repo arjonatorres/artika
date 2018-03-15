@@ -21,7 +21,7 @@ class UtilHelper
     {
         return [
             'label' =>  '<div class="text-center">'
-                . UtilHelper::glyphicon($icon)
+                . self::glyphicon($icon)
                 . '</div>'
                 . '<div class="text-center">'
                 . $texto
@@ -83,6 +83,12 @@ class UtilHelper
         return $cadena;
     }
 
+    /**
+     * Devuelve un item de una sección del menú de la casa
+     * @param  int    $id     El id de la sección
+     * @param  string $nombre El nombre de la sección
+     * @return string         El item
+     */
     public static function itemMenuCasa($id, $nombre)
     {
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
@@ -90,14 +96,14 @@ class UtilHelper
                 . '<div class="panel-heading" role="tab">'
                     . '<h4 class="panel-title">'
                         . "<a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"false\" aria-controls=\"p$id-collapse$id\">"
-                        . UtilHelper::glyphicon(
+                        . self::glyphicon(
                             'chevron-right',
                             ['class' => 'chev icon-xs d']
                         )
                         . Html::encode($nombre)
                         . '</a>'
                         . Html::a(
-                            UtilHelper::glyphicon(
+                            self::glyphicon(
                                 'remove',
                                 ['class' => 'icon-sm i']
                             ),
@@ -105,7 +111,7 @@ class UtilHelper
                             ['class' => 'boton-borrar icon-derecha']
                         )
                         . Html::a(
-                            UtilHelper::glyphicon(
+                            self::glyphicon(
                                 'pencil',
                                 ['class' => 'icon-sm d']
                             ),
@@ -114,7 +120,7 @@ class UtilHelper
                         )
                     . '</h4>'
                 . '</div>'
-                . "<div id=\"p$id-collapse<$id\" class=\"panel-collapse collapse\" role=\"tabpanel\">"
+                . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse\" role=\"tabpanel\">"
                     . '<ul class="list-group">'
                     . '</ul>'
                 . '</div>'

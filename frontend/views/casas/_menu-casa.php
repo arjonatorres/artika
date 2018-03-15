@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
 use kartik\dialog\Dialog;
 
 use common\helpers\UtilHelper;
@@ -23,47 +21,53 @@ use common\helpers\UtilHelper;
 
 <?php
 
-$urlModificarSeccion = Url::to(['casas/modificar-seccion']);
 $js = <<<EOL
-    $('.boton-borrar').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var enlace = $(this);
-        var panelPropio = enlace.closest('.panel-seccion');
-        var seccionId = panelPropio.data('id');
-        var nombre = (enlace.closest('h4').text()).trim();
-        krajeeDialog.confirm('¿Estás seguro que quieres borrar la sección "'
+    function funcionalidadBotones() {
+        $('.boton-borrar').off();
+        $('.boton-borrar').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var enlace = $(this);
+            var panelPropio = enlace.closest('.panel-seccion');
+            var seccionId = panelPropio.data('id');
+            var nombre = (enlace.closest('h4').text()).trim();
+            krajeeDialog.confirm('¿Estás seguro que quieres borrar la sección "'
             + nombre +
             '" y todo el contenido que tiene dentro?', function (result) {
-            if (result) {
-                $.ajax({
-                    url: enlace.attr('href') + '?id=' + seccionId,
-                    type: 'POST',
-                    data: {},
+                if (result) {
+                    $.ajax({
+                        url: enlace.attr('href') + '?id=' + seccionId,
+                        type: 'POST',
+                        data: {},
+                            success: function(data) {
+                                if (data) {
+                                    panelPropio.animate({opacity: 0.0}, 300).slideUp(300, function() {
+                                        panelPropio.remove();
+                                    });
+                                } else {
+                                    krajeeDialog.alert('No se ha podido borrar la sección.');
+                                }
+                            }
+                    });
+                }
+            });
+        });
+        $('.boton-editar').off();
+        $('.boton-editar').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var seccionId = $(this).closest('.panel-seccion').data('id');
+            $.ajax({
+                url: $(this).attr('href') + '?id=' + seccionId,
+                type: 'GET',
+                data: {},
                     success: function(data) {
-                        if (data) {
-                            panelPropio.remove();
-                        } else {
-                            krajeeDialog.alert('No se ha podido borrar la sección.');
-                        }
+                        $('#casa-usuario').html(data);
                     }
-                });
-            }
+            });
         });
-    });
-    $('.boton-editar').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var seccionId = $(this).closest('.panel-seccion').data('id');
-        $.ajax({
-            url: $(this).attr('href') + '?id=' + seccionId,
-            type: 'GET',
-            data: {},
-            success: function(data) {
-                $('#casa-usuario').html(data);
-            }
-        });
-    });
+    }
+    funcionalidadBotones();
 EOL;
 
 $this->registerJs($js);

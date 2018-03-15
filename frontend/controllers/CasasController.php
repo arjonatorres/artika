@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 
 use common\models\Secciones;
 
+use common\helpers\UtilHelper;
+
 class CasasController extends \yii\web\Controller
 {
     /**
@@ -96,10 +98,9 @@ class CasasController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
             ->orderBy('id')->all();
-            return $this->renderAjax('_menu-casa', [
-                'secciones' => $secciones,
-            ]);
+            return UtilHelper::itemMenuCasa($model->id, $model->nombre);
         }
+        return;
     }
 
     /**
