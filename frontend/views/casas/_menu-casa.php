@@ -41,7 +41,7 @@ $js = <<<EOL
                         data: {},
                             success: function(data) {
                                 if (data) {
-                                    panelPropio.animate({opacity: 0.0}, 300).slideUp(300, function() {
+                                    panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
                                         panelPropio.remove();
                                     });
                                 } else {
@@ -74,7 +74,7 @@ $this->registerJs($js);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
-        <h3 class="panel-title">Casa</h3>
+        <h3 class="panel-title"><?= UtilHelper::glyphicon('home', ['class' => 'icon-sm']) ?> Casa</h3>
     </div>
     <div class="panel-body panel-body-principal">
         <?php foreach ($secciones as $key => $seccion): ?>

@@ -1,4 +1,6 @@
 <?php
+use common\helpers\UtilHelper;
+
 
 $title = 'Secciones';
 $this->params['breadcrumbs'][] = $title;
@@ -6,7 +8,10 @@ $this->params['breadcrumbs'][] = $title;
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
-        <h3 class="panel-title">Añadir sección a la casa</h3>
+        <h3 class="panel-title">
+            <?= UtilHelper::glyphicon('th-large', ['class' => 'icon-sm']) ?>
+             Añadir sección a la casa
+         </h3>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -23,9 +28,15 @@ $this->params['breadcrumbs'][] = $title;
             </div>
         </div>
         <hr>
-            <?= $this->render('_input-seccion', [
-                    'model' => $model,
-                ]);
-            ?>
+        <?= $this->render('_input-seccion', [
+                'model' => $model,
+            ]);
+        ?>
+        <hr>
+        <?= $this->render('_input-habitacion', [
+                'modelHab' => $modelHab,
+                'secciones' => $secciones,
+            ]);
+        ?>
     </div>
 </div>

@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 
 use common\models\Secciones;
+use common\models\Habitaciones;
 
 use common\helpers\UtilHelper;
 
@@ -47,7 +48,8 @@ class CasasController extends \yii\web\Controller
      */
     public function actionMiCasa()
     {
-        $secciones = Yii::$app->user->identity->secciones;
+        $usuario = Yii::$app->user->identity;
+        $secciones = $usuario->secciones;
         return $this->render('index', [
             'secciones' => $secciones,
             'model' => [],
@@ -63,7 +65,13 @@ class CasasController extends \yii\web\Controller
         $model = new Secciones([
             'usuario_id' => Yii::$app->user->id,
         ]);
-        $secciones = Yii::$app->user->identity->getSecciones()->orderBy('id')->all();
+        $modelHab = new Habitaciones();
+        $usuario = Yii::$app->user->identity;
+        $secciones = $usuario->getSecciones()->orderBy('id')->all();
+
+        if ($modelHab->load(Yii::$app->request->post()) && $modelHab->save()) {
+            return $this->redirect(['casas/crear-seccion']);
+        }
 
         if (Yii::$app->request->isAjax) {
             if ($model->load(Yii::$app->request->post())) {
@@ -71,12 +79,15 @@ class CasasController extends \yii\web\Controller
                 return ActiveForm::validate($model);
             } else {
                 return $this->renderAjax('_crear-seccion', [
+                    'secciones' => $secciones,
+                    'modelHab' => $modelHab,
                     'model' => $model,
                 ]);
             }
         } else {
             return $this->render('index', [
                 'secciones' => $secciones,
+                'modelHab' => $modelHab,
                 'model' => $model,
             ]);
         }
@@ -147,13 +158,9 @@ class CasasController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post()) && ($model->save())) {
             $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
             ->orderBy('id')->all();
-            return $this->renderAjax('_menu-casa', [
-                'secciones' => $secciones,
-            ]);
+            return $model->nombre;
         }
-        return $this->renderAjax('_editar-seccion', [
-            'model' => $model,
-        ]);
+        return;
     }
 
     /**

@@ -100,7 +100,7 @@ class UtilHelper
                             'chevron-right',
                             ['class' => 'chev icon-xs d']
                         )
-                        . Html::encode($nombre)
+                        . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
                         . '</a>'
                         . Html::a(
                             self::glyphicon(

@@ -62,7 +62,13 @@ if ($esMod) {
                 'Secciones[nombre]': $('#seccion-form').yiiActiveForm('find', 'secciones-nombre').value
             },
             success: function (data) {
-                $('#menu-casa-usuario').html(data);
+                if (data) {
+                    var it = $('#it$model->id');
+                    it.fadeOut(400, function() {
+                        it.text(data);
+                        it.hide();
+                    }).fadeIn(400);
+                }
                 volverCrearSeccion();
             }
         });
@@ -81,10 +87,13 @@ EOL;
             success: function (data) {
                 $('#menu-casa-usuario').find('.panel-body-principal').append(data);
                 var it = $('#menu-casa-usuario').find('.panel-seccion').last();
+                var padre = $('#secciones-nombre');
                 it.hide();
                 it.css({opacity: 0.0})
-                it.slideDown(300).animate({opacity: 1.0}, 300);
-                $('#secciones-nombre').val('');
+                it.slideDown(400).animate({opacity: 1.0}, 400);
+                padre.val('');
+                padre.parent().removeClass('has-success');
+                $('#lista').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
                 mostrarNumero();
                 funcionalidadBotones();
             }
@@ -110,29 +119,31 @@ $this->registerJs($js);
             'id' => 'seccion-form',
         ]);
         ?>
-        <?= $form->field($model, 'nombre', [
-            'enableAjaxValidation' => true,
-            'validateOnChange' => false,
-            'validateOnBlur' => false,
-        ])
-        ->textInput([
-            'maxlength' => 20,
-            'style'=>'width: 35%; display: inline; margin-right: 10px;',
-        ])
-        ->label('Nombre de la sección', [
-            'style' => 'display: block',
-            ]) ?>
-        <div class="form-group">
-            <?= Html::submitButton($esMod ? 'Modificar' : 'Añadir', [
-                'class' => 'btn btn-success',
-                'id' => 'guardar-button'
+        <div class="col-md-6" style="padding-left: 0px;">
+            <?= $form->field($model, 'nombre', [
+                'enableAjaxValidation' => true,
+                'validateOnChange' => false,
+                'validateOnBlur' => false,
+            ])
+            ->textInput([
+                'maxlength' => 20,
+                'style'=>'width: 80%; display: inline; margin-right: 10px;',
+            ])
+            ->label('Nombre de la sección', [
+                'style' => 'display: block',
                 ]) ?>
-            <?php if ($esMod): ?>
-                <?= Html::button('Cancelar', [
-                    'class' => 'btn btn-danger',
-                    'id' => 'cancelar-button',
-                ]) ?>
-            <?php endif ?>
+                <div class="form-group">
+                    <?= Html::submitButton($esMod ? 'Modificar' : 'Añadir', [
+                        'class' => 'btn btn-success',
+                        'id' => 'guardar-button'
+                        ]) ?>
+                        <?php if ($esMod): ?>
+                            <?= Html::button('Cancelar', [
+                                'class' => 'btn btn-danger',
+                                'id' => 'cancelar-button',
+                                ]) ?>
+                            <?php endif ?>
+                        </div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
