@@ -1,5 +1,7 @@
 <?php
 
+use yii\web\View;
+
 use kartik\dialog\Dialog;
 
 use common\helpers\UtilHelper;
@@ -22,6 +24,20 @@ use common\helpers\UtilHelper;
 <?php
 
 $js = <<<EOL
+    function chevIcon(elem) {
+        var derecha = 'glyphicon-chevron-right';
+        var abajo = 'glyphicon-chevron-down';
+        if (elem.hasClass(derecha)) {
+            elem.removeClass(derecha);
+            elem.addClass(abajo);
+        } else {
+            elem.removeClass(abajo);
+            elem.addClass(derecha);
+        }
+    }
+    $('.panel-seccion').find('a[data-toggle="collapse"]').on('click', function () {
+        chevIcon($(this).find('.chev'));
+    });
     function funcionalidadBotones() {
         $('.boton-borrar').off();
         $('.boton-borrar').on('click', function (e) {
@@ -41,9 +57,11 @@ $js = <<<EOL
                         data: {},
                             success: function(data) {
                                 if (data) {
+                                    var idPropio = panelPropio.data('id');
                                     panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
                                         panelPropio.remove();
                                     });
+                                    $('#lista').find('option[value="' + idPropio + '"]').remove();
                                 } else {
                                     krajeeDialog.alert('No se ha podido borrar la sección.');
                                 }
@@ -70,7 +88,7 @@ $js = <<<EOL
     funcionalidadBotones();
 EOL;
 
-$this->registerJs($js);
+$this->registerJs($js, View::POS_END);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
@@ -78,7 +96,7 @@ $this->registerJs($js);
     </div>
     <div class="panel-body panel-body-principal">
         <?php foreach ($secciones as $key => $seccion): ?>
-            <?= UtilHelper::itemMenuCasa($seccion->id, $seccion->nombre) ?>
+            <?= UtilHelper::itemMenuCasa($seccion) ?>
         <?php endforeach ?>
     </div>
 </div>

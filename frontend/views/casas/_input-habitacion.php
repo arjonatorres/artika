@@ -14,7 +14,7 @@ $esMod = false;
 // $accion = Yii::$app->controller->action->id;
 // $esMod = $accion === 'modificar-seccion';
 //
-// $urlCrearSeccionAjax = Url::to(['casas/crear-seccion-ajax']);
+$urlCrearHabitacionAjax = Url::to(['casas/crear-habitacion-ajax']);
 // $urlModificarSeccionAjax = Url::to(['casas/modificar-seccion-ajax']);
 // $urlSecciones = Url::to(['casas/crear-seccion']);
 //
@@ -83,30 +83,38 @@ EOL;
 //     });
 // EOL;
 // } else {
-//     $js .= <<<EOL
-//     $('#seccion-form').on('beforeSubmit', function () {
-//         $.ajax({
-//             url: '$urlCrearSeccionAjax',
-//             type: 'POST',
-//             data: {
-//                 'Secciones[nombre]': $('#seccion-form').yiiActiveForm('find', 'secciones-nombre').value
-//             },
-//             success: function (data) {
-//                 $('#menu-casa-usuario').find('.panel-body-principal').append(data);
-//                 var it = $('#menu-casa-usuario').find('.panel-seccion').last();
-//                 var padre = $('#secciones-nombre');
-//                 it.hide();
-//                 it.css({opacity: 0.0})
-//                 it.slideDown(400).animate({opacity: 1.0}, 400);
-//                 padre.val('');
-//                 padre.parent().removeClass('has-success');
-//                 mostrarNumero();
-//                 funcionalidadBotones();
-//             }
-//         });
-//         return false;
-//     });
-// EOL;
+$js .= <<<EOL
+$('#habitacion-form').on('beforeSubmit', function () {
+    var idSeccion = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-seccion_id').value;
+    $.ajax({
+        url: '$urlCrearHabitacionAjax',
+        type: 'POST',
+        data: {
+            'Habitaciones[nombre]': $('#habitacion-form').yiiActiveForm('find', 'habitaciones-nombre').value,
+            'Habitaciones[seccion_id]': idSeccion
+        },
+        success: function (data) {
+            if (data) {
+                var elem = $('#p' + idSeccion);
+                if (elem.find('.collapsed').length == 1) {
+                    elem.find('a[data-toggle="collapse"]').trigger('click');
+                }
+                it = $('#p' + idSeccion + '-collapse' + idSeccion).find('.list-group');
+                it.append(data);
+                it = it.find('.list-group-item').last();
+                it.hide();
+                it.css({opacity: 0.0})
+                it.slideDown(400).animate({opacity: 1.0}, 400);
+                var padre = $('#habitaciones-nombre');
+                padre.val('');
+                padre.parent().removeClass('has-success');
+                mostrarNumeroHab();
+            }
+        }
+    });
+    return false;
+});
+EOL;
 // }
 $this->registerJs($js);
 
@@ -127,9 +135,9 @@ $this->registerJs($js);
         ?>
         <div class="col-md-6" style="padding-left: 0px;">
             <?= $form->field($modelHab, 'nombre', [
-                // 'enableAjaxValidation' => true,
-                // 'validateOnChange' => false,
-                // 'validateOnBlur' => false,
+                'enableAjaxValidation' => true,
+                'validateOnChange' => false,
+                'validateOnBlur' => false,
                 ])->textInput([
                     'maxlength' => 20,
                     'style'=>'width: 80%; display: inline; margin-right: 10px;',

@@ -69,14 +69,13 @@ class CasasController extends \yii\web\Controller
         $usuario = Yii::$app->user->identity;
         $secciones = $usuario->getSecciones()->orderBy('id')->all();
 
-        if ($modelHab->load(Yii::$app->request->post()) && $modelHab->save()) {
-            return $this->redirect(['casas/crear-seccion']);
-        }
-
         if (Yii::$app->request->isAjax) {
             if ($model->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
+            } elseif ($modelHab->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($modelHab);
             } else {
                 return $this->renderAjax('_crear-seccion', [
                     'secciones' => $secciones,
@@ -109,7 +108,24 @@ class CasasController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
             ->orderBy('id')->all();
-            return UtilHelper::itemMenuCasa($model->id, $model->nombre);
+            return UtilHelper::itemMenuCasa($model);
+        }
+        return;
+    }
+
+    /**
+     * Crea una habitación de la casa vía Ajax
+     * @return mixed
+     */
+    public function actionCrearHabitacionAjax()
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+        $model = new Habitaciones();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return UtilHelper::itemHabCasa($model->nombre);
         }
         return;
     }

@@ -85,17 +85,19 @@ EOL;
                 'Secciones[nombre]': $('#seccion-form').yiiActiveForm('find', 'secciones-nombre').value
             },
             success: function (data) {
-                $('#menu-casa-usuario').find('.panel-body-principal').append(data);
-                var it = $('#menu-casa-usuario').find('.panel-seccion').last();
-                var padre = $('#secciones-nombre');
-                it.hide();
-                it.css({opacity: 0.0})
-                it.slideDown(400).animate({opacity: 1.0}, 400);
-                padre.val('');
-                padre.parent().removeClass('has-success');
-                $('#lista').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
-                mostrarNumero();
-                funcionalidadBotones();
+                if (data) {
+                    $('#menu-casa-usuario').find('.panel-body-principal').append(data);
+                    var it = $('#menu-casa-usuario').find('.panel-seccion').last();
+                    var padre = $('#secciones-nombre');
+                    it.hide();
+                    it.css({opacity: 0.0})
+                    it.slideDown(400).animate({opacity: 1.0}, 400);
+                    padre.val('');
+                    padre.parent().removeClass('has-success');
+                    $('#lista').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
+                    mostrarNumero();
+                    funcionalidadBotones();
+                }
             }
         });
         return false;
