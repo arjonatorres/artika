@@ -85,22 +85,27 @@ class UtilHelper
 
     /**
      * Devuelve un item de una sección del menú de la casa
-     * @param  int    $id     El id de la sección
-     * @param  string $nombre El nombre de la sección
-     * @return string         El item
+     * @param  array  $seccion El array con todas las secciones
+     * @return string          El item
      */
-    public static function itemMenuCasa($id, $nombre)
+    public static function itemMenuCasa($seccion)
     {
+        $id = $seccion->id;
+        $nombre = $seccion->nombre;
+        $habitaciones = '';
+        foreach ($seccion->habitaciones as $hab) {
+            $habitaciones .= self::itemHabCasa($hab);
+        }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
             . '<div class="panel panel-default">'
                 . '<div class="panel-heading" role="tab">'
                     . '<h4 class="panel-title">'
-                        . "<a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"false\" aria-controls=\"p$id-collapse$id\">"
+                        . "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"true\" aria-controls=\"p$id-collapse$id\">"
                         . self::glyphicon(
-                            'chevron-right',
+                            'chevron-down',
                             ['class' => 'chev icon-xs d']
                         )
-                        . Html::encode($nombre)
+                        . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
                         . '</a>'
                         . Html::a(
                             self::glyphicon(
@@ -120,11 +125,27 @@ class UtilHelper
                         )
                     . '</h4>'
                 . '</div>'
-                . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse\" role=\"tabpanel\">"
+                . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse in\" role=\"tabpanel\">"
                     . '<ul class="list-group">'
+                    . $habitaciones
                     . '</ul>'
                 . '</div>'
             . '</div>'
         . '</div>';
+    }
+
+    /**
+     * Devuelve un item de una habitación para el menú
+     * @param  string $hab La habitación
+     * @return string      El item de la habitación
+     */
+    public static function itemHabCasa($hab)
+    {
+        return '<li class="icono-nombre list-group-item">'
+        . Html::img("/imagenes/iconos/{$hab->icono_id}.png", [
+            'class' => 'img-xs img-circle',
+        ])
+        . ' ' . $hab->nombre
+        . '</li>';
     }
 }

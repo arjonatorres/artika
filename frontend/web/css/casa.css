@@ -34,3 +34,15 @@
 .icon-derecha {
     float: right;
 }
+
+.lista-iconos {
+    margin: 20px;
+}
+
+.icono-nombre {
+    padding: 7px 15px;
+}
+
+.img-xs {
+    margin-right: 4px;
+}

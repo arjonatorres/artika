@@ -182,6 +182,10 @@ a.desc:after {
     outline: none;
 }
 
+.img-xs {
+    height: 26px;
+}
+
 .img-sm {
     height: 32px;
 }

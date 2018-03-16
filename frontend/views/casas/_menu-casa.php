@@ -1,5 +1,7 @@
 <?php
 
+use yii\web\View;
+
 use kartik\dialog\Dialog;
 
 use common\helpers\UtilHelper;
@@ -23,6 +25,22 @@ use common\helpers\UtilHelper;
 
 $js = <<<EOL
     function funcionalidadBotones() {
+        function chevIcon(elem) {
+            var derecha = 'glyphicon-chevron-right';
+            var abajo = 'glyphicon-chevron-down';
+            if (elem.hasClass(derecha)) {
+                elem.removeClass(derecha);
+                elem.addClass(abajo);
+            } else {
+                elem.removeClass(abajo);
+                elem.addClass(derecha);
+            }
+        }
+        $('.panel-seccion').find('a[data-toggle="collapse"]').off('click');
+        $('.panel-seccion').find('a[data-toggle="collapse"]').on('click', function () {
+            chevIcon($(this).find('.chev'));
+        });
+
         $('.boton-borrar').off();
         $('.boton-borrar').on('click', function (e) {
             e.preventDefault();
@@ -41,9 +59,11 @@ $js = <<<EOL
                         data: {},
                             success: function(data) {
                                 if (data) {
-                                    panelPropio.animate({opacity: 0.0}, 300).slideUp(300, function() {
+                                    var idPropio = panelPropio.data('id');
+                                    panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
                                         panelPropio.remove();
                                     });
+                                    $('#lista').find('option[value="' + idPropio + '"]').remove();
                                 } else {
                                     krajeeDialog.alert('No se ha podido borrar la sección.');
                                 }
@@ -70,15 +90,15 @@ $js = <<<EOL
     funcionalidadBotones();
 EOL;
 
-$this->registerJs($js);
+$this->registerJs($js, View::POS_END);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
-        <h3 class="panel-title">Casa</h3>
+        <h3 class="panel-title"><?= UtilHelper::glyphicon('home', ['class' => 'icon-sm']) ?> Casa</h3>
     </div>
     <div class="panel-body panel-body-principal">
         <?php foreach ($secciones as $key => $seccion): ?>
-            <?= UtilHelper::itemMenuCasa($seccion->id, $seccion->nombre) ?>
+            <?= UtilHelper::itemMenuCasa($seccion) ?>
         <?php endforeach ?>
     </div>
 </div>

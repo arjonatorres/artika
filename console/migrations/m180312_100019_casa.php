@@ -20,10 +20,28 @@ class m180312_100019_casa extends Migration
         ]);
 
         $this->addForeignKey(
-            'fk_secciones_usuarios_id',
+            'fk_secciones_usuarios',
             'secciones',
             'usuario_id',
             'usuarios',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->createTable('habitaciones', [
+            'id' => $this->bigPrimaryKey(),
+            'nombre' => $this->string(20)->notNull(),
+            'seccion_id' => $this->bigInteger()->notNull(),
+            'icono_id' => $this->integer()->notNull()->defaultValue(1),
+            'UNIQUE (nombre, seccion_id)',
+        ]);
+
+        $this->addForeignKey(
+            'fk_habitaciones_secciones',
+            'habitaciones',
+            'seccion_id',
+            'secciones',
             'id',
             'CASCADE',
             'CASCADE'
@@ -35,21 +53,7 @@ class m180312_100019_casa extends Migration
      */
     public function safeDown()
     {
+        $this->dropTable('habitaciones');
         $this->dropTable('secciones');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m180312_100019_casa cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

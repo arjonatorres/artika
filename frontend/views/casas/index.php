@@ -26,6 +26,8 @@ $accion = Yii::$app->controller->action->id;
         <div id="casa-usuario" class="col-md-9">
             <?= $this->render("_$accion", [
                 'model' => $model,
+                'modelHab' => isset($modelHab) ? $modelHab: '',
+                'secciones' => $secciones,
                 ]) ?>
         </div>
     </div>

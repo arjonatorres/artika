@@ -31,12 +31,16 @@ class UsuariosController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['registro'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],

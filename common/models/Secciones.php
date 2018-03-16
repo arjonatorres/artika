@@ -50,8 +50,16 @@ class Secciones extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'usuario_id' => 'Usuario ID',
+            'usuario_id' => 'Usuario',
         ];
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getHabitaciones()
+    {
+        return $this->hasMany(Habitaciones::className(), ['seccion_id' => 'id'])->inverseOf('seccion');
     }
 
     /**
