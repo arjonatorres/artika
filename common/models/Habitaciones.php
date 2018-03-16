@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $nombre
  * @property int $seccion_id
+ * @property int $icono_id
  *
  * @property Secciones $seccion
  */
@@ -29,9 +30,9 @@ class Habitaciones extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'seccion_id'], 'required'],
-            [['seccion_id'], 'default', 'value' => null],
-            [['seccion_id'], 'integer'],
+            [['nombre', 'seccion_id', 'icono_id'], 'required'],
+            [['seccion_id', 'icono_id'], 'default', 'value' => null],
+            [['seccion_id', 'icono_id'], 'integer'],
             [['nombre'], 'trim'],
             [['nombre'], 'string', 'length' => [4, 20]],
             [
@@ -59,6 +60,7 @@ class Habitaciones extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nombre' => 'Nombre',
             'seccion_id' => 'Sección',
+            'icono_id' => 'Icono',
         ];
     }
 

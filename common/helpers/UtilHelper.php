@@ -94,7 +94,7 @@ class UtilHelper
         $nombre = $seccion->nombre;
         $habitaciones = '';
         foreach ($seccion->habitaciones as $hab) {
-            $habitaciones .= self::itemHabCasa($hab->nombre);
+            $habitaciones .= self::itemHabCasa($hab);
         }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
             . '<div class="panel panel-default">'
@@ -134,8 +134,18 @@ class UtilHelper
         . '</div>';
     }
 
-    public static function itemHabCasa($nombre)
+    /**
+     * Devuelve un item de una habitación para el menú
+     * @param  string $hab La habitación
+     * @return string      El item de la habitación
+     */
+    public static function itemHabCasa($hab)
     {
-        return "<li class=\"list-group-item\">$nombre</li>";
+        return '<li class="icono-nombre list-group-item">'
+        . Html::img("/imagenes/iconos/{$hab->icono_id}.png", [
+            'class' => 'img-xs img-circle',
+        ])
+        . ' ' . $hab->nombre
+        . '</li>';
     }
 }

@@ -39,7 +39,7 @@ function mostrarNumero() {
 function volverCrearSeccion() {
     $.ajax({
         url: '$urlSecciones',
-        type: 'POST',
+        type: 'GET',
         data: {},
         success: function (data) {
             $('#casa-usuario').html(data);

@@ -125,7 +125,7 @@ class CasasController extends \yii\web\Controller
         $model = new Habitaciones();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return UtilHelper::itemHabCasa($model->nombre);
+            return UtilHelper::itemHabCasa($model);
         }
         return;
     }

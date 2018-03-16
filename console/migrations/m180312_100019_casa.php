@@ -33,6 +33,7 @@ class m180312_100019_casa extends Migration
             'id' => $this->bigPrimaryKey(),
             'nombre' => $this->string(20)->notNull(),
             'seccion_id' => $this->bigInteger()->notNull(),
+            'icono_id' => $this->integer()->notNull()->defaultValue(1),
             'UNIQUE (nombre, seccion_id)',
         ]);
 
@@ -52,7 +53,7 @@ class m180312_100019_casa extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('secciones');
         $this->dropTable('habitaciones');
+        $this->dropTable('secciones');
     }
 }

@@ -24,21 +24,23 @@ use common\helpers\UtilHelper;
 <?php
 
 $js = <<<EOL
-    function chevIcon(elem) {
-        var derecha = 'glyphicon-chevron-right';
-        var abajo = 'glyphicon-chevron-down';
-        if (elem.hasClass(derecha)) {
-            elem.removeClass(derecha);
-            elem.addClass(abajo);
-        } else {
-            elem.removeClass(abajo);
-            elem.addClass(derecha);
-        }
-    }
-    $('.panel-seccion').find('a[data-toggle="collapse"]').on('click', function () {
-        chevIcon($(this).find('.chev'));
-    });
     function funcionalidadBotones() {
+        function chevIcon(elem) {
+            var derecha = 'glyphicon-chevron-right';
+            var abajo = 'glyphicon-chevron-down';
+            if (elem.hasClass(derecha)) {
+                elem.removeClass(derecha);
+                elem.addClass(abajo);
+            } else {
+                elem.removeClass(abajo);
+                elem.addClass(derecha);
+            }
+        }
+        $('.panel-seccion').find('a[data-toggle="collapse"]').off('click');
+        $('.panel-seccion').find('a[data-toggle="collapse"]').on('click', function () {
+            chevIcon($(this).find('.chev'));
+        });
+
         $('.boton-borrar').off();
         $('.boton-borrar').on('click', function (e) {
             e.preventDefault();

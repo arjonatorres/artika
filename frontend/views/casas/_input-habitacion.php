@@ -4,11 +4,13 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Modal;
 
 $s = ArrayHelper::toArray($secciones);
 $a = ArrayHelper::getColumn($s, 'id');
 $b = ArrayHelper::getColumn($s, 'nombre');
 $secciones = array_combine($a, $b);
+$modelHab->icono_id = $modelHab->icono_id ?: 1;
 
 $esMod = false;
 // $accion = Yii::$app->controller->action->id;
@@ -19,6 +21,14 @@ $urlCrearHabitacionAjax = Url::to(['casas/crear-habitacion-ajax']);
 // $urlSecciones = Url::to(['casas/crear-seccion']);
 //
 $js = <<<EOL
+
+$('.lista-iconos').on('click', function () {
+    var id = $(this).data('id');
+    $('#icono').attr('src', $(this).attr('src'));
+    $('#habitaciones-icono_id').val(id);
+    $('#modal').modal('hide');
+});
+
 var max = $('#habitaciones-nombre').attr('maxlength');
 $('#habitaciones-nombre').after($('<span id="quedanHab" class="label"></span>'));
 mostrarNumeroHab();
@@ -47,7 +57,7 @@ EOL;
 // function volverCrearSeccion() {
 //     $.ajax({
 //         url: '$urlSecciones',
-//         type: 'POST',
+//         type: 'GET',
 //         data: {},
 //         success: function (data) {
 //             $('#casa-usuario').html(data);
@@ -91,7 +101,8 @@ $('#habitacion-form').on('beforeSubmit', function () {
         type: 'POST',
         data: {
             'Habitaciones[nombre]': $('#habitacion-form').yiiActiveForm('find', 'habitaciones-nombre').value,
-            'Habitaciones[seccion_id]': idSeccion
+            'Habitaciones[seccion_id]': idSeccion,
+            'Habitaciones[icono_id]': $('#habitacion-form').yiiActiveForm('find', 'habitaciones-icono_id').value,
         },
         success: function (data) {
             if (data) {
@@ -118,10 +129,60 @@ EOL;
 // }
 $this->registerJs($js);
 
+$css = <<<EOL
+    .lista-iconos {
+        margin: 20px 10px;
+        border: 2px solid transparent;
+
+    }
+
+    .lista-iconos:hover {
+        border: 2px solid #337AB7;
+    }
+EOL;
+
+$this->registerCss($css);
+
+$a = array_filter(scandir('imagenes/iconos/'), function ($var) {
+    return preg_match('/^\d+\.png$/', $var);
+});
+$b = array_map(function ($var) {
+    return explode('.', $var, -1);
+}, $a);
 ?>
+
 <div class="row">
+    <?php $form = ActiveForm::begin([
+        'id' => 'habitacion-form',
+    ]);
+    ?>
     <div class="col-md-3 text-center">
-        <img src="/imagenes/habitacion.png" alt="">
+        <?php Modal::begin([
+            'id' => 'modal',
+            'header' => 'Cambiar icono',
+            'toggleButton' => [
+                'label' => Html::img("/imagenes/iconos/$modelHab->icono_id.png", [
+                    'id' => 'icono',
+                ]),
+                'class' => 'img-thumbnail btn btn-default',
+                'title' => 'Pulse para cambiar el icono',
+            ],
+            'size' => 'modal-lg',
+        ]);
+        ?>
+        <div class="text-center">
+            <?php foreach($b as $img): ?>
+                <?= Html::img("/imagenes/iconos/{$img[0]}.png", [
+                    'class' => 'lista-iconos',
+                    'data-id' => $img[0],
+                    ]) ?>
+            <?php endforeach ?>
+        </div>
+        <?php
+
+        Modal::end();
+        ?>
+        <?= $form->field($modelHab, 'icono_id')->hiddenInput()->label(false) ?>
     </div>
     <div class="col-md-9">
         <?php if ($esMod): ?>
@@ -129,10 +190,6 @@ $this->registerJs($js);
             Habitación: <?= Html::encode($modelHab->nombre) ?>
         </span></h4>
         <?php endif ?>
-        <?php $form = ActiveForm::begin([
-            'id' => 'habitacion-form',
-        ]);
-        ?>
         <div class="col-md-6" style="padding-left: 0px;">
             <?= $form->field($modelHab, 'nombre', [
                 'enableAjaxValidation' => true,
