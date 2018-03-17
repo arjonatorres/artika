@@ -49,7 +49,7 @@ class CasasController extends \yii\web\Controller
     public function actionMiCasa()
     {
         $usuario = Yii::$app->user->identity;
-        $secciones = $usuario->secciones;
+        $secciones = $usuario->getSecciones()->orderBy('id')->all();
         return $this->render('index', [
             'secciones' => $secciones,
             'model' => [],
@@ -106,8 +106,6 @@ class CasasController extends \yii\web\Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
-            ->orderBy('id')->all();
             return UtilHelper::itemMenuCasa($model);
         }
         return;
@@ -146,12 +144,46 @@ class CasasController extends \yii\web\Controller
             'usuario_id' => Yii::$app->user->id,
         ]);
 
+        if ($model === null) {
+            return;
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         return $this->renderAjax('_editar-seccion', [
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * Modifica una habitación en la casa
+     * @param  int $id        El id de la habitación a modificar
+     * @return mixed
+     */
+    public function actionModificarHabitacion($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Habitaciones::findOne([
+            'id' => $id,
+        ]);
+        $secciones = Yii::$app->user->identity->getSecciones()->orderBy('id')->all();
+
+        if ($model !== null && $model->usuario->id !== Yii::$app->user->id) {
+            return;
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        return $this->renderAjax('_mod-habitacion', [
+            'modelHab' => $model,
+            'secciones' => $secciones,
         ]);
     }
 
@@ -171,10 +203,34 @@ class CasasController extends \yii\web\Controller
             'usuario_id' => Yii::$app->user->id,
         ]);
 
-        if ($model->load(Yii::$app->request->post()) && ($model->save())) {
-            $secciones = Secciones::find()->where(['usuario_id' => Yii::$app->user->id])
-            ->orderBy('id')->all();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $model->nombre;
+        }
+        return;
+    }
+
+    /**
+     * Modifica una habitación en la casa
+     * @param  int $id El id de la habitación a modificar vía Ajax
+     * @return mixed
+     */
+    public function actionModificarHabitacionAjax($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Habitaciones::findOne([
+            'id' => $id,
+        ]);
+
+        if ($model !== null && $model->usuario->id !== Yii::$app->user->id) {
+            return;
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $model;
         }
         return;
     }

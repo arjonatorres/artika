@@ -17,6 +17,11 @@
 
 .icon-sm {
     font-size: 13px;
+    margin-top: -4px;
+}
+
+.hab {
+    margin-top: 1px;
 }
 
 .d {
@@ -45,4 +50,14 @@
 
 .img-xs {
     margin-right: 4px;
+}
+
+.lista-iconos {
+    margin: 20px 10px;
+    border: 2px solid transparent;
+
+}
+
+.lista-iconos:hover {
+    border: 2px solid #337AB7;
 }
