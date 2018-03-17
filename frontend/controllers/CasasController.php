@@ -173,7 +173,7 @@ class CasasController extends \yii\web\Controller
         ]);
         $secciones = Yii::$app->user->identity->getSecciones()->orderBy('id')->all();
 
-        if ($model !== null && $model->usuario->id !== Yii::$app->user->id) {
+        if ($model !== null && $model->esPropia) {
             return;
         }
 
@@ -224,7 +224,7 @@ class CasasController extends \yii\web\Controller
             'id' => $id,
         ]);
 
-        if ($model !== null && $model->usuario->id !== Yii::$app->user->id) {
+        if ($model !== null && $model->esPropia) {
             return;
         }
 
@@ -250,6 +250,28 @@ class CasasController extends \yii\web\Controller
             'id' => $id,
             'usuario_id' => Yii::$app->user->id,
         ]);
+
+        return $model->delete();
+    }
+
+    /**
+     * Borra una habitación existente
+     * @param  int $id El id de la habitación a borrar
+     * @return bool    Si ha podido borrarse o no
+     */
+    public function actionBorrarHabitacion($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = Habitaciones::findOne([
+            'id' => $id,
+        ]);
+
+        if ($model !== null && $model->esPropia) {
+            return false;
+        }
 
         return $model->delete();
     }

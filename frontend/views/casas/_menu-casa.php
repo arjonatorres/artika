@@ -120,6 +120,37 @@ $js = <<<EOL
                     }
             });
         });
+
+        $('.boton-borrar-hab').off();
+        $('.boton-borrar-hab').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var enlace = $(this);
+            var panelPropio = enlace.closest('.icono-nombre');
+            var habId = panelPropio.data('id');
+            var nombre = ($('#it-hab-nombre' + habId).text()).trim();
+            krajeeDialog.confirm('¿Estás seguro que quieres borrar la habitación "'
+            + nombre +
+            '" y todo el contenido que tiene dentro?', function (result) {
+                if (result) {
+                    $.ajax({
+                        url: enlace.attr('href') + '?id=' + habId,
+                        type: 'POST',
+                        data: {},
+                            success: function(data) {
+                                if (data) {
+                                    panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
+                                        panelPropio.remove();
+                                    });
+                                    volverCrearSeccion();
+                                } else {
+                                    krajeeDialog.alert('No se ha podido borrar la sección.');
+                                }
+                            }
+                    });
+                }
+            });
+        });
     }
     funcionalidadBotones();
 EOL;
