@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 
+// Cambiado cómo se muestran las habitaciones después de modificarlas
 $s = ArrayHelper::toArray($secciones);
 $a = ArrayHelper::getColumn($s, 'id');
 $b = ArrayHelper::getColumn($s, 'nombre');
@@ -71,9 +72,6 @@ EOL;
 
 if ($esMod) {
     $js .= <<<EOL
-    var seccion_id_antigua = $modelHab->seccion_id;
-    var nombre_antiguo = '$modelHab->nombre';
-    var icono_id_antiguo = $modelHab->icono_id;
     $('#habitacion-form').on('beforeSubmit', function () {
         var idSeccion = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-seccion_id').value;
         var nombreHab = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-nombre').value;
@@ -90,26 +88,14 @@ if ($esMod) {
                 if (data) {
                     var nombre = $('#it-hab-nombre$modelHab->id');
                     var icono = $('#it-hab-icono$modelHab->id');
-                    if (seccion_id_antigua != data.seccion_id) {
-                        var seccionNueva = $('#p' + idSeccion);
-                        var elem = nombre.closest('.icono-nombre');
-                        elem.fadeOut(400, function() {
-                            nombre.text(' ' + nombreHab);
-                            icono.attr('src', '/imagenes/iconos/' + iconoIdHab + '.png');
-                            seccionNueva.append(elem);
-                        }).fadeIn(400);
-                    } else {
-                        if (nombre_antiguo != nombreHab) {
-                            nombre.fadeOut(400, function() {
-                                nombre.text(' ' + nombreHab);
-                            }).fadeIn(400);
-                        }
-                        if (icono_id_antiguo != iconoIdHab) {
-                            icono.fadeOut(400, function() {
-                                icono.attr('src', '/imagenes/iconos/' + iconoIdHab + '.png');
-                            }).fadeIn(400);
-                        }
-                    }
+                    var seccionNueva = $('#p' + idSeccion);
+                    var elem = nombre.closest('.icono-nombre');
+                    elem.fadeOut(400, function() {
+                        nombre.text(' ' + nombreHab);
+                        icono.attr('src', '/imagenes/iconos/' + iconoIdHab + '.png');
+                        // $('#menu-casa-usuario').append(elem);
+                        seccionNueva.append(elem);
+                    }).fadeIn(400);
                 }
                 volverCrearSeccion();
             }
@@ -146,6 +132,7 @@ EOL;
                     padre.val('');
                     padre.parent().removeClass('has-success');
                     mostrarNumeroHab();
+                    funcionalidadBotones();
                 }
             }
         });
