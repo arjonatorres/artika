@@ -65,6 +65,15 @@ class Habitaciones extends \yii\db\ActiveRecord
     }
 
     /**
+     * Devuelve verdadero si la habitación pertenece al usuario logueado.
+     * @return bool Si pertenece al usuario o no.
+     */
+    public function getEsPropia()
+    {
+        return $this->usuario->id !== Yii::$app->user->id;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getSeccion()
