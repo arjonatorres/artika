@@ -2,6 +2,8 @@
 
 use yii\web\View;
 
+use yii\helpers\Url;
+
 use kartik\dialog\Dialog;
 
 use common\helpers\UtilHelper;
@@ -22,8 +24,20 @@ use common\helpers\UtilHelper;
 ]); ?>
 
 <?php
+$urlSecciones = Url::to(['casas/crear-seccion']);
 
 $js = <<<EOL
+    function volverCrearSeccion() {
+        $.ajax({
+            url: '$urlSecciones',
+            type: 'GET',
+            data: {},
+            success: function (data) {
+                $('#casa-usuario').html(data);
+            }
+        });
+    }
+
     function funcionalidadBotones() {
         function chevIcon(elem) {
             var derecha = 'glyphicon-chevron-right';
@@ -63,7 +77,8 @@ $js = <<<EOL
                                     panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
                                         panelPropio.remove();
                                     });
-                                    $('#lista').find('option[value="' + idPropio + '"]').remove();
+                                    $('#habitaciones-seccion_id').find('option[value="' + idPropio + '"]').remove();
+                                    volverCrearSeccion();
                                 } else {
                                     krajeeDialog.alert('No se ha podido borrar la sección.');
                                 }
@@ -82,7 +97,26 @@ $js = <<<EOL
                 type: 'GET',
                 data: {},
                     success: function(data) {
-                        $('#casa-usuario').html(data);
+                        if (data) {
+                            $('#casa-usuario').html(data);
+                        }
+                    }
+            });
+        });
+
+        $('.boton-editar-hab').off();
+        $('.boton-editar-hab').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var habId = $(this).closest('.icono-nombre').data('id');
+            $.ajax({
+                url: $(this).attr('href') + '?id=' + habId,
+                type: 'GET',
+                data: {},
+                    success: function(data) {
+                        if (data) {
+                            $('#casa-usuario').html(data);
+                        }
                     }
             });
         });

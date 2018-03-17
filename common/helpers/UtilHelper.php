@@ -2,6 +2,8 @@
 
 namespace common\helpers;
 
+use Yii;
+
 use yii\helpers\Html;
 
 /**
@@ -93,8 +95,10 @@ class UtilHelper
         $id = $seccion->id;
         $nombre = $seccion->nombre;
         $habitaciones = '';
+        $mod = Yii::$app->controller->action->id !== 'mi-casa';
+
         foreach ($seccion->habitaciones as $hab) {
-            $habitaciones .= self::itemHabCasa($hab);
+            $habitaciones .= self::itemHabCasa($hab, $mod);
         }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
             . '<div class="panel panel-default">'
@@ -107,10 +111,11 @@ class UtilHelper
                         )
                         . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
                         . '</a>'
-                        . Html::a(
+                        . ($mod ?
+                        Html::a(
                             self::glyphicon(
                                 'remove',
-                                ['class' => 'icon-sm i']
+                                ['class' => 'btn btn-xs btn-danger icon-sm i']
                             ),
                             ['casas/borrar-seccion'],
                             ['class' => 'boton-borrar icon-derecha']
@@ -118,11 +123,11 @@ class UtilHelper
                         . Html::a(
                             self::glyphicon(
                                 'pencil',
-                                ['class' => 'icon-sm d']
+                                ['class' => 'btn btn-xs btn-success icon-sm']
                             ),
                             ['casas/modificar-seccion'],
                             ['class' => 'boton-editar icon-derecha']
-                        )
+                        ) : '')
                     . '</h4>'
                 . '</div>'
                 . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse in\" role=\"tabpanel\">"
@@ -137,15 +142,34 @@ class UtilHelper
     /**
      * Devuelve un item de una habitación para el menú
      * @param  string $hab La habitación
+     * @param  bool   $mod Indica si se tienen que mostrar los botones de modificación
      * @return string      El item de la habitación
      */
-    public static function itemHabCasa($hab)
+    public static function itemHabCasa($hab, $mod = true)
     {
-        return '<li class="icono-nombre list-group-item">'
+        return "<li class=\"icono-nombre list-group-item\" data-id=\"$hab->id\">"
         . Html::img("/imagenes/iconos/{$hab->icono_id}.png", [
+            'id' => "it-hab-icono$hab->id",
             'class' => 'img-xs img-circle',
         ])
-        . ' ' . $hab->nombre
+        . "<span id=\"it-hab-nombre$hab->id\"> " . Html::encode($hab->nombre) . '</span>'
+        . ($mod ?
+        Html::a(
+            self::glyphicon(
+                'remove',
+                ['class' => 'btn btn-xs btn-default icon-sm hab i', 'style' => 'color: #d9534f']
+            ),
+            ['casas/borrar-habitacion'],
+            ['class' => 'boton-borrar-hab icon-derecha']
+        )
+        . Html::a(
+            self::glyphicon(
+                'pencil',
+                ['class' => 'btn btn-xs btn-default icon-sm hab', 'style' => 'color: #5cb85c']
+            ),
+            ['casas/modificar-habitacion'],
+            ['class' => 'boton-editar-hab icon-derecha']
+        ) : '')
         . '</li>';
     }
 }

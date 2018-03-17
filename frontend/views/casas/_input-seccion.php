@@ -9,7 +9,6 @@ $esMod = $accion === 'modificar-seccion';
 
 $urlCrearSeccionAjax = Url::to(['casas/crear-seccion-ajax']);
 $urlModificarSeccionAjax = Url::to(['casas/modificar-seccion-ajax']);
-$urlSecciones = Url::to(['casas/crear-seccion']);
 
 $js = <<<EOL
 var max = $('#secciones-nombre').attr('maxlength');
@@ -34,17 +33,6 @@ function mostrarNumero() {
         numero.removeClass('label-warning');
         numero.addClass('label-success');
     }
-}
-
-function volverCrearSeccion() {
-    $.ajax({
-        url: '$urlSecciones',
-        type: 'GET',
-        data: {},
-        success: function (data) {
-            $('#casa-usuario').html(data);
-        }
-    });
 }
 
 $('#cancelar-button').on('click', function () {
@@ -94,7 +82,7 @@ EOL;
                     it.slideDown(400).animate({opacity: 1.0}, 400);
                     padre.val('');
                     padre.parent().removeClass('has-success');
-                    $('#lista').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
+                    $('#habitaciones-seccion_id').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
                     mostrarNumero();
                     funcionalidadBotones();
                 }
