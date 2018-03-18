@@ -39,7 +39,7 @@ class Habitaciones extends \yii\db\ActiveRecord
                 ['nombre'],
                 'unique',
                 'targetAttribute' => ['nombre', 'seccion_id'],
-                'message' => 'La habitación \'{value}\' ya existe',
+                'message' => 'La habitación \'{value}\' ya existe en esta sección',
             ],
             [['seccion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Secciones::className(), 'targetAttribute' => ['seccion_id' => 'id']],
             [['seccion_id'], function ($attribute, $params, $validator) {
@@ -88,5 +88,13 @@ class Habitaciones extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])
             ->via('seccion');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModulos()
+    {
+        return $this->hasMany(Modulos::className(), ['habitacion_id' => 'id'])->inverseOf('habitacion');
     }
 }

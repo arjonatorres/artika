@@ -3,17 +3,12 @@
 namespace frontend\controllers;
 
 use Yii;
-
 use yii\web\Response;
-
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
 use yii\widgets\ActiveForm;
-
 use common\models\Secciones;
 use common\models\Habitaciones;
-
 use common\helpers\UtilHelper;
 
 class CasasController extends \yii\web\Controller
@@ -123,7 +118,7 @@ class CasasController extends \yii\web\Controller
         $model = new Habitaciones();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return UtilHelper::itemHabCasa($model);
+            return UtilHelper::itemSecundarioCasa($model);
         }
         return;
     }

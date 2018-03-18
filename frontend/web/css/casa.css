@@ -20,7 +20,7 @@
     margin-top: -4px;
 }
 
-.hab {
+.secundario {
     margin-top: 1px;
 }
 
@@ -60,4 +60,8 @@
 
 .lista-iconos:hover {
     border: 2px solid #337AB7;
+}
+
+.panel-heading-icono .img-thumbnail {
+    margin-top: 15px;
 }
