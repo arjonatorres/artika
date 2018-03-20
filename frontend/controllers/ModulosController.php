@@ -22,7 +22,7 @@ class ModulosController extends \yii\web\Controller
     public function actionCreate()
     {
         $usuario = Yii::$app->user->identity;
-        $habitaciones = $usuario->getHabitaciones()->orderBy('nombre')->all();
+        $habitaciones = $usuario->getHabitaciones()->with('modulos')->orderBy('nombre')->all();
         $tipos = Tipos::find()->all();
         $model = new Modulos();
 

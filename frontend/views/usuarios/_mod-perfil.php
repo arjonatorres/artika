@@ -54,7 +54,7 @@ $this->registerJs($js);
     <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración del perfil</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
         <?php $form = ActiveForm::begin([
             'layout' => 'horizontal',
             'id' => 'perfil-form',

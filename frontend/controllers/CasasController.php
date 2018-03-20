@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Response;
+use yii\data\ActiveDataProvider;
+
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
@@ -37,6 +39,11 @@ class CasasController extends \yii\web\Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        var_dump(Yii::$app->db2->createCommand('UPDATE modulos SET estado = true WHERE id = 1')->queryAll());
+    }
+
     /**
      * Muestra la casa con sus secciones y habitaciones
      * @return mixed
@@ -44,8 +51,13 @@ class CasasController extends \yii\web\Controller
     public function actionMiCasa()
     {
         $usuario = Yii::$app->user->identity;
-        $secciones = $usuario->getSecciones()->orderBy('id')->all();
+        $query = $usuario->getSecciones()->with('habitaciones');
+        $secciones = $query->orderBy('id')->all();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->joinWith('modulos', true, 'RIGHT JOIN'),
+        ]);
         return $this->render('index', [
+            'dataProvider' => $dataProvider,
             'secciones' => $secciones,
             'model' => [],
         ]);
@@ -62,7 +74,7 @@ class CasasController extends \yii\web\Controller
         ]);
         $modelHab = new Habitaciones();
         $usuario = Yii::$app->user->identity;
-        $secciones = $usuario->getSecciones()->orderBy('id')->all();
+        $secciones = $usuario->getSecciones()->with('habitaciones')->orderBy('id')->all();
 
         if (Yii::$app->request->isAjax) {
             if ($model->load(Yii::$app->request->post())) {

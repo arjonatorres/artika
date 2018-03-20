@@ -109,7 +109,9 @@ class UtilHelper
                             'chevron-down',
                             ['class' => 'chev icon-xs d']
                         )
-                        . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
+                        . "<span id=\"it$id\">"
+                        . Html::encode($nombre)
+                        . '</span>'
                         . '</a>'
                         . ($mod ?
                         Html::a(
@@ -154,7 +156,13 @@ class UtilHelper
             'id' => "it-$den-icono$item->id",
             'class' => 'img-xs img-circle',
         ])
-        . "<span id=\"it-$den-nombre$item->id\"> " . Html::encode($item->nombre) . '</span>'
+        . "<span id=\"it-$den-nombre$item->id\"> "
+        . (!$mod ?
+            Html::a(
+                Html::encode($item->nombre),
+                "#habitacion-nombre$item->id"
+            ): Html::encode($item->nombre))
+        . '</span>'
         . ($mod ?
         Html::a(
             self::glyphicon(
