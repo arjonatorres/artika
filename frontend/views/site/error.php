@@ -17,7 +17,7 @@ use yii\helpers\Html;
     </div>
 
     <div class="panel panel-danger">
-        <div class="panel-body">
+        <div class="panel-body panel-body-gris">
             <p>
                 Este error se ha producido mientras el servidor Web estaba procesando tu petición.
             </p>

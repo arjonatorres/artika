@@ -24,7 +24,7 @@ $accion = Yii::$app->controller->action->id;
                 <div class="panel-heading panel-heading-principal">
                     <h3 class="panel-title"><?= Html::encode(Yii::$app->user->identity->username) ?></h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body panel-body-gris">
                     <?= Nav::widget([
                     'items' => [
                         [

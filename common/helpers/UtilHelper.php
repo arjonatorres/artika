@@ -87,7 +87,7 @@ class UtilHelper
 
     /**
      * Devuelve un item de una sección del menú de la casa
-     * @param  array  $seccion El array con todas las secciones
+     * @param  array  $seccion La sección
      * @return string          El item
      */
     public static function itemMenuCasa($seccion)
@@ -98,7 +98,7 @@ class UtilHelper
         $mod = Yii::$app->controller->action->id !== 'mi-casa';
 
         foreach ($seccion->habitaciones as $hab) {
-            $habitaciones .= self::itemHabCasa($hab, $mod);
+            $habitaciones .= self::itemSecundarioCasa($hab, $mod);
         }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
             . '<div class="panel panel-default">'
@@ -109,7 +109,9 @@ class UtilHelper
                             'chevron-down',
                             ['class' => 'chev icon-xs d']
                         )
-                        . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
+                        . "<span id=\"it$id\">"
+                        . Html::encode($nombre)
+                        . '</span>'
                         . '</a>'
                         . ($mod ?
                         Html::a(
@@ -141,35 +143,80 @@ class UtilHelper
 
     /**
      * Devuelve un item de una habitación para el menú
-     * @param  string $hab La habitación
+     * @param  string $item El modelo al cual pertenece el item
      * @param  bool   $mod Indica si se tienen que mostrar los botones de modificación
-     * @return string      El item de la habitación
+     * @param  string $den La denominación del modelo
+     * @param  string $dir El directorio del icono
+     * @return string      El item del modelo
      */
-    public static function itemHabCasa($hab, $mod = true)
+    public static function itemSecundarioCasa($item, $mod = true, $den = 'habitacion', $dir = '')
     {
-        return "<li class=\"icono-nombre list-group-item\" data-id=\"$hab->id\">"
-        . Html::img("/imagenes/iconos/{$hab->icono_id}.png", [
-            'id' => "it-hab-icono$hab->id",
+        return "<li class=\"icono-nombre list-group-item\" data-id=\"$item->id\">"
+        . Html::img("/imagenes/iconos/$dir{$item->icono_id}.png", [
+            'id' => "it-$den-icono$item->id",
             'class' => 'img-xs img-circle',
         ])
-        . "<span id=\"it-hab-nombre$hab->id\"> " . Html::encode($hab->nombre) . '</span>'
+        . "<span id=\"it-$den-nombre$item->id\"> "
+        . (!$mod ?
+            Html::a(
+                Html::encode($item->nombre),
+                "#habitacion-nombre$item->id"
+            ): Html::encode($item->nombre))
+        . '</span>'
         . ($mod ?
         Html::a(
             self::glyphicon(
                 'remove',
-                ['class' => 'btn btn-xs btn-default icon-sm hab i', 'style' => 'color: #d9534f']
+                ['class' => 'btn btn-xs btn-default icon-sm secundario i', 'style' => 'color: #d9534f']
             ),
-            ['casas/borrar-habitacion'],
-            ['class' => 'boton-borrar-hab icon-derecha']
+            ["casas/borrar-$den"],
+            ['class' => "boton-borrar-$den icon-derecha"]
         )
         . Html::a(
             self::glyphicon(
                 'pencil',
-                ['class' => 'btn btn-xs btn-default icon-sm hab', 'style' => 'color: #5cb85c']
+                ['class' => 'btn btn-xs btn-default icon-sm secundario', 'style' => 'color: #5cb85c']
             ),
-            ['casas/modificar-habitacion'],
-            ['class' => 'boton-editar-hab icon-derecha']
+            ["casas/modificar-$den"],
+            ['class' => "boton-editar-$den icon-derecha"]
         ) : '')
         . '</li>';
+    }
+
+    /**
+     * Devuelve un item de una habitación del menú de los módulos
+     * @param  array  $habitacion Las habitación
+     * @return string             El item
+     */
+    public static function itemMenuModulos($habitacion)
+    {
+        $id = $habitacion->id;
+        $nombre = $habitacion->nombre;
+        $modulos = '';
+        $mod = Yii::$app->controller->action->id !== 'mi-casa';
+
+        foreach ($habitacion->modulos as $modulo) {
+            $modulos .= self::itemSecundarioCasa($modulo, $mod, 'modulo', 'modulos/');
+        }
+        return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
+            . '<div class="panel panel-default">'
+                . '<div class="panel-heading" role="tab">'
+                    . '<h4 class="panel-title">'
+                        . "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"true\" aria-controls=\"p$id-collapse$id\">"
+                        . self::glyphicon(
+                            'chevron-down',
+                            ['class' => 'chev icon-xs d']
+                        )
+                        . "<span id=\"it$id\">" . Html::encode($nombre) . '</span>'
+                        . '</a>'
+                    . '</h4>'
+                . '</div>'
+                . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse in\" role=\"tabpanel\">"
+                    . '<ul class="list-group">'
+                    . $modulos
+                    . '</ul>'
+                . '</div>'
+            . '</div>'
+        . '</div>';
     }
 }

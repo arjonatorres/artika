@@ -10,7 +10,7 @@ use common\helpers\UtilHelper;
              Modificar habitación de la casa
         </h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
 
         <?= $this->render('_input-habitacion', [
                 'modelHab' => $modelHab,

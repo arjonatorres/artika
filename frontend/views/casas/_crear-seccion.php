@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $title;
              Añadir sección a la casa
          </h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
         <div class="row">
             <div class="col-md-3 text-center">
                 <img src="/imagenes/plano_casa.png" alt="">

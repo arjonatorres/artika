@@ -8,7 +8,7 @@ use kartik\file\FileInput;
     <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración del avatar</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'layout' => 'horizontal',

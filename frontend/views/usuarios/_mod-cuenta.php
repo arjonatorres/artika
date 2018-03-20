@@ -7,7 +7,7 @@ use yii\bootstrap\ActiveForm;
     <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">Configuración de la cuenta</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
         <?php $form = ActiveForm::begin([
             'layout' => 'horizontal',
             'id' => 'cuenta-form',
@@ -40,7 +40,7 @@ use yii\bootstrap\ActiveForm;
     <div class="panel-heading panel-heading-danger">
         <h3 class="panel-title">Eliminar cuenta</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body panel-body-gris">
         <p>Una vez hayas eliminado la cuenta no hay vuelta atrás.</p>
         <?= Html::a(
             'Eliminar cuenta',

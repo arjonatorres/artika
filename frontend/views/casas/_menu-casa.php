@@ -104,8 +104,8 @@ $js = <<<EOL
             });
         });
 
-        $('.boton-editar-hab').off();
-        $('.boton-editar-hab').on('click', function (e) {
+        $('.boton-editar-habitacion').off();
+        $('.boton-editar-habitacion').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var habId = $(this).closest('.icono-nombre').data('id');
@@ -121,14 +121,14 @@ $js = <<<EOL
             });
         });
 
-        $('.boton-borrar-hab').off();
-        $('.boton-borrar-hab').on('click', function (e) {
+        $('.boton-borrar-habitacion').off();
+        $('.boton-borrar-habitacion').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var enlace = $(this);
             var panelPropio = enlace.closest('.icono-nombre');
             var habId = panelPropio.data('id');
-            var nombre = ($('#it-hab-nombre' + habId).text()).trim();
+            var nombre = ($('#it-habitacion-nombre' + habId).text()).trim();
             krajeeDialog.confirm('¿Estás seguro que quieres borrar la habitación "'
             + nombre +
             '" y todo el contenido que tiene dentro?', function (result) {

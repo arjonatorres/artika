@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $title;
                 <div class="panel-heading">
                     <h3 class="panel-title"><?= Html::encode($title) ?></h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body panel-body-gris">
                     <p>Por favor, indique su nueva contraseña.</p>
                     <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 

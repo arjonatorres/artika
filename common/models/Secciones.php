@@ -69,4 +69,13 @@ class Secciones extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('secciones');
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModulos()
+    {
+        return $this->hasMany(Modulos::className(), ['habitacion_id' => 'id'])
+            ->via('habitaciones');
+    }
 }

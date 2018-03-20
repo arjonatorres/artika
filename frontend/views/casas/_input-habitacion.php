@@ -6,7 +6,6 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 
-// Cambiado cómo se muestran las habitaciones después de modificarlas
 $s = ArrayHelper::toArray($secciones);
 $a = ArrayHelper::getColumn($s, 'id');
 $b = ArrayHelper::getColumn($s, 'nombre');
@@ -86,8 +85,8 @@ if ($esMod) {
             },
             success: function (data) {
                 if (data) {
-                    var nombre = $('#it-hab-nombre$modelHab->id');
-                    var icono = $('#it-hab-icono$modelHab->id');
+                    var nombre = $('#it-habitacion-nombre$modelHab->id');
+                    var icono = $('#it-habitacion-icono$modelHab->id');
                     var seccionNueva = $('#p' + idSeccion);
                     var elem = nombre.closest('.icono-nombre');
                     elem.fadeOut(400, function() {
@@ -158,41 +157,53 @@ $b = array_map(function ($var) {
         'validateOnBlur' => false,
     ]);
     ?>
-    <div class="col-md-3 text-center">
-        <?php Modal::begin([
-            'id' => 'modal',
-            'header' => 'Cambiar icono',
-            'toggleButton' => [
-                'label' => Html::img("/imagenes/iconos/$modelHab->icono_id.png", [
-                    'id' => 'icono',
-                ]),
-                'class' => 'img-thumbnail btn btn-default',
-                'title' => 'Pulse para cambiar el icono',
-            ],
-            'size' => 'modal-lg',
-        ]);
-        ?>
+    <div class="col-md-5">
+        <?= $form->field($modelHab, 'icono_id', [
+            'template' => "{label}\n",
+            'options' => [],
+            ]) ?>
         <div class="text-center">
-            <?php foreach($b as $img): ?>
-                <?= Html::img("/imagenes/iconos/{$img[0]}.png", [
-                    'class' => 'lista-iconos',
-                    'data-id' => $img[0],
-                    ]) ?>
-            <?php endforeach ?>
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-icono">
+                    <?php Modal::begin([
+                        'id' => 'modal',
+                        'header' => 'Cambiar icono',
+                        'toggleButton' => [
+                            'label' => Html::img("/imagenes/iconos/$modelHab->icono_id.png", [
+                                'id' => 'icono',
+                            ]),
+                            'class' => 'img-thumbnail btn btn-default',
+                            'title' => 'Pulse para cambiar el icono',
+                        ],
+                        'size' => 'modal-lg',
+                    ]);
+                    ?>
+                    <div class="text-center">
+                        <?php foreach($b as $img): ?>
+                            <?= Html::img("/imagenes/iconos/{$img[0]}.png", [
+                                'class' => 'lista-iconos',
+                                'data-id' => $img[0],
+                                ]) ?>
+                        <?php endforeach ?>
+                    </div>
+                    <?php Modal::end() ?>
+                    <?= $form->field($modelHab, 'icono_id', [
+                        'template' => "{input}"
+                        ])->hiddenInput() ?>
+                </div>
+            </div>
+            <?= $form->field($modelHab, 'icono_id', [
+                'template' => "{hint}\n{error}"
+                ]) ?>
         </div>
-        <?php
-
-        Modal::end();
-        ?>
-        <?= $form->field($modelHab, 'icono_id')->hiddenInput()->label(false) ?>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-7">
         <?php if ($esMod): ?>
         <h4><span class="label label-info">
             Habitación: <?= Html::encode($modelHab->nombre) ?>
         </span></h4>
         <?php endif ?>
-        <div class="col-md-6" style="padding-left: 0px;">
+        <div class="col-md-10 col-md-offset-1" style="padding-left: 0px;">
             <?= $form->field($modelHab, 'nombre', [
                 ])->textInput([
                     'maxlength' => 20,
@@ -200,6 +211,9 @@ $b = array_map(function ($var) {
                     ])->label('Nombre de la habitación', [
                         'style' => 'display: block',
                         ]) ?>
+            <?= $form->field($modelHab, 'seccion_id')->dropDownList($secciones, [
+                'style'=>'width: 80%; margin-right: 10px;',
+                ]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton($esMod ? 'Modificar' : 'Añadir', [
@@ -213,11 +227,6 @@ $b = array_map(function ($var) {
                         ]) ?>
                 <?php endif ?>
             </div>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($modelHab, 'seccion_id')->dropDownList($secciones, [
-                'style'=>'width: 80%; display: inline; margin-right: 10px;',
-                ]) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

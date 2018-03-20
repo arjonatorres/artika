@@ -20,7 +20,7 @@
     margin-top: -4px;
 }
 
-.hab {
+.secundario {
     margin-top: 1px;
 }
 
@@ -60,4 +60,36 @@
 
 .lista-iconos:hover {
     border: 2px solid #337AB7;
+}
+
+.panel-heading-icono .img-thumbnail {
+    margin-top: 15px;
+}
+
+.panel-heading-modulo {
+    background-color: #333!important;
+    color: #AAA!important;
+}
+
+.panel-body-modulo {
+    background-color: #f5f5f5!important;
+    color: #AAA!important;
+}
+
+.margen-bottom-sm {
+    margin-bottom: 10px;
+}
+
+.flex-parent {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-child{
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
