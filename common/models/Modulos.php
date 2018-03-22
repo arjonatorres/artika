@@ -82,11 +82,40 @@ class Modulos extends \yii\db\ActiveRecord
     }
 
     /**
+     * Devuelve verdadero si el módulo pertenece al usuario logueado.
+     * @return bool Si pertenece al usuario o no.
+     */
+    public function getEsPropia()
+    {
+        return $this->usuario->id !== Yii::$app->user->id;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])
+            ->via('seccion');
+    }
+
+
+    /**
+    * @return \yii\db\ActiveQuery
+     */
+    public function getSeccion()
+    {
+        return $this->hasOne(Secciones::className(), ['id' => 'seccion_id'])
+            ->via('habitacion');
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getHabitacion()
     {
-        return $this->hasOne(Habitaciones::className(), ['id' => 'habitacion_id'])->inverseOf('modulos');
+        return $this->hasOne(Habitaciones::className(), ['id' => 'habitacion_id'])
+            ->inverseOf('modulos');
     }
 
     /**

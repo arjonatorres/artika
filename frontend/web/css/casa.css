@@ -66,6 +66,10 @@
     margin-top: 15px;
 }
 
+.panel-modulo {
+    margin-bottom: 15px;
+}
+
 .panel-heading-modulo {
     background-color: #333!important;
     color: #AAA!important;
@@ -80,6 +84,10 @@
     margin-bottom: 10px;
 }
 
+.margen-bottom-md {
+    margin-bottom: 20px;
+}
+
 .flex-parent {
     display: -ms-flex;
     display: -webkit-flex;
@@ -92,4 +100,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+:target {
+  display: block;
+  position: relative;
+  top: -60px;
+  visibility: hidden;
 }

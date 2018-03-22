@@ -167,3 +167,4 @@ $this->registerJs($js, View::POS_END);
         <?php endforeach ?>
     </div>
 </div>
+<!-- TODO - Poner botón a pie de página para ir hacia arriba -->

@@ -5,6 +5,7 @@ namespace common\helpers;
 use Yii;
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /**
  * Clase Helper
@@ -160,7 +161,7 @@ class UtilHelper
         . (!$mod ?
             Html::a(
                 Html::encode($item->nombre),
-                "#habitacion-nombre$item->id"
+                "#$den-nombre$item->id"
             ): Html::encode($item->nombre))
         . '</span>'
         . ($mod ?
@@ -169,7 +170,7 @@ class UtilHelper
                 'remove',
                 ['class' => 'btn btn-xs btn-default icon-sm secundario i', 'style' => 'color: #d9534f']
             ),
-            ["casas/borrar-$den"],
+            [($den == 'modulo' ? 'modulos': 'casas') . "/borrar-$den"],
             ['class' => "boton-borrar-$den icon-derecha"]
         )
         . Html::a(
@@ -177,7 +178,7 @@ class UtilHelper
                 'pencil',
                 ['class' => 'btn btn-xs btn-default icon-sm secundario', 'style' => 'color: #5cb85c']
             ),
-            ["casas/modificar-$den"],
+            [($den == 'modulo' ? 'modulos': 'casas') . "/modificar-$den"],
             ['class' => "boton-editar-$den icon-derecha"]
         ) : '')
         . '</li>';
@@ -218,5 +219,13 @@ class UtilHelper
                 . '</div>'
             . '</div>'
         . '</div>';
+    }
+
+    public static function getDropDownList($modelos)
+    {
+        $s = ArrayHelper::toArray($modelos);
+        $a = ArrayHelper::getColumn($s, 'id');
+        $b = ArrayHelper::getColumn($s, 'nombre');
+        return array_combine($a, $b);
     }
 }
