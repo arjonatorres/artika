@@ -2,27 +2,21 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
+use common\helpers\UtilHelper;
 
-$s = ArrayHelper::toArray($habitaciones);
-$a = ArrayHelper::getColumn($s, 'id');
-$b = ArrayHelper::getColumn($s, 'nombre');
-$habitaciones = array_combine($a, $b);
+$habitaciones = UtilHelper::getDropDownList($habitaciones);
 $model->icono_id = $model->icono_id ?: 1;
 
-$s1 = ArrayHelper::toArray($tipos);
-$a1 = ArrayHelper::getColumn($s1, 'id');
-$b1 = ArrayHelper::getColumn($s1, 'nombre');
-$tipos = array_combine($a1, $b1);
+$tipos = UtilHelper::getDropDownList($tipos);
 $model->tipo_id = $model->tipo_id ?: 1;
 
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-modulo';
 
 $urlCrearModuloAjax = Url::to(['modulos/create-ajax']);
-$urlModificarModuloAjax = Url::to(['casas/modificar-modulo-ajax']);
+$urlModificarModuloAjax = Url::to(['modulos/modificar-modulo-ajax']);
 $urlModulos = Url::to(['modulos/create']);
 
 $js = <<<EOL
@@ -58,55 +52,58 @@ function mostrarNumero() {
     }
 }
 
-// function volverCrearModulo() {
-//     $.ajax({
-//         url: '$urlModulos',
-//         type: 'GET',
-//         data: {},
-//         success: function (data) {
-//             $('#modulo').html(data);
-//         }
-//     });
-// }
-//
-// $('#cancelarHab-button').on('click', function () {
-//     volverCrearModulo();
-// });
+function volverCrearModulo() {
+    $.ajax({
+        url: '$urlModulos',
+        type: 'GET',
+        data: {},
+        success: function (data) {
+            $('#modulo').html(data);
+        }
+    });
+}
+
+$('#cancelar-button').on('click', function () {
+    volverCrearModulo();
+});
 
 EOL;
 
 if ($esMod) {
     $js .= <<<EOL
-    // $('#habitacion-form').on('beforeSubmit', function () {
-    //     var idSeccion = $('#habitacion-form').yiiActiveForm('find', 'modulos-seccion_id').value;
-    //     var nombreHab = $('#habitacion-form').yiiActiveForm('find', 'modulos-nombre').value;
-    //     var iconoIdHab = $('#habitacion-form').yiiActiveForm('find', 'modulos-icono_id').value;
-    //     $.ajax({
-    //         url: '$urlModificarModuloAjax' + '?id=$model->id',
-    //         type: 'POST',
-    //         data: {
-    //             'modulos[nombre]': nombreHab,
-    //             'modulos[seccion_id]': idSeccion,
-    //             'modulos[icono_id]': iconoIdHab
-    //         },
-    //         success: function (data) {
-    //             if (data) {
-    //                 var nombre = $('#it-hab-nombre$model->id');
-    //                 var icono = $('#it-hab-icono$model->id');
-    //                 var seccionNueva = $('#p' + idSeccion);
-    //                 var elem = nombre.closest('.icono-nombre');
-    //                 elem.fadeOut(400, function() {
-    //                     nombre.text(' ' + nombreHab);
-    //                     icono.attr('src', '/imagenes/iconos/' + iconoIdHab + '.png');
-    //                     // $('#menu-casa-usuario').append(elem);
-    //                     seccionNueva.append(elem);
-    //                 }).fadeIn(400);
-    //             }
-    //             volverCrearSeccion();
-    //         }
-    //     });
-    //     return false;
-    // });
+    $('#modulo-form').on('beforeSubmit', function () {
+        var nombreModulo = $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value;
+        var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
+        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_id').value;
+        var idIcono = $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value;
+        $.ajax({
+            url: '$urlModificarModuloAjax' + '?id=$model->id',
+            type: 'POST',
+            data: {
+                'Modulos[nombre]': nombreModulo,
+                'Modulos[habitacion_id]': idHabitacion,
+                'Modulos[tipo_id]': idTipo,
+                'Modulos[icono_id]': idIcono,
+            },
+            success: function (data) {
+                if (data) {
+                    console.log(data);
+                    var nombre = $('#it-modulo-nombre$model->id');
+                    var icono = $('#it-modulo-icono$model->id');
+                    var habitacionNueva = $('#p' + idHabitacion);
+                    var elem = nombre.closest('.icono-nombre');
+                    elem.fadeOut(400, function() {
+                        nombre.text(' ' + nombreModulo);
+                        icono.attr('src', '/imagenes/iconos/modulos/' + idIcono + '.png');
+                        // $('#menu-casa-usuario').append(elem);
+                        habitacionNueva.append(elem);
+                    }).fadeIn(400);
+                }
+                volverCrearSeccion();
+            }
+        });
+        return false;
+    });
 EOL;
 } else {
     $js .= <<<EOL
@@ -138,8 +135,8 @@ EOL;
                     var padre = $('#modulos-nombre');
                     padre.val('');
                     padre.parent().removeClass('has-success');
-                    // mostrarNumeroHab();
-                    // funcionalidadBotones();
+                    mostrarNumero();
+                    funcionalidadBotones();
                 }
             }
         });

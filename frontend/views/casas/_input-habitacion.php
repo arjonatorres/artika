@@ -2,14 +2,11 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
+use common\helpers\UtilHelper;
 
-$s = ArrayHelper::toArray($secciones);
-$a = ArrayHelper::getColumn($s, 'id');
-$b = ArrayHelper::getColumn($s, 'nombre');
-$secciones = array_combine($a, $b);
+$secciones = UtilHelper::getDropDownList($secciones);
 $modelHab->icono_id = $modelHab->icono_id ?: 1;
 
 $accion = Yii::$app->controller->action->id;

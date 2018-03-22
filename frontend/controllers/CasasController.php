@@ -39,11 +39,6 @@ class CasasController extends \yii\web\Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        var_dump(Yii::$app->db2->createCommand('UPDATE modulos SET estado = true WHERE id = 1')->queryAll());
-    }
-
     /**
      * Muestra la casa con sus secciones y habitaciones
      * @return mixed
