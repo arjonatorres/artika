@@ -89,8 +89,6 @@ if ($esMod) {
                     elem.fadeOut(400, function() {
                         nombre.text(' ' + nombreHab);
                         icono.attr('src', '/imagenes/iconos/' + iconoIdHab + '.png');
-                        // $('#menu-casa-usuario').append(elem);
-                        seccionNueva.append(elem);
                     }).fadeIn(400);
                 }
                 volverCrearSeccion();
