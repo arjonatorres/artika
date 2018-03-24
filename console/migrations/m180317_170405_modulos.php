@@ -23,6 +23,7 @@ class m180317_170405_modulos extends Migration
             'habitacion_id' => $this->bigInteger()->notNull(),
             'tipo_id' => $this->bigInteger()->notNull(),
             'icono_id' => $this->integer()->notNull()->defaultValue(1),
+            'estado' => $this->integer()->notNull()->defaultValue(0),
             'UNIQUE (nombre, habitacion_id)',
         ]);
 

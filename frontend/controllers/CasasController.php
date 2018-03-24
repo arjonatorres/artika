@@ -46,8 +46,8 @@ class CasasController extends \yii\web\Controller
     public function actionMiCasa()
     {
         $usuario = Yii::$app->user->identity;
-        $query = $usuario->getSecciones()->with('habitaciones');
-        $secciones = $query->orderBy('id')->all();
+        $query = $usuario->getSecciones()->with('habitaciones')->orderBy('id');
+        $secciones = $query->all();
         $dataProvider = new ActiveDataProvider([
             'query' => $query->joinWith('modulos', true, 'RIGHT JOIN'),
         ]);
@@ -175,7 +175,7 @@ class CasasController extends \yii\web\Controller
         ]);
         $secciones = Yii::$app->user->identity->getSecciones()->orderBy('id')->all();
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return;
         }
 
@@ -226,7 +226,7 @@ class CasasController extends \yii\web\Controller
             'id' => $id,
         ]);
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return;
         }
 
@@ -271,7 +271,7 @@ class CasasController extends \yii\web\Controller
             'id' => $id,
         ]);
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return false;
         }
 

@@ -19,7 +19,6 @@ $accion = Yii::$app->controller->action->id;
     <div class="row">
         <div id="menu-casa-usuario" class="col-md-3" >
             <?= $this->render("_menu-casa", [
-                'model' => $model,
                 'secciones' => $secciones,
                 ]) ?>
         </div>

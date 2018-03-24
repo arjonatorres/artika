@@ -6,6 +6,9 @@ use Yii;
 
 use yii\web\Response;
 
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 use yii\widgets\ActiveForm;
 
 use common\models\Tipos;
@@ -15,6 +18,30 @@ use common\helpers\UtilHelper;
 
 class ModulosController extends \yii\web\Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'borrar-seccion' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Muestra la página para crear módulos
      * @return string
@@ -84,7 +111,7 @@ class ModulosController extends \yii\web\Controller
             ->all();
         $tipos = Tipos::find()->all();
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return;
         }
 
@@ -114,7 +141,7 @@ class ModulosController extends \yii\web\Controller
             'id' => $id,
         ]);
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return;
         }
 
@@ -140,10 +167,54 @@ class ModulosController extends \yii\web\Controller
             'id' => $id,
         ]);
 
-        if ($model !== null && $model->esPropia) {
+        if ($model === null || !$model->esPropia) {
             return false;
         }
 
         return $model->delete();
+    }
+
+    /**
+     * Manda una orden al servidor de la casa para que la ejecute
+     * @return mixed El string enviado por el servidor o false si no se recibe
+     *               respuesta del servidor
+     */
+    public function actionOrden()
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+        $id = Yii::$app->request->post('id');
+        $orden = Yii::$app->request->post('orden');
+        $nombre = Yii::$app->user->identity->username;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            'nombre' => $nombre,
+            'password' => $nombre . getenv('PASSWORD_USUARIO'),
+            'id' => $id,
+            'orden' => $orden,
+        ]);
+        curl_setopt($ch, CURLOPT_URL, 'http://joseartika.ddns.net:8082/orden.php');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+        $output = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($code == 200) {
+            if ($output == 'ok') {
+                $modulo = Modulos::findOne(['id' => $id]);
+                if ($modulo === null || !$modulo->esPropia) {
+                    $output = 'error';
+                } else {
+                    $modulo->estado = $orden;
+                    $modulo->save();
+                }
+            }
+            return $output;
+        }
+        return false;
     }
 }

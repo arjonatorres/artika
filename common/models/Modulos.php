@@ -12,6 +12,7 @@ use Yii;
  * @property int $habitacion_id
  * @property int $tipo_id
  * @property int $icono_id
+ * @property int $estado
  *
  * @property Habitaciones $habitacion
  * @property Tipos $tipo
@@ -33,8 +34,8 @@ class Modulos extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'habitacion_id', 'tipo_id'], 'required'],
-            [['habitacion_id', 'tipo_id', 'icono_id'], 'default', 'value' => null],
-            [['habitacion_id', 'tipo_id', 'icono_id'], 'integer'],
+            [['habitacion_id', 'tipo_id', 'icono_id', 'estado'], 'default', 'value' => null],
+            [['habitacion_id', 'tipo_id', 'icono_id', 'estado'], 'integer'],
             [['nombre'], 'string', 'length' => [4, 20]],
             [
                 ['nombre'],
@@ -87,7 +88,7 @@ class Modulos extends \yii\db\ActiveRecord
      */
     public function getEsPropia()
     {
-        return $this->usuario->id !== Yii::$app->user->id;
+        return $this->usuario->id == Yii::$app->user->id;
     }
 
     /**

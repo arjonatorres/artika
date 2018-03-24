@@ -70,7 +70,7 @@ class Habitaciones extends \yii\db\ActiveRecord
      */
     public function getEsPropia()
     {
-        return $this->usuario->id !== Yii::$app->user->id;
+        return $this->usuario->id == Yii::$app->user->id;
     }
 
     /**
