@@ -68,6 +68,7 @@ AppAsset::register($this);
             UtilHelper::menuItem('Mi casa', 'home', 'casas/mi-casa'),
             UtilHelper::menuItem('Secciones', 'th-large', 'casas/crear-seccion'),
             UtilHelper::menuItem('Módulos', 'off', 'modulos/create'),
+            UtilHelper::menuItem('Logs', 'list-alt', 'logs/index'),
         ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;

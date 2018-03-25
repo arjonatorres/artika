@@ -22,6 +22,11 @@ use yii\base\NotSupportedException;
  * @property string $token_val
  * @property string $created_at
  * @property string $updated_at
+ * @property Logs[] $logs
+ * @property Perfiles $perfil
+ * @property Secciones[] $secciones
+ * @property UsuariosId $id0
+ * @property Habitaciones $habitaciones
  */
 class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -221,6 +226,14 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getLogs()
+    {
+        return $this->hasMany(Logs::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }
 
     /**

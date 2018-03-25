@@ -16,8 +16,8 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'formatter' => [
-            'datetimeFormat' => $params['datetimeFormat'],
-            'dateFormat' => $params['dateFormat'],
+            'datetimeFormat' => 'medium',//$params['datetimeFormat'],
+            // 'dateFormat' => $params['dateFormat'],
         ],
         'user' => [
             'identityClass' => 'common\models\Usuarios',

@@ -27,10 +27,17 @@ $js = <<<EOT
             },
             success: function (data) {
                 if (data == 'ok') {
-                    boton.removeClass('btn-default');
-                    boton.addClass('btn-primary');
-                    boton.siblings().removeClass('btn-primary');
-                    boton.siblings().addClass('btn-default');
+                    if (boton.hasClass('boton-off')) {
+                        boton.removeClass('btn-default');
+                        boton.addClass('btn-danger');
+                        boton.siblings().removeClass('btn-success');
+                        boton.siblings().addClass('btn-default');
+                    } else {
+                        boton.removeClass('btn-default');
+                        boton.addClass('btn-success');
+                        boton.siblings().removeClass('btn-danger');
+                        boton.siblings().addClass('btn-default');
+                    }
                     setTimeout(activar, 500);
                 } else if (data == 'error') {
                     mostrarError('Error', 'La orden no ha podido llevarse a cabo');
@@ -115,12 +122,12 @@ $id = $model->id;
                                     <div class="col-md-5 flex-child" data-id="<?= $modulo->id ?>">
                                         <?= Html::button('ON', [
                                             'class' =>
-                                            ($modulo->estado === 0 ? 'btn-default' : 'btn-primary')
+                                            ($modulo->estado === 0 ? 'btn-default' : 'btn-success')
                                             . ' btn btn-orden margen-bottom-sm boton-on'
                                         ]) ?>
                                         <?= Html::button('OFF', [
                                             'class' =>
-                                            ($modulo->estado === 0 ? 'btn-primary' : 'btn-default')
+                                            ($modulo->estado === 0 ? 'btn-danger' : 'btn-default')
                                             . ' btn btn-orden margen-bottom-sm boton-off'
                                         ]) ?>
                                     </div>

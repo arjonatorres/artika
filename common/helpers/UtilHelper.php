@@ -221,6 +221,11 @@ class UtilHelper
         . '</div>';
     }
 
+    /**
+     * Crea una array cuya clave es el id del modelo y el valor el nombre
+     * @param  mixed $modelos El modelo
+     * @return array          El array con el id y el nombre
+     */
     public static function getDropDownList($modelos)
     {
         $s = ArrayHelper::toArray($modelos);

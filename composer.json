@@ -26,7 +26,8 @@
         "kartik-v/yii2-widget-fileinput": "@dev",
         "2amigos/yii2-google-maps-library": "*",
         "kartik-v/yii2-dialog": "*",
-        "kartik-v/yii2-widget-growl": "*"
+        "kartik-v/yii2-widget-growl": "*",
+        "kartik-v/yii2-date-range": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
