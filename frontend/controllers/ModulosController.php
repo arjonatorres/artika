@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 
 use yii\widgets\ActiveForm;
 
+use common\models\Logs;
 use common\models\Tipos;
 use common\models\Modulos;
 
@@ -195,7 +196,7 @@ class ModulosController extends \yii\web\Controller
             'id' => $id,
             'orden' => $orden,
         ]);
-        curl_setopt($ch, CURLOPT_URL, 'http://joseartika.ddns.net:8082/orden.php');
+        curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -210,7 +211,16 @@ class ModulosController extends \yii\web\Controller
                     $output = 'error';
                 } else {
                     $modulo->estado = $orden;
-                    $modulo->save();
+                    if ($modulo->save()) {
+                        $log = new Logs(['usuario_id' => Yii::$app->user->id]);
+                        $log->descripcion = $modulo->nombre . '/'
+                            . $modulo->habitacion->nombre . '/'
+                            . $modulo->seccion->nombre . ' | '
+                            . 'Estado: ' . $modulo->estado;
+                        $log->save();
+                    } else {
+                        $output = 'error';
+                    }
                 }
             }
             return $output;
