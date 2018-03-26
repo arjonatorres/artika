@@ -41,4 +41,9 @@ return [
             // ],
         ],
     ],
+    'modules' => [
+        'markdown' => [
+            'class' => 'kartik\markdown\Module',
+        ],
+    ],
 ];
