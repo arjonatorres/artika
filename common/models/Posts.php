@@ -4,6 +4,10 @@ namespace common\models;
 
 use Yii;
 
+use yii\db\Expression;
+
+use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "posts".
  *
@@ -26,13 +30,23 @@ class Posts extends \yii\db\ActiveRecord
         return 'posts';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('localtimestamp'),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['titulo', 'contenido', 'usuario_id', 'created_at'], 'required'],
+            [['titulo', 'contenido', 'usuario_id'], 'required'],
             [['usuario_id'], 'default', 'value' => null],
             [['usuario_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
@@ -63,6 +77,6 @@ class Posts extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(UsuariosId::className(), ['id' => 'usuario_id'])->inverseOf('posts');
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('posts');
     }
 }

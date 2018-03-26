@@ -1,6 +1,8 @@
 html,
 body {
     height: 100%;
+    font-family: "Lato", sans-serif;
+    background: #555;
 }
 
 .wrap {
@@ -8,8 +10,9 @@ body {
     height: auto;
     margin: 0 auto -50px;
     padding: 0 0 60px;
+    background: url("/imagenes/fondo.png") fixed;
     /* background-color: #F0F0F0; */
-    background: #555;
+    /* background: #555; */
 }
 
 hr {
@@ -180,6 +183,10 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.img-xss {
+    height: 20px;
 }
 
 .img-xs {

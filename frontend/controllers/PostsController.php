@@ -3,6 +3,10 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+
+use yii\filters\AccessControl;
+
 use common\models\Posts;
 use common\models\PostsSearch;
 use yii\web\Controller;
@@ -26,6 +30,16 @@ class PostsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -37,10 +51,18 @@ class PostsController extends Controller
     {
         $searchModel = new PostsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Posts::find()->with('usuario')
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(5);
+        $dataProviderLimit = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataProviderLimit' => $dataProviderLimit,
         ]);
     }
 

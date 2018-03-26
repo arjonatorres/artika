@@ -3,26 +3,78 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
+use common\helpers\UtilHelper;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PostsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->registerCssFile('/css/posts.css', [
+    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
+]);
 
 $this->title = 'Posts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="posts-index">
-
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Posts', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
-        },
-    ]) ?>
+    <div class="col-md-8">
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_post',
+            'summary' => '',
+            'viewParams' => [
+                'searchModel' => $searchModel,
+            ],
+        ]) ?>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default borde-redondo">
+            <div class="panel-body panel-body-gris borde-redondo">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <?= Html::a(
+                            UtilHelper::glyphicon('pushpin') . ' Nuevo Post',
+                            ['create'],
+                            [
+                                'class' => 'btn btn-success',
+                                'title' => 'Crear nuevo post',
+                            ])
+                        ?>
+                    </div>
+                </div>
+                <hr>
+                <div class="">
+                    <?=$this->render('_search', ['model' => $searchModel]); ?>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default borde-redondo">
+            <div class="panel-body panel-body-gris borde-redondo">
+                <div class="">
+                    <p>Últimas entradas</p>
+                    <hr>
+                    <?= ListView::widget([
+                        'dataProvider' => $dataProviderLimit,
+                        'itemOptions' => ['class' => 'item'],
+                        'itemView' => '_ultimas',
+                        'summary' => '',
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default borde-redondo">
+            <div class="panel-body panel-body-gris borde-redondo">
+                    <p>Para poder hacer comentarios:</p>
+                <div class="col-md-10 col-md-offset-1">
+                    <?= Html::a(
+                        Html::img('/imagenes/disqus.png', [
+                            'width' => '100%',
+                        ]), 'https://disqus.com/'
+                        )
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

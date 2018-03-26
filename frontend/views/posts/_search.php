@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use common\helpers\UtilHelper;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\PostsSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -14,22 +16,17 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'titulo') ?>
-
-    <?= $form->field($model, 'contenido') ?>
-
-    <?= $form->field($model, 'usuario_id') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+    <div class="col-md-10">
+        <?= $form->field($model, 'titulo')
+        ->textInput(['placeholder' => 'Texto a buscar'])
+        ->label(false) ?>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <?= Html::submitButton(
+                UtilHelper::glyphicon('search'),
+                ['class' => 'btn btn-primary']) ?>
+            </div>
     </div>
 
     <?php ActiveForm::end(); ?>

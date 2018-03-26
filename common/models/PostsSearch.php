@@ -18,7 +18,7 @@ class PostsSearch extends Posts
     public function rules()
     {
         return [
-            [['id', 'usuario_id'], 'integer'],
+            [['usuario_id'], 'integer'],
             [['titulo', 'contenido', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class PostsSearch extends Posts
      */
     public function search($params)
     {
-        $query = Posts::find();
+        $query = Posts::find()->orderBy(['created_at' => SORT_DESC])->with('usuario');
 
         // add conditions that should always apply here
 
@@ -59,14 +59,12 @@ class PostsSearch extends Posts
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'usuario_id' => $this->usuario_id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
-            ->andFilterWhere(['ilike', 'contenido', $this->contenido]);
+            ->orFilterWhere(['ilike', 'contenido', $this->titulo]);
 
         return $dataProvider;
     }
