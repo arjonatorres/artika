@@ -3,8 +3,10 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        '@avatar' => '@frontend/web/avatar',
+        '@avatar' => '@frontend/web/imagenes/avatar',
         '@avatar_s3' => 'avatar',
+        '@post' => '@frontend/web/imagenes/post',
+        '@post_s3' => 'post',
     ],
     'name' => 'ArTiKa',
     'language' => 'es-ES',

@@ -29,3 +29,25 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.padding-inf-15 {
+    padding: 0px 0px 15px 0px;
+}
+
+.foto-post {
+    max-height: 400px;
+    padding: 0px 0px 15px 0px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #cb2431;
+}
+
+h3.post {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}

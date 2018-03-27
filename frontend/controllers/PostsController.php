@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\web\UploadedFile;
+
 use yii\data\ActiveDataProvider;
 
 use yii\filters\AccessControl;
@@ -53,7 +55,7 @@ class PostsController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $query = Posts::find()->with('usuario')
             ->orderBy(['created_at' => SORT_DESC])
-            ->limit(5);
+            ->limit(4);
         $dataProviderLimit = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,
@@ -68,7 +70,7 @@ class PostsController extends Controller
 
     /**
      * Displays a single Posts model.
-     * @param integer $id
+     * @param int $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -88,8 +90,11 @@ class PostsController extends Controller
     {
         $model = new Posts(['usuario_id' => Yii::$app->user->id]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            if ($model->save() && $model->upload()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -100,7 +105,7 @@ class PostsController extends Controller
     /**
      * Updates an existing Posts model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param int $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -120,7 +125,7 @@ class PostsController extends Controller
     /**
      * Deletes an existing Posts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param int $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -134,7 +139,7 @@ class PostsController extends Controller
     /**
      * Finds the Posts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param int $id
      * @return Posts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

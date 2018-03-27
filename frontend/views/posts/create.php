@@ -20,6 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-8">
         <div class="panel panel-primary borde-redondo">
             <div class="panel-body panel-body-gris borde-redondo">
+                <div class="text-center">
+                    <h3 class="post"><span class="label label-success">Nuevo Post</span></h3>
+                </div>
                 <?= $this->render('_form', [
                     'model' => $model,
                 ]) ?>

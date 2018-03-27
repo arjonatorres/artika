@@ -11,14 +11,24 @@ use kartik\markdown\Markdown;
 /* @var $model common\models\Posts */
 $usuario = $model->usuario;
 $nombre = $usuario !== null ? $usuario->username: 'anónimo';
-$rutaImagen = $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/avatar/0.png');
+$rutaImagen = $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/imagenes/avatar/0.png');
 $usuario_id = $usuario !== null ? $usuario->id : '';
 $searchModel->usuario_id = $usuario_id;
+$imagen = $model->rutaImagen;
 ?>
 
 <div class="posts-view">
     <div class="panel panel-default borde-redondo">
-        <div class="panel-body panel-body-gris borde-redondo">
+        <div class="panel-body panel-body-gris borde-redondo
+         <?= $imagen ? 'padding-inf-15': ''?>">
+            <?php if ($imagen): ?>
+                <div class="text-center">
+                    <?= Html::img($imagen, [
+                        'width' => '100%',
+                        'class' => 'foto-post',
+                        ]) ?>
+                </div>
+            <?php endif ?>
             <div class="col-md-10 col-md-offset-1">
                 <div class="barra-info">
                     <div class="col-md-4">

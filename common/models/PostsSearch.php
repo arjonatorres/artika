@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Posts;
@@ -47,6 +46,9 @@ class PostsSearch extends Posts
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 6,
+            ],
         ]);
 
         $this->load($params);

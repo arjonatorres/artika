@@ -191,7 +191,7 @@ class Perfiles extends \yii\db\ActiveRecord
         $s3 = Yii::$app->get('s3');
 
         foreach ($this->extensions as $ext) {
-            $ruta = 'avatar/' . $id . '.' . $ext;
+            $ruta = 'imagenes/avatar/' . $id . '.' . $ext;
             $rutaS3 = Yii::getAlias('@avatar_s3/') . $id . '.' . $ext;
 
             if (file_exists($ruta)) {
@@ -204,7 +204,7 @@ class Perfiles extends \yii\db\ActiveRecord
                 return '/' . $ruta;
             }
         }
-        return Yii::getAlias('/avatar/0.png');
+        return Yii::getAlias('/imagenes/avatar/0.png');
     }
 
     /**
