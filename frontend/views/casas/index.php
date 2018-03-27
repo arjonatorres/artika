@@ -4,16 +4,16 @@
 /* @var $model \common\models\LoginForm */
 use yii\widgets\ListView;
 
-$this->params['breadcrumbs'][] = [
+$accion = Yii::$app->controller->action->id;
+$this->params['breadcrumbs'][] = $accion !== 'mi-casa' ? [
     'label' => 'Mi casa',
     'url' => ['mi-casa'],
-];
+]: 'Mi casa';
 
 $this->registerCssFile('/css/casa.css', [
     'depends' => [\yii\bootstrap\BootstrapAsset::className()],
 ]);
 
-$accion = Yii::$app->controller->action->id;
 ?>
 <div class="conf-cuenta">
     <div class="row">

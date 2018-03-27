@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 
 use common\helpers\UtilHelper;
 
+use kartik\markdown\Markdown;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Posts */
 $usuario = $model->usuario;
@@ -36,6 +38,7 @@ $searchModel->usuario_id = $usuario_id;
                                 'data' => [
                                     'method' => 'get',
                                 ],
+                                'title' => 'Buscar por usuario',
                             ])?></strong>
                         <?php ActiveForm::end(); ?>
                     </div>
@@ -51,7 +54,8 @@ $searchModel->usuario_id = $usuario_id;
                 <h3>
                     <?= Html::a(Html::encode($model->titulo), ['view', 'id' => $model->id]) ?>
                 </h3>
-                <?= $model->contenido ?>
+                <?= Markdown::convert(Html::encode($model->contenido)) ?>
+                <hr>
             </div>
             <div class="col-md-1">
 

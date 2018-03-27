@@ -24,3 +24,8 @@
     line-height:1.33;
     border-radius: 25px;
 }
+
+.margin-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

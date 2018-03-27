@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?>
                     </div>
                 </div>
-                <hr>
+                <hr class="margin-10">
                 <div class="">
                     <?=$this->render('_search', ['model' => $searchModel]); ?>
                 </div>
@@ -52,8 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default borde-redondo">
             <div class="panel-body panel-body-gris borde-redondo">
                 <div class="">
-                    <p>Últimas entradas</p>
-                    <hr>
+                    <strong>ENTRADAS RECIENTES</strong>
                     <?= ListView::widget([
                         'dataProvider' => $dataProviderLimit,
                         'itemOptions' => ['class' => 'item'],
@@ -65,12 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="panel panel-default borde-redondo">
             <div class="panel-body panel-body-gris borde-redondo">
-                    <p>Para poder hacer comentarios:</p>
+                    <strong>PARA PODER COMENTAR</strong>
+                    <hr class="margin-10">
                 <div class="col-md-10 col-md-offset-1">
                     <?= Html::a(
                         Html::img('/imagenes/disqus.png', [
                             'width' => '100%',
-                        ]), 'https://disqus.com/'
+                        ]), 'https://disqus.com/', [
+                            'title' => 'https://disqus.com/'
+                        ]
                         )
                     ?>
                 </div>

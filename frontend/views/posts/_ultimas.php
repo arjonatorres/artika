@@ -9,6 +9,7 @@ use common\helpers\UtilHelper;
 
 ?>
 
+<hr class="margin-10">
 <div class="posts-limit-view">
-    <?= Html::a(Html::encode(UtilHelper::mostrarCorto($model->titulo, 60)), ['view', 'id' => $model->id]) ?>
+    <?= Html::a(Html::encode(UtilHelper::mostrarCorto($model->titulo, 80)), ['view', 'id' => $model->id]) ?>
 </div>
