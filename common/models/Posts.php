@@ -88,12 +88,12 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'titulo' => 'Titulo',
-            'contenido' => 'Contenido',
+            'titulo' => 'Titulo *',
+            'contenido' => 'Contenido *',
             'usuario_id' => 'Usuario ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'foto' => 'Foto',
+            'foto' => 'Foto de portada',
         ];
     }
 

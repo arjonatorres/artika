@@ -76,8 +76,19 @@ class PostsController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $searchModel = new PostsSearch();
+        $query = Posts::find()->with('usuario')
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(4);
+        $dataProviderLimit = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProviderLimit' => $dataProviderLimit,
         ]);
     }
 
@@ -89,6 +100,14 @@ class PostsController extends Controller
     public function actionCreate()
     {
         $model = new Posts(['usuario_id' => Yii::$app->user->id]);
+        $searchModel = new PostsSearch();
+        $query = Posts::find()->with('usuario')
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(4);
+        $dataProviderLimit = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+        ]);
 
         if ($model->load(Yii::$app->request->post())) {
             $model->foto = UploadedFile::getInstance($model, 'foto');
@@ -99,6 +118,8 @@ class PostsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProviderLimit' => $dataProviderLimit,
         ]);
     }
 
@@ -113,8 +134,11 @@ class PostsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            if ($model->save() && $model->upload()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
@@ -149,6 +173,6 @@ class PostsController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('La página solicitado no existe.');
     }
 }

@@ -91,7 +91,7 @@ class SiteController extends Controller
 
         $model = new LoginForm(['username' => $username]);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect(['casas/mi-casa']);
+            return $this->goBack();
         } else {
             $model->password = '';
 
