@@ -268,4 +268,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->hasMany(Habitaciones::className(), ['seccion_id' => 'id'])
             ->via('secciones');
     }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getPosts()
+    {
+        return $this->hasMany(Posts::className(), ['usuario' => 'id'])->inverseOf('usuario');
+    }
 }

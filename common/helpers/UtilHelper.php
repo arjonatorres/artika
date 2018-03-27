@@ -74,14 +74,15 @@ class UtilHelper
     }
 
     /**
-     * Recorta un string a partir de 30 caracteres de logitud
-     * @param  string $cadena La cadena a recortar
-     * @return string         La cadena recortada
+     * Recorta un string a partir de los caracteres de logitud indicados
+     * @param  string $cadena   La cadena a recortar
+     * @param  int    $longitud La longitud a partir de la cual recortar
+     * @return string           La cadena recortada
      */
-    public static function mostrarCorto(string $cadena): string
+    public static function mostrarCorto(string $cadena, int $longitud = 30): string
     {
-        if (mb_strlen($cadena) > 30) {
-            $cadena = mb_substr($cadena, 0, 30) . '...';
+        if (mb_strlen($cadena) > $longitud) {
+            $cadena = mb_substr($cadena, 0, $longitud) . '...';
         }
         return $cadena;
     }

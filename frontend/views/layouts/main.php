@@ -48,7 +48,6 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [];
-    $menuCasa = [];
     if (Yii::$app->user->isGuest) {
         $menuItems = [
             [
@@ -60,6 +59,12 @@ AppAsset::register($this);
                 'url' => ['usuarios/registro'],
             ],
         ];
+        $menuCasa = [
+            [
+                'label' => '',
+            ],
+            UtilHelper::menuItem('Blog', 'book', 'posts/index'),
+        ];
     } else {
         $menuCasa = [
             [
@@ -69,6 +74,7 @@ AppAsset::register($this);
             UtilHelper::menuItem('Secciones', 'th-large', 'casas/crear-seccion'),
             UtilHelper::menuItem('Módulos', 'off', 'modulos/create'),
             UtilHelper::menuItem('Logs', 'list-alt', 'logs/index'),
+            UtilHelper::menuItem('Blog', 'book', 'posts/index'),
         ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;

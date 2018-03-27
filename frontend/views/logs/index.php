@@ -4,6 +4,8 @@ use yii\grid\GridView;
 use common\helpers\UtilHelper;
 
 /* @var $this yii\web\View */
+
+$this->params['breadcrumbs'][] = 'Logs';
 ?>
 
 <div class="panel panel-primary panel-principal">

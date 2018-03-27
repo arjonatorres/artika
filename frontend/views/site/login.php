@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $title;
 
                     <?= $form->field($model, 'username', [
                         'inputTemplate' => UtilHelper::inputGlyphicon('user'),
-                        ])->textInput(['autofocus' => true]) ?>
+                        ])->textInput(['autofocus' => true, 'tabindex' => 1]) ?>
 
                     <?= $form->field($model, 'password', [
                         'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
-                        ])->passwordInput()
+                        ])->passwordInput(['tabindex' => 2])
                         ->label(
                             $model->getAttributeLabel('password') . ' ('
                             . Html::a(

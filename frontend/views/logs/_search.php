@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 
+use common\helpers\UtilHelper;
+
 use kartik\daterange\DateRangePicker;
 use yii\bootstrap\ActiveForm;
 
@@ -38,7 +40,9 @@ $this->registerJs($js);
     ])->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Buscar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(
+            UtilHelper::glyphicon('search') . ' Buscar',
+            ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

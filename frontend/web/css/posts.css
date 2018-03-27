@@ -1,0 +1,53 @@
+.borde-redondo {
+    border-radius: 8px;
+}
+
+.barra-info {
+    padding-bottom: 10px;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height:1.33;
+    border-radius: 25px;
+}
+
+.margin-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.padding-inf-15 {
+    padding: 0px 0px 15px 0px;
+}
+
+.foto-post {
+    max-height: 400px;
+    padding: 0px 0px 15px 0px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #cb2431;
+}
+
+h3.post {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
