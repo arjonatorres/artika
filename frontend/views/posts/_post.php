@@ -23,10 +23,12 @@ $imagen = $model->rutaImagen;
          <?= $imagen ? 'padding-inf-15': ''?>">
             <?php if ($imagen): ?>
                 <div class="text-center">
-                    <?= Html::img($imagen, [
+                    <?= Html::a(Html::img($imagen, [
                         'width' => '100%',
                         'class' => 'foto-post',
-                        ]) ?>
+                        ]),
+                        ['view', 'id' => $model->id]
+                    ) ?>
                 </div>
             <?php endif ?>
             <div class="col-md-10 col-md-offset-1">
@@ -64,11 +66,30 @@ $imagen = $model->rutaImagen;
                 <h3>
                     <?= Html::a(Html::encode($model->titulo), ['view', 'id' => $model->id]) ?>
                 </h3>
-                <?= Markdown::convert(Html::encode($model->contenido)) ?>
+                <?= Markdown::convert(Html::encode(
+                    !$view ?
+                    UtilHelper::mostrarCorto($model->contenido, 400) :
+                    $model->contenido
+                    )
+                ) ?>
                 <hr>
             </div>
             <div class="col-md-1">
-
+                <?php if (!Yii::$app->user->isGuest): ?>
+                    <?php if ($usuario->id === Yii::$app->user->id): ?>
+                        <?= Html::a(
+                            UtilHelper::glyphicon(
+                                'pencil',
+                                ['class' => 'btn btn-xs btn-success']
+                            ),
+                            ['posts/update', 'id' => $model->id],
+                            [
+                                'class' => 'boton-editar icon-derecha',
+                                'title' => 'Modificar post',
+                            ]
+                        ) ?>
+                    <?php endif ?>
+                <?php endif ?>
             </div>
         </div>
     </div>

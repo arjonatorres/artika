@@ -9,9 +9,9 @@ $this->registerCssFile('/css/posts.css', [
     'depends' => [\yii\bootstrap\BootstrapAsset::className()],
 ]);
 
-$this->title = 'Crear';
+$this->title = 'Crear post';
 $this->params['breadcrumbs'][] = [
-    'label' => 'Posts',
+    'label' => 'Blog',
     'url' => ['index'],
 ];;
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,21 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="col-md-4">
-        <div class="panel panel-default borde-redondo">
-            <div class="panel-body panel-body-gris borde-redondo">
-                    <strong>PARA PODER COMENTAR</strong>
-                    <hr class="margin-10">
-                <div class="col-md-10 col-md-offset-1">
-                    <?= Html::a(
-                        Html::img('/imagenes/disqus.png', [
-                            'width' => '100%',
-                        ]), 'https://disqus.com/', [
-                            'title' => 'https://disqus.com/'
-                        ]
-                        )
-                    ?>
-                </div>
-            </div>
-        </div>
+        <?= $this->render('_lateral', [
+            'searchModel' => $searchModel,
+            'dataProviderLimit' => $dataProviderLimit,
+        ]) ?>
     </div>
 </div>
