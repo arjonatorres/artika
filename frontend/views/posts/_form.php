@@ -44,6 +44,7 @@ use kartik\file\FileInput;
         <hr>
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

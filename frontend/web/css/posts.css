@@ -51,3 +51,11 @@ h3.post {
     margin-top: 0px;
     margin-bottom: 20px;
 }
+
+.icon-xs {
+    font-size: 10px;
+}
+
+.padding-0 {
+    padding: 0px;
+}

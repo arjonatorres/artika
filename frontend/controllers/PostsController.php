@@ -159,7 +159,12 @@ class PostsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if ($model->usuario_id !== Yii::$app->user->id) {
+            return $this->goHome();
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -177,6 +182,6 @@ class PostsController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('La página solicitado no existe.');
+        throw new NotFoundHttpException('La página solicitada no existe.');
     }
 }
