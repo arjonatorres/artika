@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 
 use common\helpers\UtilHelper;
 
+use kartik\dialog\Dialog;
+
 use kartik\markdown\Markdown;
 
 /* @var $this yii\web\View */
@@ -16,6 +18,20 @@ $usuario_id = $usuario !== null ? $usuario->id : $model->usuario_id;
 $searchModel->usuario_id = $usuario_id;
 $imagen = $model->rutaImagen;
 ?>
+<?= Dialog::widget([
+    'dialogDefaults' => [
+        'alert' => [
+            'title' => 'Información',
+        ],
+        'confirm' => [
+            'type' => Dialog::TYPE_DANGER,
+            'title' => 'Confirmación',
+            'btnOKClass' => 'btn-danger',
+            'btnOKLabel' => '<span class="glyphicon glyphicon-remove"></span> ' . 'Borrar',
+            'btnCancelLabel' => '<span class="' . Dialog::ICON_CANCEL . '"></span> ' . 'Cancelar'
+        ],
+    ],
+]); ?>
 
 <div class="posts-view">
     <div class="panel panel-default borde-redondo">
@@ -74,18 +90,33 @@ $imagen = $model->rutaImagen;
                 ) ?>
                 <hr>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1  padding-0">
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <?php if ($usuario_id === Yii::$app->user->id): ?>
                         <?= Html::a(
                             UtilHelper::glyphicon(
                                 'pencil',
-                                ['class' => 'btn btn-xs btn-success']
+                                ['class' => 'btn btn-xs btn-success icon-xs']
                             ),
                             ['posts/update', 'id' => $model->id],
                             [
                                 'class' => 'boton-editar icon-derecha',
                                 'title' => 'Modificar post',
+                            ]
+                        ) ?>
+                        <?= Html::a(
+                            UtilHelper::glyphicon(
+                                'remove',
+                                ['class' => 'btn btn-xs btn-danger icon-xs']
+                            ),
+                            ['posts/delete', 'id' => $model->id],
+                            [
+                                'class' => 'boton-borrar icon-derecha',
+                                'title' => 'Borrar post',
+                                'data' => [
+                                    'confirm' => '¿Estás seguro de que quieres borrar este post?',
+                                    'method' => 'post',
+                                ],
                             ]
                         ) ?>
                     <?php endif ?>

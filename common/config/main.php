@@ -39,8 +39,17 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            // 'rules' => [
-            // ],
+            'rules' => [
+                'mi-casa' => 'casas/mi-casa',
+                'secciones' => 'casas/crear-seccion',
+                'modulos' => 'modulos/create',
+                'logs' => 'logs/index',
+                'blog' => 'posts/index',
+                'posts/<id:\d+>' => 'posts/view',
+                'cuenta' => 'usuarios/mod-cuenta',
+                'perfil' => 'usuarios/mod-perfil',
+                'avatar' => 'usuarios/mod-avatar',
+            ],
         ],
     ],
     'modules' => [
