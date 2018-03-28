@@ -34,7 +34,7 @@ class Modulos extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'habitacion_id', 'tipo_id'], 'required'],
-            [['habitacion_id', 'tipo_id', 'icono_id', 'estado'], 'default', 'value' => null],
+            [['habitacion_id', 'tipo_id', 'icono_id'], 'default', 'value' => null],
             [['habitacion_id', 'tipo_id', 'icono_id', 'estado'], 'integer'],
             [['nombre'], 'string', 'length' => [4, 20]],
             [

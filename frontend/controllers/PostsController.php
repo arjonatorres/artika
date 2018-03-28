@@ -134,6 +134,10 @@ class PostsController extends Controller
     {
         $model = $this->findModel($id);
 
+        if ($model->usuario_id !== Yii::$app->user->id) {
+            return $this->goHome();
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $model->foto = UploadedFile::getInstance($model, 'foto');
             if ($model->save() && $model->upload()) {

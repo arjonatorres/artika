@@ -12,7 +12,7 @@ use kartik\markdown\Markdown;
 $usuario = $model->usuario;
 $nombre = $usuario !== null ? $usuario->username: 'anónimo';
 $rutaImagen = $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/imagenes/avatar/0.png');
-$usuario_id = $usuario !== null ? $usuario->id : '';
+$usuario_id = $usuario !== null ? $usuario->id : $model->usuario_id;
 $searchModel->usuario_id = $usuario_id;
 $imagen = $model->rutaImagen;
 ?>
@@ -76,7 +76,7 @@ $imagen = $model->rutaImagen;
             </div>
             <div class="col-md-1">
                 <?php if (!Yii::$app->user->isGuest): ?>
-                    <?php if ($usuario->id === Yii::$app->user->id): ?>
+                    <?php if ($usuario_id === Yii::$app->user->id): ?>
                         <?= Html::a(
                             UtilHelper::glyphicon(
                                 'pencil',
