@@ -1,5 +1,7 @@
 <?php
 
+use yii\web\View;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -9,6 +11,9 @@ use kartik\dialog\Dialog;
 
 use kartik\markdown\Markdown;
 
+use dosamigos\disqus\Comments;
+use dosamigos\disqus\CommentsCount;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Posts */
 $usuario = $model->usuario;
@@ -17,6 +22,7 @@ $rutaImagen = $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('
 $usuario_id = $usuario !== null ? $usuario->id : $model->usuario_id;
 $searchModel->usuario_id = $usuario_id;
 $imagen = $model->rutaImagen;
+
 ?>
 <?= Dialog::widget([
     'dialogDefaults' => [
@@ -75,7 +81,15 @@ $imagen = $model->rutaImagen;
                         <?= Yii::$app->formatter->asDate($model->created_at) ?>
                     </div>
                     <div class="col-md-4">
-                        <?= UtilHelper::glyphicon('comment') ?> 0 Comentarios
+                        <?= UtilHelper::glyphicon('comment') ?>
+                        <!-- 0 Comentarios -->
+                        <?= Html::a('0 Comentarios',
+                        ["posts/$model->id" . '#disqus_thread'],
+                        ['data-disqus-identifier' => "post$model->id"]) ?>
+                        <?= CommentsCount::widget([
+                            'shortname' => 'artika',
+                            'identifier' => "post$model->id",
+                        ]) ?>
                     </div>
                 </div>
                 <hr>
@@ -120,6 +134,14 @@ $imagen = $model->rutaImagen;
                             ]
                         ) ?>
                     <?php endif ?>
+                <?php endif ?>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <?php if ($view): ?>
+                    <?= Comments::widget([
+                        'shortname' => 'artika',
+                        'identifier' => "post$model->id",
+                        ]) ?>
                 <?php endif ?>
             </div>
         </div>

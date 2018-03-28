@@ -14,7 +14,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
-use yii\web\View;
 use kartik\base\Config;
 
 use kartik\markdown\Module;
@@ -107,7 +106,7 @@ EOT;
     public $height = 260;
 
     /**
-     * @var boolean whether to encode the button labels
+     * @var bool whether to encode the button labels
      * Defaults to true.
      */
     public $encodeLabels = true;
@@ -238,12 +237,12 @@ EOT;
     public $exportCss;
 
     /**
-     * @var boolean show the export button - defaults to true
+     * @var bool show the export button - defaults to true
      */
     public $showExport = true;
 
     /**
-     * @var boolean show the preview button - defaults to true
+     * @var bool show the preview button - defaults to true
      */
     public $showPreview = true;
 
@@ -253,7 +252,7 @@ EOT;
     public $previewAction;
 
     /**
-     * @var boolean use Smarty templates
+     * @var bool use Smarty templates
      */
     public $smarty = true;
 
@@ -358,7 +357,7 @@ EOT;
      * Render each button group in the toolbar
      *
      * @param array $group the button group configuration
-     * @param boolean $header whether the button group is part of the header
+     * @param bool $header whether the button group is part of the header
      *
      * @return string
      */
@@ -385,7 +384,7 @@ EOT;
      *
      * @param int $btn the button identifier (one of the BTN constants)
      * @param array $options the HTML attributes for the button
-     * @param boolean $markup identifies whether the button needs to
+     * @param bool $markup identifies whether the button needs to
      * call the markdown markup javascript on click. Defaults to true.
      * @return string
      */
@@ -427,7 +426,7 @@ EOT;
                 }
                 $item['options']['id'] = $this->getButtonId($key);
                 $icon = empty($item['icon']) ? '' : '<i class="glyphicon glyphicon-' . $item['icon'] . '"></i> ';
-                $output .= "<li>" . Html::a($icon . $item['label'], '#', $item['options']) . "</li>";
+                $output .= '<li>' . Html::a($icon . $item['label'], '#', $item['options']) . '</li>';
             }
             $output .= "</ul>\n";
         }
@@ -463,9 +462,9 @@ EOT;
                 ]) . "\n\n" . $popupAlert;
         }
         if (!isset($this->exportHeader)) {
-            $this->exportHeader = "> - - -\n> " . Yii::t('kvmarkdown', "Markdown Export{line} *Generated {date} by {class}", [
+            $this->exportHeader = "> - - -\n> " . Yii::t('kvmarkdown', 'Markdown Export{line} *Generated {date} by {class}', [
                     'line' => "\n> ===============\n>",
-                    'date' => date("d-M-Y H:i"),
+                    'date' => date('d-M-Y H:i'),
                     'class' => "\\kartik\\markdown\\MarkdownEditor*\n> - - -\n\n"
                 ]);
         }
@@ -706,5 +705,4 @@ EOT;
         $preview = Html::tag('div', '', $this->previewOptions);
         return $input . "\n" . $preview;
     }
-
 }
