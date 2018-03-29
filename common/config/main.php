@@ -51,6 +51,25 @@ return [
                 'avatar' => 'usuarios/mod-avatar',
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                'kvmarkdown*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    # El archivo de traducciones se encuentra en:
+                    # folder/to/project/common/messages
+                    'basePath' => '@common/messages',
+                    # Para el componente la variable sourceLanguage
+                    # siempre debe estar por defecto 'en-US'
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        // 'app' => 'app.php',
+                        'kvmarkdown' => 'kvmarkdown.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+
+            ],
+        ],
     ],
     'modules' => [
         'markdown' => [

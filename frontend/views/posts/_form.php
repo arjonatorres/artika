@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-use common\fixtures\MarkdownEditor;
+use kartik\markdown\MarkdownEditor;
 
 use kartik\file\FileInput;
 
