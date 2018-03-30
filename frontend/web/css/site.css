@@ -223,3 +223,8 @@ a.desc:after {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+
+.pie {
+    font-size: 0.85em;
+    margin-bottom: 5px;
+}

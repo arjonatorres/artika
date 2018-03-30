@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ]); ?>
 <div class="mensajes-index">
 
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(
             UtilHelper::glyphicon('plus') . ' Mensaje nuevo',
@@ -161,7 +159,3 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-// [
-//     '0' => UtilHelper::glyphicon('envelope'),
-//     '1' => UtilHelper::glyphicon('ok'),
-// ]

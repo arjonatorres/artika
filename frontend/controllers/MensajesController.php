@@ -63,6 +63,15 @@ class MensajesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $userId = Yii::$app->user->id;
+        if ($model->destinatario_id !== $userId && $model->remitente_id !== $userId) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+        if ($model->estado === Mensajes::ESTADO_NO_LEIDO) {
+            $model->estado = Mensajes::ESTADO_LEIDO;
+            $model->save();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -134,6 +143,6 @@ class MensajesController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('La página solicitada no existe.');
     }
 }

@@ -48,7 +48,7 @@ class MensajesSearch extends Mensajes
      */
     public function search($params)
     {
-        $query = Mensajes::find()
+        $query = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id])
             ->joinWith(['remitente', 'remitente.usuario']);
 
         // add conditions that should always apply here
