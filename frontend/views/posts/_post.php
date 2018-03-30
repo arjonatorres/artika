@@ -17,9 +17,10 @@ use dosamigos\disqus\CommentsCount;
 /* @var $this yii\web\View */
 /* @var $model common\models\Posts */
 $usuario = $model->usuario;
-$nombre = $usuario !== null ? $usuario->username: 'anónimo';
-$rutaImagen = $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/imagenes/avatar/0.png');
-$usuario_id = $usuario !== null ? $usuario->id : $model->usuario_id;
+
+$nombre = $model->usuarioId->nombre; // !== null ? $usuario->username: 'anónimo';
+$rutaImagen = $model->usuarioId->rutaImagen; //$usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/imagenes/avatar/0.png');
+$usuario_id = $model->usuario_id;
 $searchModel->usuario_id = $usuario_id;
 $imagen = $model->rutaImagen;
 
