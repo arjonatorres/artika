@@ -39,11 +39,47 @@ class UsuariosId extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getNombre()
+    {
+        $usuario = $this->usuario;
+        return $usuario !== null ? $usuario->username: 'anónimo';
+    }
+
+    public function getRutaImagen()
+    {
+        $usuario = $this->usuario;
+        return $usuario !== null ? $usuario->perfil->rutaImagen : Yii::getAlias('/imagenes/avatar/0.png');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsuarios()
+    public function getUsuario()
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'id'])->inverseOf('id0');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts()
+    {
+        return $this->hasMany(Posts::className(), ['usuario_id' => 'id'])->inverseOf('usuarioId');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMensajesRemitente()
+    {
+        return $this->hasMany(Mensajes::className(), ['remitente_id' => 'id'])->inverseOf('remitente');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMensajesDestinatario()
+    {
+        return $this->hasMany(Mensajes::className(), ['destinatario_id' => 'id'])->inverseOf('destinatario');
     }
 }

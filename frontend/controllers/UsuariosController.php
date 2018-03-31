@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use Yii;
 
+use yii\db\Query;
+
 use yii\web\Response;
 use yii\web\UploadedFile;
 
@@ -33,7 +35,7 @@ class UsuariosController extends \yii\web\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete'],
+                        'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete', 'lista-usuarios'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -164,5 +166,42 @@ class UsuariosController extends \yii\web\Controller
         return $this->render('registro', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Devuelve una lista con todos los ids y nombres de usuarios
+     * @param  [type] $q  [description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function actionListaUsuarios($q = null, $id = null)
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '', 'url' => '']];
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select('id, username AS text')
+                ->from('usuarios')
+                ->where(['like', 'username', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+            foreach ($out['results'] as $key => $res) {
+                $usuario = Usuarios::findOne($res['id']);
+                $out['results'][$key]['url'] = $usuario->perfil->rutaImagen;
+            }
+        } elseif ($id > 0) {
+            $usuario = Usuarios::find($id);
+            $out['results'] = [
+                'id' => $id,
+                'text' => $usuario->name,
+                'ulr' => $usuario->perfil->rutaImagen,
+            ];
+        }
+        return $out;
     }
 }

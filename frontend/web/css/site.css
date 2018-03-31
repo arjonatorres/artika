@@ -214,3 +214,17 @@ a.desc:after {
 #menu-casa a {
     padding: 5px 15px;
 }
+
+.badge {
+    background-color: #d9534f;
+}
+
+.borde_sup_red {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.pie {
+    font-size: 0.85em;
+    margin-bottom: 5px;
+}

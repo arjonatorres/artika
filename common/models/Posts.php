@@ -157,6 +157,13 @@ class Posts extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioId()
+    {
+        return $this->hasOne(UsuariosId::className(), ['id' => 'usuario_id'])->inverseOf('posts');
+    }
 
     /**
      * @return \yii\db\ActiveQuery

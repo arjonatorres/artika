@@ -7,6 +7,8 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use common\models\Mensajes;
+
 use common\helpers\UtilHelper;
 
 use frontend\assets\AppAsset;
@@ -66,6 +68,11 @@ AppAsset::register($this);
             UtilHelper::menuItem('Blog', 'book', 'posts/index'),
         ];
     } else {
+        $etiqueta_mensaje = UtilHelper::glyphicon('envelope');
+        $no_leido = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id, 'estado' => 0])->count();
+        if ($no_leido > 0) {
+            $etiqueta_mensaje .= ' <span class="badge">' . $no_leido . '</span>';
+        }
         $menuCasa = [
             [
                 'label' => '',
@@ -78,6 +85,21 @@ AppAsset::register($this);
         ];
         $usuario = Yii::$app->user->identity;
         $ruta = $usuario->perfil->rutaImagen;
+        $menuItems[] = [
+            'label' => $etiqueta_mensaje,
+            'url' => '',
+            'visible' => !Yii::$app->user->isGuest, 'items' => [
+                [
+                    'label' => UtilHelper::glyphicon('inbox')
+                        . ' Recibidos'
+                        . ($no_leido > 0 ? ' (' . $no_leido . ')': ''),
+                    'url' => ['/mensajes/recibidos']
+                ],
+                ['label' => UtilHelper::glyphicon('send') . ' Enviados', 'url' => ['/mensajes/enviados']],
+                '<li class="divider"></li>',
+                ['label' => UtilHelper::glyphicon('plus') . ' Mensaje nuevo', 'url' => ['/mensajes/create']],
+            ]
+        ];
         $menuItems[] = [
             'label' => Html::img($ruta,
                 ['class' => 'img-sm img-circle']
@@ -131,6 +153,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'id' => 'menu-principal-user',
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => $menuItems,
     ]);
     NavBar::end();
