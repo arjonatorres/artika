@@ -16,6 +16,11 @@ use kartik\daterange\DateRangePicker;
 
 $this->title = 'Mensajes recibidos';
 $this->params['breadcrumbs'][] = $this->title;
+$js = <<<EOT
+    $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
+EOT;
+
+$this->registerJs($js);
 ?>
 
 <?= Dialog::widget([
@@ -103,12 +108,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'asunto',
                         'format' => 'raw',
                         'value' => function ($mensaje) {
-                            $contenido = $mensaje->contenido;
+                            $asunto = $mensaje->asunto;
                             if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
-                                $contenido = '<strong>' . $contenido . '</strong>';
+                                $asunto = '<strong>' . $asunto . '</strong>';
                             }
                             return Html::a(
-                                $contenido,
+                                $asunto,
                                 ['view', 'id' => $mensaje->id]
                             );
                         },

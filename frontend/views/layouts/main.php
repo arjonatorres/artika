@@ -98,7 +98,13 @@ AppAsset::register($this);
                 ['label' => UtilHelper::glyphicon('send') . ' Enviados', 'url' => ['/mensajes/enviados']],
                 '<li class="divider"></li>',
                 ['label' => UtilHelper::glyphicon('plus') . ' Mensaje nuevo', 'url' => ['/mensajes/create']],
-            ]
+            ],
+            'dropDownOptions' => [
+                'id' => 'menu-mensajes',
+            ],
+            'options' => [
+                'class' => 'mensajes-dropdown',
+            ],
         ];
         $menuItems[] = [
             'label' => Html::img($ruta,
