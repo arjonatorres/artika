@@ -88,7 +88,6 @@ class Mensajes extends ActiveRecord
             [['created_at'], 'safe'],
             [['asunto'], 'string', 'max' => 255],
             [['contenido'], 'string', 'max' => 10000],
-            [['asunto'], 'unique'],
             [['remitente_id'], 'exist', 'skipOnError' => true, 'targetClass' => UsuariosId::className(), 'targetAttribute' => ['remitente_id' => 'id']],
             [['destinatario_id'], 'exist', 'skipOnError' => true, 'targetClass' => UsuariosId::className(), 'targetAttribute' => ['destinatario_id' => 'id']],
         ];
@@ -103,8 +102,8 @@ class Mensajes extends ActiveRecord
             'id' => 'ID',
             'asunto' => 'Asunto',
             'contenido' => 'Contenido',
-            'remitente_id' => 'Remitente ID',
-            'destinatario_id' => 'Destinatario ID',
+            'remitente_id' => 'Remitente',
+            'destinatario_id' => 'Destinatario(s)',
             'estado' => 'Estado',
             'created_at' => 'Created At',
         ];

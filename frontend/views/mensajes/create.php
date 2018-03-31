@@ -6,16 +6,19 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Mensajes */
 
-$this->title = 'Create Mensajes';
-$this->params['breadcrumbs'][] = ['label' => 'Mensajes', 'url' => ['index']];
+$this->title = 'Crear Mensajes';
+$this->params['breadcrumbs'][] = ['label' => 'Mensajes', 'url' => ['recibidos']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mensajes-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+    <div class="panel panel-default borde-redondo">
+        <div class="panel-body panel-body-gris borde-redondo">
+            <div class="text-center">
+                <h3 class="post"><span class="label label-success">Nuevo Mensaje</span></h3>
+            </div>
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+        </div>
+    </div>
 </div>

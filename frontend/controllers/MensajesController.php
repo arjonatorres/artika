@@ -85,33 +85,39 @@ class MensajesController extends Controller
      */
     public function actionCreate($id = null)
     {
-        $model = new Mensajes(['destinatario_id' => $id]);
+        $model = new Mensajes([
+            'remitente_id' => Yii::$app->user->id,
+            'destinatario_id' => $id,
+            'estado' => 0,
+        ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($id !== null && $model->destinatario === null) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
+
+        if (($post = Yii::$app->request->post())) {
+            if (is_array($post['Mensajes']['destinatario_id']) && isset($post['Mensajes']['destinatario_id'])) {
+                foreach ($post['Mensajes']['destinatario_id'] as $dest) {
+                    $model = new Mensajes([
+                        'remitente_id' => Yii::$app->user->id,
+                        'destinatario_id' => $id,
+                        'estado' => 0,
+                    ]);
+                    $post['Mensajes']['destinatario_id'] = $dest;
+                    $model->load($post);
+                    $model->save();
+                }
+                Yii::$app->session->setFlash('success', 'Su mensaje ha sido enviado correctamente');
+                return $this->redirect(['recibidos']);
+            } else {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    Yii::$app->session->setFlash('success', 'Su mensaje ha sido enviado correctamente');
+                    return $this->redirect(['recibidos']);
+                }
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Mensajes model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
             'model' => $model,
         ]);
     }

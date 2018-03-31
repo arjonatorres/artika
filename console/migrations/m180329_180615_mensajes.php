@@ -14,7 +14,7 @@ class m180329_180615_mensajes extends Migration
     {
         $this->createTable('mensajes', [
             'id' => $this->bigPrimaryKey(),
-            'asunto' => $this->string(255)->notNull()->unique(),
+            'asunto' => $this->string(255)->notNull(),
             'contenido' => $this->string(10000)->notNull(),
             'remitente_id' => $this->bigInteger()->notNull(),
             'destinatario_id' => $this->bigInteger()->notNull(),
