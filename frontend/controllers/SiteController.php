@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 
 use common\models\Usuarios;
 use common\models\LoginForm;
+use common\helpers\UtilHelper;
+
 use frontend\models\RequestActiveEmailForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -175,11 +177,12 @@ class SiteController extends Controller
                     Yii::$app->session->setFlash('success', 'Este usuario ya está activado.');
                     return $this->redirect(['site/login', 'username' => $user->username]);
                 }
-                $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
-                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
-                    ->setTo($model->email)
-                    ->setSubject('Activar cuenta desde ' . Yii::$app->name)
-                    ->send();
+                $mail = UtilHelper::enviarMail(
+                    'signup',
+                    ['user' => $user],
+                    $model->email,
+                    'Activar cuenta desde ' . Yii::$app->name
+                );
 
                 if ($mail) {
                     Yii::$app->session->setFlash('success', 'Compruebe su email para activar su cuenta.');

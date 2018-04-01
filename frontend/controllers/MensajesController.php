@@ -11,6 +11,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use common\helpers\UtilHelper;
+
 /**
  * MensajesController implements the CRUD actions for Mensajes model.
  */
@@ -131,11 +133,23 @@ class MensajesController extends Controller
                     $post['Mensajes']['destinatario_id'] = $dest;
                     $model->load($post);
                     $model->save();
+                    UtilHelper::enviarMail(
+                        'mensaje',
+                        ['model' => $model],
+                        $model->destinatario->usuario->email,
+                        $model->remitente->nombre . ' te ha enviado un mensaje privado.'
+                    );
                 }
                 Yii::$app->session->setFlash('success', 'Su mensaje ha sido enviado correctamente');
                 return $this->redirect(['recibidos']);
             } else {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    UtilHelper::enviarMail(
+                        'mensaje',
+                        ['model' => $model],
+                        $model->destinatario->usuario->email,
+                        $model->remitente->nombre . ' te ha enviado un mensaje privado.'
+                    );
                     Yii::$app->session->setFlash('success', 'Su mensaje ha sido enviado correctamente');
                     return $this->redirect(['recibidos']);
                 }
