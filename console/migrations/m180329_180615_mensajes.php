@@ -18,7 +18,8 @@ class m180329_180615_mensajes extends Migration
             'contenido' => $this->string(10000)->notNull(),
             'remitente_id' => $this->bigInteger()->notNull(),
             'destinatario_id' => $this->bigInteger()->notNull(),
-            'estado' => $this->smallInteger()->notNull()->defaultValue(0),
+            'estado_rem' => $this->smallInteger()->notNull()->defaultValue(0),
+            'estado_dest' => $this->smallInteger()->notNull()->defaultValue(0),
             'created_at' => $this->datetime()->notNull(),
         ]);
 

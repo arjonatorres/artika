@@ -91,11 +91,10 @@ class MensajesController extends Controller
             throw new NotFoundHttpException('La página solicitada no existe.');
         }
 
-        if (!$enviados) {
-            if ($model->estado === Mensajes::ESTADO_NO_LEIDO) {
-                $model->estado = Mensajes::ESTADO_LEIDO;
-                $model->save();
-            }
+        if ($model->destinatario_id == $userId &&
+            $model->estado_dest === Mensajes::ESTADO_NO_LEIDO) {
+            $model->estado_dest = Mensajes::ESTADO_LEIDO;
+            $model->save();
         }
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -113,7 +112,8 @@ class MensajesController extends Controller
         $model = new Mensajes([
             'remitente_id' => Yii::$app->user->id,
             'destinatario_id' => $id,
-            'estado' => 0,
+            'estado_dest' => 0,
+            'estado_rem' => 0,
         ]);
 
         if ($id !== null && $model->destinatario === null) {
@@ -126,7 +126,8 @@ class MensajesController extends Controller
                     $model = new Mensajes([
                         'remitente_id' => Yii::$app->user->id,
                         'destinatario_id' => $id,
-                        'estado' => 0,
+                        'estado_dest' => 0,
+                        'estado_rem' => 0,
                     ]);
                     $post['Mensajes']['destinatario_id'] = $dest;
                     $model->load($post);

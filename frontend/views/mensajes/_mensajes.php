@@ -35,7 +35,7 @@ $columns = [
                 $nombre = $mensaje->destinatario->nombre;
             }
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $nombre = '<strong>' . $nombre . '</strong>';
                 }
             }
@@ -77,7 +77,7 @@ $columns = [
             $rec = $GLOBALS['rec'];
             $fecha = Yii::$app->formatter->asDatetime($mensaje->created_at);
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $fecha = '<strong>' . $fecha . '</strong>';
                 }
             }
@@ -91,7 +91,7 @@ $columns = [
             $rec = $GLOBALS['rec'];
             $asunto = $mensaje->asunto;
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $asunto = '<strong>' . $asunto . '</strong>';
                 }
             }
@@ -110,7 +110,7 @@ if ($rec) {
     $columns [] = [
         'headerOptions' => ['style' => 'width: 12%'],
         'label' => 'Estado',
-        'attribute' => 'estado',
+        'attribute' => 'estado_dest',
         'format' => 'raw',
         'filter' => [
             '0' => 'No leídos',
@@ -118,7 +118,7 @@ if ($rec) {
         ],
         'value' => function ($data) {
             $div = '<div class="text-center">';
-            switch ($data->estado) {
+            switch ($data->estado_dest) {
                 case Mensajes::ESTADO_NO_LEIDO:
                 return $div . UtilHelper::glyphicon('envelope', ['title' => 'No leído']) . '</div>';
                 break;

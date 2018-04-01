@@ -45,7 +45,7 @@ $this->registerJs($js);
         <div class="panel-body">
             <?= Markdown::convert(Html::encode($model->contenido)) ?>
             <hr>
-            <p class="pie">De <strong><?= Html::encode($model->remitente->nombre) ?></strong> para <strong><?= Html::encode($model->destinatario->nombre) ?></p>
+            <p class="pie">De <strong><?= Html::encode($model->remitente->nombre) ?></strong> para <strong><?= Html::encode($model->destinatario->nombre) ?></strong></p>
             <p class="pie">Fecha envío: <strong><?= Yii::$app->formatter->asDatetime($model->created_at) ?></strong></p>
         </div>
     </div>

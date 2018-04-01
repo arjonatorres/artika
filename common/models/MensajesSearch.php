@@ -18,7 +18,7 @@ class MensajesSearch extends Mensajes
     public function rules()
     {
         return [
-            [['id', 'remitente_id', 'destinatario_id', 'estado'], 'integer'],
+            [['id', 'remitente_id', 'destinatario_id', 'estado_dest'], 'integer'],
             [['asunto', 'contenido', 'created_at', 'remitente.nombre', 'destinatario.nombre'], 'safe'],
         ];
     }
@@ -90,7 +90,7 @@ class MensajesSearch extends Mensajes
         $query->andFilterWhere([
             'remitente_id' => $this->remitente_id,
             'destinatario_id' => $this->destinatario_id,
-            'estado' => $this->estado,
+            'estado_dest' => $this->estado_dest,
         ]);
         // grid filtering conditions
         $array = explode(' a ', $this->created_at);
