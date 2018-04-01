@@ -79,11 +79,10 @@ class MensajesController extends Controller
     /**
      * Displays a single Mensajes model.
      * @param int  $id
-     * @param bool $enviados
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id, $enviados = false)
+    public function actionView($id)
     {
         $model = $this->findModel($id);
         $userId = Yii::$app->user->id;
@@ -91,11 +90,10 @@ class MensajesController extends Controller
             throw new NotFoundHttpException('La página solicitada no existe.');
         }
 
-        if (!$enviados) {
-            if ($model->estado === Mensajes::ESTADO_NO_LEIDO) {
-                $model->estado = Mensajes::ESTADO_LEIDO;
-                $model->save();
-            }
+        if ($model->destinatario_id == $userId &&
+            $model->estado_dest === Mensajes::ESTADO_NO_LEIDO) {
+            $model->estado_dest = Mensajes::ESTADO_LEIDO;
+            $model->save();
         }
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -113,7 +111,8 @@ class MensajesController extends Controller
         $model = new Mensajes([
             'remitente_id' => Yii::$app->user->id,
             'destinatario_id' => $id,
-            'estado' => 0,
+            'estado_dest' => 0,
+            'estado_rem' => 0,
         ]);
 
         if ($id !== null && $model->destinatario === null) {
@@ -126,7 +125,8 @@ class MensajesController extends Controller
                     $model = new Mensajes([
                         'remitente_id' => Yii::$app->user->id,
                         'destinatario_id' => $id,
-                        'estado' => 0,
+                        'estado_dest' => 0,
+                        'estado_rem' => 0,
                     ]);
                     $post['Mensajes']['destinatario_id'] = $dest;
                     $model->load($post);
@@ -156,9 +156,29 @@ class MensajesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $userId = Yii::$app->user->id;
+        if ($model->destinatario_id !== $userId && $model->remitente_id !== $userId) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
 
-        return $this->redirect(['index']);
+        if ($model->destinatario_id == $userId) {
+            if ($model->estado_rem == Mensajes::ESTADO_BORRADO) {
+                $model->delete();
+            } else {
+                $model->estado_dest = Mensajes::ESTADO_BORRADO;
+                $model->save();
+            }
+            return $this->redirect(['recibidos']);
+        } else {
+            if ($model->estado_dest == Mensajes::ESTADO_BORRADO) {
+                $model->delete();
+            } else {
+                $model->estado_rem = Mensajes::ESTADO_BORRADO;
+                $model->save();
+            }
+            return $this->redirect(['enviados']);
+        }
     }
 
     /**

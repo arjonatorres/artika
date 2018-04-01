@@ -12,6 +12,7 @@ EOT;
 
 $this->registerJs($js);
 ?>
+<?= $this->render('_menu') ?>
 <div class="mensajes-create">
     <div class="panel panel-default borde-redondo">
         <div class="panel-body panel-body-gris borde-redondo">

@@ -13,7 +13,8 @@ use yii\db\ActiveRecord;
  * @property string $contenido
  * @property int $remitente_id
  * @property int $destinatario_id
- * @property int $estado
+ * @property int $estado_rem
+ * @property int $estado_dest
  * @property string $created_at
  *
  * @property UsuariosId $remitente
@@ -38,18 +39,6 @@ class Mensajes extends ActiveRecord
      * @var int
      */
     const ESTADO_LEIDO = 1;
-
-    /**
-     * Indica que el mensaje está borrado por el destinatario
-     * @var int
-     */
-    const ESTADO_BORRADO_DEST = 2;
-
-    /**
-     * Indica que el mensaje está borrado por el remitente
-     * @var int
-     */
-    const ESTADO_BORRADO_REM = 3;
 
     /**
      * @inheritdoc
@@ -78,9 +67,9 @@ class Mensajes extends ActiveRecord
     public function rules()
     {
         return [
-            [['asunto', 'contenido', 'remitente_id', 'destinatario_id', 'estado'], 'required'],
-            [['remitente_id', 'destinatario_id', 'estado'], 'default', 'value' => null],
-            [['remitente_id', 'destinatario_id', 'estado'], 'integer'],
+            [['asunto', 'contenido', 'remitente_id', 'destinatario_id', 'estado_rem', 'estado_dest'], 'required'],
+            [['remitente_id', 'destinatario_id', 'estado_rem', 'estado_dest'], 'default', 'value' => null],
+            [['remitente_id', 'destinatario_id', 'estado_rem', 'estado_dest'], 'integer'],
             [['created_at'], 'safe'],
             [['asunto'], 'string', 'max' => 255],
             [['contenido'], 'string', 'max' => 10000],
@@ -100,7 +89,8 @@ class Mensajes extends ActiveRecord
             'contenido' => 'Contenido',
             'remitente_id' => 'Remitente',
             'destinatario_id' => 'Destinatario(s)',
-            'estado' => 'Estado',
+            'estado_rem' => 'Estado',
+            'estado_dest' => 'Estado',
             'created_at' => 'Created At',
         ];
     }

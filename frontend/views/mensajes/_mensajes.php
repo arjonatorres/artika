@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 use common\models\Mensajes;
-
 use common\helpers\UtilHelper;
 
 use kartik\dialog\Dialog;
@@ -35,7 +34,7 @@ $columns = [
                 $nombre = $mensaje->destinatario->nombre;
             }
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $nombre = '<strong>' . $nombre . '</strong>';
                 }
             }
@@ -77,7 +76,7 @@ $columns = [
             $rec = $GLOBALS['rec'];
             $fecha = Yii::$app->formatter->asDatetime($mensaje->created_at);
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $fecha = '<strong>' . $fecha . '</strong>';
                 }
             }
@@ -91,7 +90,7 @@ $columns = [
             $rec = $GLOBALS['rec'];
             $asunto = $mensaje->asunto;
             if ($rec) {
-                if ($mensaje->estado == Mensajes::ESTADO_NO_LEIDO) {
+                if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $asunto = '<strong>' . $asunto . '</strong>';
                 }
             }
@@ -100,7 +99,7 @@ $columns = [
                 [
                     'view',
                     'id' => $mensaje->id,
-                    'enviados' => !$rec,
+                    // 'enviados' => !$rec,
                 ]
             );
         },
@@ -110,7 +109,7 @@ if ($rec) {
     $columns [] = [
         'headerOptions' => ['style' => 'width: 12%'],
         'label' => 'Estado',
-        'attribute' => 'estado',
+        'attribute' => 'estado_dest',
         'format' => 'raw',
         'filter' => [
             '0' => 'No leídos',
@@ -118,7 +117,7 @@ if ($rec) {
         ],
         'value' => function ($data) {
             $div = '<div class="text-center">';
-            switch ($data->estado) {
+            switch ($data->estado_dest) {
                 case Mensajes::ESTADO_NO_LEIDO:
                 return $div . UtilHelper::glyphicon('envelope', ['title' => 'No leído']) . '</div>';
                 break;
@@ -162,14 +161,7 @@ $columns[] = [
 ]); ?>
 <div class="mensajes-index">
 
-    <p>
-        <?= Html::a(
-            UtilHelper::glyphicon('plus') . ' Mensaje nuevo',
-            ['create'],
-            ['class' => 'btn btn-success']
-        ) ?>
-    </p>
-    <hr>
+    <?= $this->render('_menu') ?>
 
     <div class="panel panel-principal">
         <div class="panel-body  panel-body-gris borde_sup_red">

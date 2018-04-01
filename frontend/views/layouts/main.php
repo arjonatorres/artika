@@ -69,7 +69,7 @@ AppAsset::register($this);
         ];
     } else {
         $etiqueta_mensaje = UtilHelper::glyphicon('envelope');
-        $no_leido = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id, 'estado' => 0])->count();
+        $no_leido = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id, 'estado_dest' => 0])->count();
         if ($no_leido > 0) {
             $etiqueta_mensaje .= ' <span class="badge">' . $no_leido . '</span>';
         }

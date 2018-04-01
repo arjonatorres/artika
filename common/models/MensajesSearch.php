@@ -18,7 +18,7 @@ class MensajesSearch extends Mensajes
     public function rules()
     {
         return [
-            [['id', 'remitente_id', 'destinatario_id', 'estado'], 'integer'],
+            [['id', 'remitente_id', 'destinatario_id', 'estado_dest'], 'integer'],
             [['asunto', 'contenido', 'created_at', 'remitente.nombre', 'destinatario.nombre'], 'safe'],
         ];
     }
@@ -51,13 +51,18 @@ class MensajesSearch extends Mensajes
     public function search($params, $cond)
     {
         if ($cond == 'recibidos') {
-            $arrayWhere = ['destinatario_id' => Yii::$app->user->id];
+            $arrayWhere = [
+                'destinatario_id' => Yii::$app->user->id,
+            ];
+            $arrayAndWhere = ['<>', 'estado_dest', Mensajes::ESTADO_BORRADO];
             $arrayJoin = ['remitente', 'remitente.usuario'];
         } else {
             $arrayWhere = ['remitente_id' => Yii::$app->user->id];
+            $arrayAndWhere = ['<>', 'estado_rem', Mensajes::ESTADO_BORRADO];
             $arrayJoin = ['destinatario', 'destinatario.usuario'];
         }
         $query = Mensajes::find()->where($arrayWhere)
+            ->andWhere($arrayAndWhere)
             ->joinWith($arrayJoin);
 
         // add conditions that should always apply here
@@ -90,7 +95,7 @@ class MensajesSearch extends Mensajes
         $query->andFilterWhere([
             'remitente_id' => $this->remitente_id,
             'destinatario_id' => $this->destinatario_id,
-            'estado' => $this->estado,
+            'estado_dest' => $this->estado_dest,
         ]);
         // grid filtering conditions
         $array = explode(' a ', $this->created_at);

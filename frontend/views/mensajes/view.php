@@ -30,14 +30,7 @@ $this->registerJs($js);
     ],
 ]); ?>
 <div class="mensajes-view">
-    <p>
-        <?= Html::a(
-            UtilHelper::glyphicon('plus') . ' Mensaje nuevo',
-            ['create'],
-            ['class' => 'btn btn-success']
-        ) ?>
-    </p>
-    <hr>
+    <?= $this->render('_menu') ?>
     <div class="panel panel-default panel-principal">
         <div class="panel-heading">
             <h4><?= Html::encode($model->asunto) ?></h4>
@@ -45,16 +38,8 @@ $this->registerJs($js);
         <div class="panel-body">
             <?= Markdown::convert(Html::encode($model->contenido)) ?>
             <hr>
-            <p class="pie">De <strong><?= Html::encode($model->remitente->nombre) ?></strong> para <strong><?= Html::encode($model->destinatario->nombre) ?></p>
+            <p class="pie">De <strong><?= Html::encode($model->remitente->nombre) ?></strong> para <strong><?= Html::encode($model->destinatario->nombre) ?></strong></p>
             <p class="pie">Fecha envío: <strong><?= Yii::$app->formatter->asDatetime($model->created_at) ?></strong></p>
         </div>
     </div>
-    <hr>
-    <p>
-        <?= Html::a(
-            UtilHelper::glyphicon('arrow-left') . ' Mensajes recibidos',
-            ['recibidos'],
-            ['class' => 'btn btn-primary']
-        ) ?>
-    </p>
 </div>
