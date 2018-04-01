@@ -19,7 +19,7 @@ class MensajesSearch extends Mensajes
     {
         return [
             [['id', 'remitente_id', 'destinatario_id', 'estado'], 'integer'],
-            [['asunto', 'contenido', 'created_at', 'remitente.nombre'], 'safe'],
+            [['asunto', 'contenido', 'created_at', 'remitente.nombre', 'destinatario.nombre'], 'safe'],
         ];
     }
 
@@ -36,6 +36,7 @@ class MensajesSearch extends Mensajes
     {
         return array_merge(parent::attributes(), [
             'remitente.nombre',
+            'destinatario.nombre'
         ]);
     }
 
@@ -43,13 +44,21 @@ class MensajesSearch extends Mensajes
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param array $cond
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $cond)
     {
-        $query = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id])
-            ->joinWith(['remitente', 'remitente.usuario']);
+        if ($cond == 'recibidos') {
+            $arrayWhere = ['destinatario_id' => Yii::$app->user->id];
+            $arrayJoin = ['remitente', 'remitente.usuario'];
+        } else {
+            $arrayWhere = ['remitente_id' => Yii::$app->user->id];
+            $arrayJoin = ['destinatario', 'destinatario.usuario'];
+        }
+        $query = Mensajes::find()->where($arrayWhere)
+            ->joinWith($arrayJoin);
 
         // add conditions that should always apply here
 
@@ -66,6 +75,16 @@ class MensajesSearch extends Mensajes
         }
 
         $dataProvider->sort->defaultOrder = ['created_at' => SORT_DESC];
+
+        $dataProvider->sort->attributes['remitente.nombre'] = [
+            'asc' => ['usuarios.username' => SORT_ASC],
+            'desc' => ['usuarios.username' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['destinatario.nombre'] = [
+            'asc' => ['usuarios.username' => SORT_ASC],
+            'desc' => ['usuarios.username' => SORT_DESC],
+        ];
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -91,7 +110,8 @@ class MensajesSearch extends Mensajes
 
         $query->andFilterWhere(['ilike', 'asunto', $this->asunto])
             ->andFilterWhere(['ilike', 'contenido', $this->contenido])
-            ->andFilterWhere(['ilike', 'usuarios.username', $this->getAttribute('remitente.nombre')]);
+            ->andFilterWhere(['ilike', 'usuarios.username', $this->getAttribute('remitente.nombre')])
+            ->andFilterWhere(['ilike', 'usuarios.username', $this->getAttribute('destinatario.nombre')]);
 
         return $dataProvider;
     }

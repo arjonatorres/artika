@@ -4,7 +4,7 @@
 /* @var $searchModel common\models\MensajesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mensajes recibidos';
+$this->title = 'Mensajes enviados';
 $this->params['breadcrumbs'][] = $this->title;
 $js = <<<EOT
     $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
@@ -16,5 +16,5 @@ $this->registerJs($js);
 <?= $this->render('_mensajes', [
     'searchModel' => $searchModel,
     'dataProvider' => $dataProvider,
-    'recibidos' => true,
+    'recibidos' => false,
 ]) ?>
