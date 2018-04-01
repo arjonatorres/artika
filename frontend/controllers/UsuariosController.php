@@ -21,6 +21,8 @@ use common\models\Generos;
 use common\models\Perfiles;
 use common\models\Usuarios;
 
+use common\helpers\UtilHelper;
+
 use frontend\models\SignupForm;
 
 class UsuariosController extends \yii\web\Controller
@@ -149,11 +151,12 @@ class UsuariosController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 (new Perfiles(['usuario_id' => $user->id]))->save();
-                $mail = Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
-                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
-                    ->setTo($model->email)
-                    ->setSubject('Activar cuenta desde ' . Yii::$app->name)
-                    ->send();
+                $mail = UtilHelper::enviarMail(
+                    'signup',
+                    ['user' => $user],
+                    $model->email,
+                    'Activar cuenta desde ' . Yii::$app->name
+                );
                 if ($mail) {
                     Yii::$app->session->setFlash('success', 'Gracias por registrarte. Comprueba tu correo para activar tu cuenta.');
                 } else {

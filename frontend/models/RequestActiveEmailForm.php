@@ -5,6 +5,8 @@ use Yii;
 use yii\base\Model;
 use common\models\Usuarios;
 
+use common\helpers\UtilHelper;
+
 /**
  * Password reset request form
  */
@@ -40,10 +42,11 @@ class RequestActiveEmailForm extends Model
      */
     public function sendEmail()
     {
-        return Yii::$app->mailer->compose(['html' => 'signup'], ['user' => $user])
-            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($model->email)
-            ->setSubject('Activar cuenta desde ' . Yii::$app->name)
-            ->send();
+        return UtilHelper::enviarMail(
+            'signup',
+            ['user' => $user],
+            $model->email,
+            'Activar cuenta desde ' . Yii::$app->name
+        );
     }
 }

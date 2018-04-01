@@ -5,6 +5,8 @@ use Yii;
 use yii\base\Model;
 use common\models\Usuarios;
 
+use common\helpers\UtilHelper;
+
 /**
  * Password reset request form
  */
@@ -56,12 +58,11 @@ class PasswordResetRequestForm extends Model
             }
         }
 
-        return Yii::$app
-            ->mailer
-            ->compose(['html' => 'passwordReset'], ['user' => $user])
-            ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Cambiar contraseña desde ' . Yii::$app->name)
-            ->send();
+        return UtilHelper::enviarMail(
+            'passwordReset',
+            ['user' => $user],
+            $this->email,
+            'Cambiar contraseña desde ' . Yii::$app->name
+        );
     }
 }
