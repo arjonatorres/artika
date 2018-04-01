@@ -41,13 +41,16 @@ class MensajesController extends Controller
     }
 
     /**
-     * Lists all Mensajes models.
+     * Lista todos los Mensajes recibidos.
      * @return mixed
      */
     public function actionRecibidos()
     {
         $searchModel = new MensajesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(
+            Yii::$app->request->queryParams,
+            'recibidos'
+        );
 
         return $this->render('recibidos', [
             'searchModel' => $searchModel,
@@ -56,21 +59,43 @@ class MensajesController extends Controller
     }
 
     /**
+     * Lista todos los Mensajes enviados.
+     * @return mixed
+     */
+    public function actionEnviados()
+    {
+        $searchModel = new MensajesSearch();
+        $dataProvider = $searchModel->search(
+            Yii::$app->request->queryParams,
+            'enviados'
+        );
+
+        return $this->render('enviados', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Mensajes model.
-     * @param int $id
+     * @param int  $id
+     * @param bool $enviados
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $enviados = false)
     {
         $model = $this->findModel($id);
         $userId = Yii::$app->user->id;
         if ($model->destinatario_id !== $userId && $model->remitente_id !== $userId) {
             throw new NotFoundHttpException('La página solicitada no existe.');
         }
-        if ($model->estado === Mensajes::ESTADO_NO_LEIDO) {
-            $model->estado = Mensajes::ESTADO_LEIDO;
-            $model->save();
+
+        if (!$enviados) {
+            if ($model->estado === Mensajes::ESTADO_NO_LEIDO) {
+                $model->estado = Mensajes::ESTADO_LEIDO;
+                $model->save();
+            }
         }
         return $this->render('view', [
             'model' => $this->findModel($id),

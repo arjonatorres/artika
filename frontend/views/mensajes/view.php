@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-
 use common\helpers\UtilHelper;
 
 use kartik\markdown\Markdown;
@@ -14,6 +12,11 @@ use kartik\dialog\Dialog;
 $this->title = UtilHelper::mostrarCorto($model->asunto, 100);
 $this->params['breadcrumbs'][] = ['label' => 'Mensajes', 'url' => ['recibidos']];
 $this->params['breadcrumbs'][] = $this->title;
+$js = <<<EOT
+    $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
+EOT;
+
+$this->registerJs($js);
 ?>
 <?= Dialog::widget([
     'dialogDefaults' => [

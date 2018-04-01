@@ -10,7 +10,7 @@ $title = 'Configuración';
 $this->params['breadcrumbs'][] = $title;
 
 $js = <<<EOT
-    $('#menu-principal').children('li').last().addClass('active');
+    $('#menu-principal-user').children('li.user-dropdown').addClass('active');
 EOT;
 
 $this->registerJs($js);
