@@ -79,11 +79,10 @@ class MensajesController extends Controller
     /**
      * Displays a single Mensajes model.
      * @param int  $id
-     * @param bool $enviados
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id, $enviados = false)
+    public function actionView($id)
     {
         $model = $this->findModel($id);
         $userId = Yii::$app->user->id;
@@ -157,9 +156,29 @@ class MensajesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $userId = Yii::$app->user->id;
+        if ($model->destinatario_id !== $userId && $model->remitente_id !== $userId) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
 
-        return $this->redirect(['index']);
+        if ($model->destinatario_id == $userId) {
+            if ($model->estado_rem == Mensajes::ESTADO_BORRADO) {
+                $model->delete();
+            } else {
+                $model->estado_dest = Mensajes::ESTADO_BORRADO;
+                $model->save();
+            }
+            return $this->redirect(['recibidos']);
+        } else {
+            if ($model->estado_dest == Mensajes::ESTADO_BORRADO) {
+                $model->delete();
+            } else {
+                $model->estado_rem = Mensajes::ESTADO_BORRADO;
+                $model->save();
+            }
+            return $this->redirect(['enviados']);
+        }
     }
 
     /**

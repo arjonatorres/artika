@@ -51,13 +51,18 @@ class MensajesSearch extends Mensajes
     public function search($params, $cond)
     {
         if ($cond == 'recibidos') {
-            $arrayWhere = ['destinatario_id' => Yii::$app->user->id];
+            $arrayWhere = [
+                'destinatario_id' => Yii::$app->user->id,
+            ];
+            $arrayAndWhere = ['<>', 'estado_dest', Mensajes::ESTADO_BORRADO];
             $arrayJoin = ['remitente', 'remitente.usuario'];
         } else {
             $arrayWhere = ['remitente_id' => Yii::$app->user->id];
+            $arrayAndWhere = ['<>', 'estado_rem', Mensajes::ESTADO_BORRADO];
             $arrayJoin = ['destinatario', 'destinatario.usuario'];
         }
         $query = Mensajes::find()->where($arrayWhere)
+            ->andWhere($arrayAndWhere)
             ->joinWith($arrayJoin);
 
         // add conditions that should always apply here

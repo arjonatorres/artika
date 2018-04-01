@@ -40,8 +40,7 @@ class LogsSearch extends Logs
      */
     public function search($params)
     {
-        $query = Logs::find()
-            ->where(['usuario_id' => Yii::$app->user->id]);
+        $query = Logs::find()->where(['usuario_id' => Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

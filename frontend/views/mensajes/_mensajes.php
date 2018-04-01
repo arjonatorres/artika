@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 use common\models\Mensajes;
-
 use common\helpers\UtilHelper;
 
 use kartik\dialog\Dialog;
@@ -100,7 +99,7 @@ $columns = [
                 [
                     'view',
                     'id' => $mensaje->id,
-                    'enviados' => !$rec,
+                    // 'enviados' => !$rec,
                 ]
             );
         },
@@ -162,14 +161,7 @@ $columns[] = [
 ]); ?>
 <div class="mensajes-index">
 
-    <p>
-        <?= Html::a(
-            UtilHelper::glyphicon('plus') . ' Mensaje nuevo',
-            ['create'],
-            ['class' => 'btn btn-success']
-        ) ?>
-    </p>
-    <hr>
+    <?= $this->render('_menu') ?>
 
     <div class="panel panel-principal">
         <div class="panel-body  panel-body-gris borde_sup_red">
