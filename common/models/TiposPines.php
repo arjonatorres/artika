@@ -5,21 +5,21 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "tipos".
+ * This is the model class for table "tipos_pines".
  *
  * @property int $id
  * @property string $nombre
  *
- * @property Modulos[] $modulos
+ * @property Pines[] $pines
  */
-class Tipos extends \yii\db\ActiveRecord
+class TiposPines extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tipos';
+        return 'tipos_pines';
     }
 
     /**
@@ -48,8 +48,8 @@ class Tipos extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModulos()
+    public function getPines()
     {
-        return $this->hasMany(Modulos::className(), ['tipo_id' => 'id'])->inverseOf('tipo');
+        return $this->hasMany(Pines::className(), ['tipo_pin_id' => 'id'])->inverseOf('tipoPin');
     }
 }

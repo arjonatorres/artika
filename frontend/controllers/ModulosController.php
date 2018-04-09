@@ -12,7 +12,7 @@ use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 
 use common\models\Logs;
-use common\models\Tipos;
+use common\models\TiposModulos;
 use common\models\Modulos;
 
 use common\helpers\UtilHelper;
@@ -53,7 +53,7 @@ class ModulosController extends \yii\web\Controller
             ->with('modulos')
             ->orderBy('nombre')
             ->all();
-        $tipos = Tipos::find()->all();
+        $tipos_modulos = TiposModulos::find()->all();
         $model = new Modulos();
 
         if (Yii::$app->request->isAjax) {
@@ -64,14 +64,14 @@ class ModulosController extends \yii\web\Controller
                 return $this->renderAjax('_create', [
                     'model' => $model,
                     'habitaciones' => $habitaciones,
-                    'tipos' => $tipos,
+                    'tipos_modulos' => $tipos_modulos,
                 ]);
             }
         }
         return $this->render('index', [
             'model' => $model,
             'habitaciones' => $habitaciones,
-            'tipos' => $tipos,
+            'tipos_modulos' => $tipos_modulos,
         ]);
     }
 
@@ -110,7 +110,7 @@ class ModulosController extends \yii\web\Controller
             ->with('modulos')
             ->orderBy('nombre')
             ->all();
-        $tipos = Tipos::find()->all();
+        $tipos_modulos = TiposModulos::find()->all();
 
         if ($model === null || !$model->esPropia) {
             return;
@@ -123,7 +123,7 @@ class ModulosController extends \yii\web\Controller
         return $this->renderAjax('_modificar-modulo', [
             'model' => $model,
             'habitaciones' => $habitaciones,
-            'tipos' => $tipos,
+            'tipos_modulos' => $tipos_modulos,
         ]);
     }
 
@@ -187,16 +187,42 @@ class ModulosController extends \yii\web\Controller
         }
         $id = Yii::$app->request->post('id');
         $orden = Yii::$app->request->post('orden');
+        // $id = 1;
+        // $orden = 1;
+        $modulo = Modulos::findOne($id);
+        if ($modulo === null || !$modulo->esPropia) {
+            return 'error';
+        }
+        if ($modulo->pin1 !== null) {
+            $pin1 = $modulo->pin1->nombre;
+            $tipo = substr($pin1, 0, 1);
+            $pin1 = substr($pin1, 1);
+        } else {
+            return 'nc';
+        }
+        if ($modulo->pin2 !== null) {
+            $pin2 = $modulo->pin2->nombre;
+            $pin2 = substr($pin2, 1);
+        } else {
+            $pin2 = null;
+        }
+
         $nombre = Yii::$app->user->identity->username;
+        $data_json = urlencode(json_encode([
+            'tipo' => $tipo,
+            'orden' => $orden,
+            'pin1' => $pin1,
+            'pin2' => $pin2
+        ]));
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
             'nombre' => $nombre,
-            'password' => $nombre . getenv('PASSWORD_USUARIO'),
-            'id' => $id,
-            'orden' => $orden,
-        ]);
-        curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
+            'password' => ($nombre . getenv('PASSWORD_USUARIO')),
+            'datos' => $data_json]);
+        // curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
+        curl_setopt($ch, CURLOPT_URL, 'https://ntcaxzyg.p50.rt3.io/orden.php');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -204,26 +230,25 @@ class ModulosController extends \yii\web\Controller
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         Yii::$app->response->format = Response::FORMAT_JSON;
+
         if ($code == 200) {
-            if ($output == 'ok') {
-                $modulo = Modulos::findOne(['id' => $id]);
-                if ($modulo === null || !$modulo->esPropia) {
-                    $output = 'error';
+            if ($output == $orden) {
+                $modulo->estado = $orden;
+                if ($modulo->save()) {
+                    $res = 'ok';
+                    $log = new Logs(['usuario_id' => Yii::$app->user->id]);
+                    $log->descripcion = $modulo->nombre . '/'
+                        . $modulo->habitacion->nombre . '/'
+                        . $modulo->seccion->nombre . ' | '
+                        . 'Estado: ' . $modulo->estado;
+                    $log->save();
                 } else {
-                    $modulo->estado = $orden;
-                    if ($modulo->save()) {
-                        $log = new Logs(['usuario_id' => Yii::$app->user->id]);
-                        $log->descripcion = $modulo->nombre . '/'
-                            . $modulo->habitacion->nombre . '/'
-                            . $modulo->seccion->nombre . ' | '
-                            . 'Estado: ' . $modulo->estado;
-                        $log->save();
-                    } else {
-                        $output = 'error';
-                    }
+                    $res = 'error';
                 }
+            } else {
+                $res = 'error';
             }
-            return $output;
+            return $res;
         }
         return false;
     }

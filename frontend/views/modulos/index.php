@@ -25,7 +25,7 @@ $accion = Yii::$app->controller->action->id;
             <?= $this->render("_$accion", [
                 'model' => $model,
                 'habitaciones' => $habitaciones,
-                'tipos' => $tipos,
+                'tipos_modulos' => $tipos_modulos,
                 ]) ?>
         </div>
     </div>

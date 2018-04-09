@@ -9,8 +9,8 @@ use common\helpers\UtilHelper;
 $habitaciones = UtilHelper::getDropDownList($habitaciones);
 $model->icono_id = $model->icono_id ?: 1;
 
-$tipos = UtilHelper::getDropDownList($tipos);
-$model->tipo_id = $model->tipo_id ?: 1;
+$tipos_modulos = UtilHelper::getDropDownList($tipos_modulos);
+$model->tipo_modulo_id = $model->tipo_modulo_id ?: 1;
 
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-modulo';
@@ -74,7 +74,7 @@ if ($esMod) {
     $('#modulo-form').on('beforeSubmit', function () {
         var nombreModulo = $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value;
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
-        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_id').value;
+        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
         var idIcono = $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value;
         $.ajax({
             url: '$urlModificarModuloAjax' + '?id=$model->id',
@@ -82,7 +82,7 @@ if ($esMod) {
             data: {
                 'Modulos[nombre]': nombreModulo,
                 'Modulos[habitacion_id]': idHabitacion,
-                'Modulos[tipo_id]': idTipo,
+                'Modulos[tipo_modulo_id]': idTipo,
                 'Modulos[icono_id]': idIcono,
             },
             success: function (data) {
@@ -109,14 +109,14 @@ EOL;
     $js .= <<<EOL
     $('#modulo-form').on('beforeSubmit', function () {
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
-        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_id').value;
+        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
         $.ajax({
             url: '$urlCrearModuloAjax',
             type: 'POST',
             data: {
                 'Modulos[nombre]': $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value,
                 'Modulos[habitacion_id]': idHabitacion,
-                'Modulos[tipo_id]': idTipo,
+                'Modulos[tipo_modulo_id]': idTipo,
                 'Modulos[icono_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value,
             },
             success: function (data) {
@@ -220,7 +220,7 @@ $b = array_map(function ($var) {
             <?= $form->field($model, 'habitacion_id')->dropDownList($habitaciones, [
                 'style'=>'width: 80%; margin-right: 10px;',
             ]) ?>
-            <?= $form->field($model, 'tipo_id')->dropDownList($tipos, [
+            <?= $form->field($model, 'tipo_modulo_id')->dropDownList($tipos_modulos, [
                 'style'=>'width: 80%; margin-right: 10px;',
             ]) ?>
             <div class="form-group">
