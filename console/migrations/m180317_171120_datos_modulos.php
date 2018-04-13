@@ -12,12 +12,12 @@ class m180317_171120_datos_modulos extends Migration
      */
     public function safeUp()
     {
-        $this->batchInsert('tipos_modulos', ['nombre'], [
-            ['Interruptor'], ['Persiana'], ['Sensor temperatura'],
-        ]);
-
         $this->batchInsert('tipos_pines', ['nombre'], [
             ['Salida'], ['Entrada'],
+        ]);
+
+        $this->batchInsert('tipos_modulos', ['nombre', 'tipo_pin_id'], [
+            ['Interruptor', 1], ['Persiana', 1], ['Sensor temperatura', 2],
         ]);
 
         $this->batchInsert('pines', ['nombre', 'tipo_pin_id'], [
@@ -39,7 +39,7 @@ class m180317_171120_datos_modulos extends Migration
                 ['Persiana', 3, 1, 3, 13, 14],
                 ['Radio', 4, 1, 11, 15, null],
                 ['Ventilador techo', 5, 1, 8, 16, null],
-                ['Aire acondicionado', 5, 1, 3, 17, null],
+                // ['Aire acondicionado', 5, 1, 3, 17, null],
                 ['Enchufe', 6, 1, 16, 18, null],
             ]
         );

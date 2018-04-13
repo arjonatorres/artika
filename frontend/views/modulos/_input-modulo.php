@@ -4,13 +4,18 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
+use common\models\Pines;
+use common\models\Modulos;
+
 use common\helpers\UtilHelper;
+use kartik\depdrop\DepDrop;
+
+use kartik\select2\Select2;
 
 $habitaciones = UtilHelper::getDropDownList($habitaciones);
 $model->icono_id = $model->icono_id ?: 1;
 
 $tipos_modulos = UtilHelper::getDropDownList($tipos_modulos);
-$model->tipo_modulo_id = $model->tipo_modulo_id ?: 1;
 
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-modulo';
@@ -18,8 +23,9 @@ $esMod = $accion === 'modificar-modulo';
 $urlCrearModuloAjax = Url::to(['modulos/create-ajax']);
 $urlModificarModuloAjax = Url::to(['modulos/modificar-modulo-ajax']);
 $urlModulos = Url::to(['modulos/create']);
+$data = [];
 
-$js = <<<EOL
+$js = <<<JS
 
 $('.lista-iconos').on('click', function () {
     var id = $(this).data('id');
@@ -67,15 +73,16 @@ $('#cancelar-button').on('click', function () {
     volverCrearModulo();
 });
 
-EOL;
+JS;
 
 if ($esMod) {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#modulo-form').on('beforeSubmit', function () {
         var nombreModulo = $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value;
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
         var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
         var idIcono = $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value;
+        var idPin1 = $('#modulo-form').yiiActiveForm('find', 'modulos-pin1_id').value;
         $.ajax({
             url: '$urlModificarModuloAjax' + '?id=$model->id',
             type: 'POST',
@@ -84,6 +91,7 @@ if ($esMod) {
                 'Modulos[habitacion_id]': idHabitacion,
                 'Modulos[tipo_modulo_id]': idTipo,
                 'Modulos[icono_id]': idIcono,
+                'Modulos[pin1_id]': idPin1
             },
             success: function (data) {
                 if (data) {
@@ -104,9 +112,9 @@ if ($esMod) {
         });
         return false;
     });
-EOL;
+JS;
 } else {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#modulo-form').on('beforeSubmit', function () {
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
         var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
@@ -118,6 +126,7 @@ EOL;
                 'Modulos[habitacion_id]': idHabitacion,
                 'Modulos[tipo_modulo_id]': idTipo,
                 'Modulos[icono_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value,
+                'Modulos[pin1_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-pin1_id').value
             },
             success: function (data) {
                 if (data) {
@@ -142,10 +151,10 @@ EOL;
         });
         return false;
     });
-EOL;
+JS;
 }
 $this->registerJs($js);
-
+;
 $a = array_filter(scandir('imagenes/iconos/modulos/'), function ($var) {
     return preg_match('/^\d+\.png$/', $var);
 });
@@ -217,12 +226,47 @@ $b = array_map(function ($var) {
                         'style' => 'display: block',
                         ]) ?>
 
-            <?= $form->field($model, 'habitacion_id')->dropDownList($habitaciones, [
-                'style'=>'width: 80%; margin-right: 10px;',
+            <?= $form->field($model, 'habitacion_id')->widget(Select2::classname(), [
+                'data' => $habitaciones,
+                'options' => [
+                    'placeholder' => 'Selecciona una habitación',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
             ]) ?>
-            <?= $form->field($model, 'tipo_modulo_id')->dropDownList($tipos_modulos, [
-                'style'=>'width: 80%; margin-right: 10px;',
+
+            <?= $form->field($model, 'tipo_modulo_id')->widget(Select2::classname(), [
+                'id' => 'modulos-tipo_modulo_id',
+                'data' => $tipos_modulos,
+                'options' => [
+                    'placeholder' => 'Selecciona un tipo',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
             ]) ?>
+            <?php
+                if ($esMod) {
+                    $pines_id = Modulos::pinesLibres($model->tipoModulo->id);
+                    $out = Pines::find()->select(['id', 'nombre'])
+                        ->where(['in', 'id', $pines_id])->asArray()->all();
+                    array_unshift($out, ['id' => $model->pin1_id, 'nombre' => $model->pin1->nombre]);
+                    $data = UtilHelper::getDropDownList($out);
+                }
+            ?>
+            <?= $form->field($model, 'pin1_id')->widget(DepDrop::classname(), [
+                'options'=>['id'=>'pin1-id'],
+                'data'=> $data,
+                'pluginOptions'=>[
+                    'loadingText' => 'Cargando ...',
+                    'depends' => ['modulos-tipo_modulo_id'],
+                    'placeholder' => 'Selecciona un pin...',
+                    'url' => Url::to(['pin-principal']),
+                    'params' => ['mod1'],
+                ]
+            ]) ?>
+
             <div class="form-group">
                 <?= Html::submitButton($esMod ? 'Modificar' : 'Añadir', [
                     'class' => 'btn btn-success',
@@ -233,6 +277,7 @@ $b = array_map(function ($var) {
                         'class' => 'btn btn-danger',
                         'id' => 'cancelar-button',
                     ]) ?>
+                    <?= Html::hiddenInput('mod1', $model->pin1_id, ['id'=>'mod1']) ?>
                 <?php endif ?>
             </div>
         </div>

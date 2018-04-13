@@ -12,14 +12,15 @@ class m180317_170405_modulos extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('tipos_modulos', [
+        $this->createTable('tipos_pines', [
             'id' => $this->bigPrimaryKey(),
             'nombre' => $this->string(20)->notNull()->unique(),
         ]);
 
-        $this->createTable('tipos_pines', [
+        $this->createTable('tipos_modulos', [
             'id' => $this->bigPrimaryKey(),
             'nombre' => $this->string(20)->notNull()->unique(),
+            'tipo_pin_id' => $this->bigInteger()->notNull(),
         ]);
 
         $this->createTable('modulos', [
@@ -29,7 +30,7 @@ class m180317_170405_modulos extends Migration
             'tipo_modulo_id' => $this->bigInteger()->notNull(),
             'icono_id' => $this->integer()->notNull()->defaultValue(1),
             'estado' => $this->integer()->notNull()->defaultValue(0),
-            'pin1_id' => $this->bigInteger(),
+            'pin1_id' => $this->bigInteger()->notNull(),
             'pin2_id' => $this->bigInteger(),
             'UNIQUE (nombre, habitacion_id)',
         ]);
@@ -63,6 +64,16 @@ class m180317_170405_modulos extends Migration
         $this->addForeignKey(
             'fk_pines_tipos_pines',
             'pines',
+            'tipo_pin_id',
+            'tipos_pines',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk_tipos_modulos_tipos_pines',
+            'tipos_modulos',
             'tipo_pin_id',
             'tipos_pines',
             'id',

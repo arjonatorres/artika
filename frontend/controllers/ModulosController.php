@@ -9,9 +9,12 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+use yii\helpers\Json;
+
 use yii\widgets\ActiveForm;
 
 use common\models\Logs;
+use common\models\Pines;
 use common\models\TiposModulos;
 use common\models\Modulos;
 
@@ -222,7 +225,7 @@ class ModulosController extends \yii\web\Controller
             'password' => ($nombre . getenv('PASSWORD_USUARIO')),
             'datos' => $data_json]);
         // curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
-        curl_setopt($ch, CURLOPT_URL, 'https://ntcaxzyg.p50.rt3.io/orden.php');
+        curl_setopt($ch, CURLOPT_URL, 'https://mmyiages.p50.rt3.io/orden.php');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -251,5 +254,41 @@ class ModulosController extends \yii\web\Controller
             return $res;
         }
         return false;
+    }
+
+    /**
+     * Devuelve un array con los pines disponibles para el pin principal de Arduino
+     * @return array El array a devolver
+     */
+    public function actionPinPrincipal()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+                $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $tipo_modulo_id = $parents[0];
+                $tipo_pin_id = TiposModulos::find()->select('tipo_pin_id')
+                    ->where(['id' => $tipo_modulo_id])->scalar();
+                $pines_id = Modulos::pinesLibres($tipo_pin_id);
+                $selected = '';
+                if (isset($_POST['depdrop_params'])) {
+                    $params = $_POST['depdrop_params'];
+                    if ($params != null) {
+                        $pin1_id = $params[0];
+                        $tipo_pin_id_pines = Pines::find()->select('tipo_pin_id')
+                            ->where(['id' => $pin1_id])->scalar();
+                        if ($tipo_pin_id == $tipo_pin_id_pines) {
+                            array_unshift($pines_id, $pin1_id);
+                            $selected = $pin1_id;
+                        }
+                    }
+                }
+                $out = Pines::find()->select(['id', 'nombre AS name'])
+                    ->where(['in', 'id', $pines_id])->asArray()->all();
+                echo Json::encode(['output' => $out, 'selected' => $selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
 }
