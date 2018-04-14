@@ -10,7 +10,7 @@ $esMod = $accion === 'modificar-seccion';
 $urlCrearSeccionAjax = Url::to(['casas/crear-seccion-ajax']);
 $urlModificarSeccionAjax = Url::to(['casas/modificar-seccion-ajax']);
 
-$js = <<<EOL
+$js = <<<JS
 var max = $('#secciones-nombre').attr('maxlength');
 $('#secciones-nombre').after($('<span id="quedan" class="label"></span>'));
 mostrarNumero();
@@ -38,10 +38,10 @@ function mostrarNumero() {
 $('#cancelar-button').on('click', function () {
     volverCrearSeccion();
 });
-EOL;
+JS;
 
 if ($esMod) {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#seccion-form').on('beforeSubmit', function () {
         $.ajax({
             url: '$urlModificarSeccionAjax' + '?id=$model->id',
@@ -62,9 +62,9 @@ if ($esMod) {
         });
         return false;
     });
-EOL;
+JS;
 } else {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#seccion-form').on('beforeSubmit', function () {
         $.ajax({
             url: '$urlCrearSeccionAjax',
@@ -90,7 +90,7 @@ EOL;
         });
         return false;
     });
-EOL;
+JS;
 }
 $this->registerJs($js);
 

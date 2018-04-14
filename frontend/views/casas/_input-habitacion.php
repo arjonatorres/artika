@@ -16,7 +16,7 @@ $urlCrearHabitacionAjax = Url::to(['casas/crear-habitacion-ajax']);
 $urlModificarHabitacionAjax = Url::to(['casas/modificar-habitacion-ajax']);
 $urlSecciones = Url::to(['casas/crear-seccion']);
 
-$js = <<<EOL
+$js = <<<JS
 
 $('.lista-iconos').on('click', function () {
     var id = $(this).data('id');
@@ -64,10 +64,10 @@ $('#cancelarHab-button').on('click', function () {
     volverCrearSeccion();
 });
 
-EOL;
+JS;
 
 if ($esMod) {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#habitacion-form').on('beforeSubmit', function () {
         var idSeccion = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-seccion_id').value;
         var nombreHab = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-nombre').value;
@@ -96,9 +96,9 @@ if ($esMod) {
         });
         return false;
     });
-EOL;
+JS;
 } else {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#habitacion-form').on('beforeSubmit', function () {
         var idSeccion = $('#habitacion-form').yiiActiveForm('find', 'habitaciones-seccion_id').value;
         $.ajax({
@@ -111,7 +111,6 @@ EOL;
             },
             success: function (data) {
                 if (data) {
-                    console.log(data);
                     var elem = $('#p' + idSeccion);
                     if (elem.find('.collapsed').length == 1) {
                         elem.find('a[data-toggle="collapse"]').trigger('click');
@@ -132,7 +131,7 @@ EOL;
         });
         return false;
     });
-EOL;
+JS;
 }
 $this->registerJs($js);
 

@@ -11,6 +11,7 @@ use Yii;
  * @property string $nombre
  *
  * @property Pines[] $pines
+ * @property TiposModulos[] $tiposModulos
  */
 class TiposPines extends \yii\db\ActiveRecord
 {
@@ -51,5 +52,13 @@ class TiposPines extends \yii\db\ActiveRecord
     public function getPines()
     {
         return $this->hasMany(Pines::className(), ['tipo_pin_id' => 'id'])->inverseOf('tipoPin');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTiposModulos()
+    {
+        return $this->hasMany(TiposModulos::className(), ['tipo_pin_id' => 'id'])->inverseOf('tipoPin');
     }
 }

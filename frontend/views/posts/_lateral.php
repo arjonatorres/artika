@@ -59,7 +59,8 @@ use common\helpers\UtilHelper;
                 Html::img('/imagenes/disqus.png', [
                     'width' => '100%',
                 ]), 'https://disqus.com/', [
-                    'title' => 'https://disqus.com/'
+                    'title' => 'Disqus',
+                    'target' => '_blank',
                 ]
                 )
             ?>

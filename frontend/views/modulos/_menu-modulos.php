@@ -25,7 +25,7 @@ use kartik\dialog\Dialog;
 <?php
 $urlSecciones = Url::to(['modulos/create']);
 
-$js = <<<EOL
+$js = <<<JS
     function volverCrearSeccion() {
         $.ajax({
             url: '$urlSecciones',
@@ -103,7 +103,7 @@ $js = <<<EOL
         });
     }
     funcionalidadBotones();
-EOL;
+JS;
 
 $this->registerJs($js, View::POS_END);
 

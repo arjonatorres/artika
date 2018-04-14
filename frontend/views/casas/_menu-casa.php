@@ -26,7 +26,7 @@ use common\helpers\UtilHelper;
 <?php
 $urlSecciones = Url::to(['casas/crear-seccion']);
 
-$js = <<<EOL
+$js = <<<JS
     function volverCrearSeccion() {
         $.ajax({
             url: '$urlSecciones',
@@ -153,7 +153,7 @@ $js = <<<EOL
         });
     }
     funcionalidadBotones();
-EOL;
+JS;
 
 $this->registerJs($js, View::POS_END);
 ?>

@@ -6,7 +6,7 @@ use kartik\growl\GrowlAsset;
 
 GrowlAsset::register($this);
 $urlOrden = Url::to(['modulos/orden']);
-$js = <<<EOT
+$js = <<<JS
     function mandarOrden() {
         var id = $(this).parent().data('id');
         var orden;
@@ -75,7 +75,7 @@ $js = <<<EOT
         );
     }
     activar();
-EOT;
+JS;
 
 $this->registerJs($js);
 

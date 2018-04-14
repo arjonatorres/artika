@@ -61,6 +61,9 @@ class ModulosController extends \yii\web\Controller
 
         if (Yii::$app->request->isAjax) {
             if ($model->load(Yii::$app->request->post())) {
+                if ($model->tipo_modulo_id == 2) {
+                    $model->scenario = Modulos::SCENARIO_PERSIANA;
+                }
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             } else {
@@ -225,7 +228,7 @@ class ModulosController extends \yii\web\Controller
             'password' => ($nombre . getenv('PASSWORD_USUARIO')),
             'datos' => $data_json]);
         // curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
-        curl_setopt($ch, CURLOPT_URL, 'https://mmyiages.p50.rt3.io/orden.php');
+        curl_setopt($ch, CURLOPT_URL, 'https://sqcatlew.p50.rt3.io/orden.php');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -290,5 +293,46 @@ class ModulosController extends \yii\web\Controller
             }
         }
         echo Json::encode(['output' => '', 'selected' => '']);
+    }
+
+    /**
+     * Devuelve un array con los pines disponibles para el pin secundario de Arduino
+     * @return array El array a devolver
+     */
+    public function actionPinSecundario()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_params'])) {
+            $params = $_POST['depdrop_params'];
+            if ($params[0] != 2) {
+                return;
+            }
+        }
+        if (isset($_POST['depdrop_parents'])) {
+                $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                if ($parents[0] != '') {
+                    $pin1_id = $parents[0];
+                    $pines_id = Modulos::pinesLibres(1);
+                    $pines_id = array_diff($pines_id, [$pin1_id]);
+                    $selected = '';
+                    if (isset($_POST['depdrop_params'])) {
+                        $params = $_POST['depdrop_params'];
+                        if ($params != null) {
+                            if (isset($params[1])) {
+                                $pin2_id = $params[1];
+                                array_unshift($pines_id, $pin2_id);
+                                $selected = $pin2_id;
+                            }
+                        }
+                    }
+                    $out = Pines::find()->select(['id', 'nombre AS name'])
+                    ->where(['in', 'id', $pines_id])->asArray()->all();
+                    echo Json::encode(['output' => $out, 'selected' => $selected]);
+                    return;
+                }
+            }
+        }
+        return;
     }
 }

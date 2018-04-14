@@ -197,7 +197,7 @@ class UtilHelper
         $modulos = '';
         $mod = Yii::$app->controller->action->id !== 'mi-casa';
 
-        foreach ($habitacion->modulos as $modulo) {
+        foreach ($habitacion->getModulos()->orderBy('id')->all() as $modulo) {
             $modulos .= self::itemSecundarioCasa($modulo, $mod, 'modulo', 'modulos/');
         }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"

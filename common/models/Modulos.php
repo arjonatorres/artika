@@ -23,6 +23,8 @@ use yii\helpers\ArrayHelper;
  */
 class Modulos extends \yii\db\ActiveRecord
 {
+    const SCENARIO_PERSIANA = 'persiana';
+
     /**
      * @inheritdoc
      */
@@ -41,6 +43,7 @@ class Modulos extends \yii\db\ActiveRecord
             [['habitacion_id', 'tipo_modulo_id', 'icono_id', 'pin1_id', 'pin2_id'], 'default', 'value' => null],
             [['habitacion_id', 'tipo_modulo_id', 'icono_id', 'estado', 'pin1_id', 'pin2_id'], 'integer'],
             [['nombre'], 'string', 'length' => [4, 20]],
+            [['pin2_id'], 'required', 'on' => self::SCENARIO_PERSIANA],
             [
                 ['nombre'],
                 'unique',
@@ -83,6 +86,26 @@ class Modulos extends \yii\db\ActiveRecord
                 'targetClass' => TiposModulos::className(),
                 'targetAttribute' => ['tipo_modulo_id' => 'id']
             ],
+            [
+                ['pin1_id'], function ($attribute, $params, $validator) {
+                    if ($this->$attribute == $this->getOldAttribute($attribute)) {
+                        return;
+                    }
+                    if (in_array($this->$attribute, self::pinesOcupados())) {
+                        $this->addError($attribute, 'Pin principal ya está siendo usado');
+                    }
+                }
+            ],
+            [
+                ['pin2_id'], function ($attribute, $params, $validator) {
+                    if ($this->$attribute == $this->getOldAttribute($attribute)) {
+                        return;
+                    }
+                    if (in_array($this->$attribute, self::pinesOcupados())) {
+                        $this->addError($attribute, 'Pin secundario ya está siendo usado');
+                    }
+                }
+            ],
         ];
     }
 
@@ -110,21 +133,27 @@ class Modulos extends \yii\db\ActiveRecord
      */
     public static function pinesLibres($tipo_pin_id)
     {
-        $pines = Usuarios::findOne(Yii::$app->user->id)->getModulos()
-            ->select(['pin1_id', 'pin2_id'])
-            ->andWhere('pin1_id is not null OR pin2_id is not null')
-            ->asArray()->all();
-
-        $pines1 = ArrayHelper::getColumn($pines, 'pin1_id');
-        ArrayHelper::removeValue($pines1, null);
-        $pines2 = ArrayHelper::getColumn($pines, 'pin2_id');
-        ArrayHelper::removeValue($pines2, null);
-        $array = array_merge($pines1, $pines2);
+        $array = self::pinesOcupados();
         $tipos = Pines::find()->select('id')
             ->where(['tipo_pin_id' => $tipo_pin_id])->asArray()->all();
         $tipos = ArrayHelper::getColumn($tipos, 'id');
 
         return array_diff($tipos, $array);
+    }
+
+    public static function pinesOcupados()
+    {
+        $pines = Usuarios::findOne(Yii::$app->user->id)->getModulos()
+            ->select(['pin1_id', 'pin2_id'])
+            ->andWhere('pin1_id is not null')
+            ->asArray()->all();
+
+        $pines1 = ArrayHelper::getColumn($pines, 'pin1_id');
+        // ArrayHelper::removeValue($pines1, null);
+        $pines2 = ArrayHelper::getColumn($pines, 'pin2_id');
+        ArrayHelper::removeValue($pines2, null);
+        $array = array_merge($pines1, $pines2);
+        return $array;
     }
 
     /**

@@ -9,8 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property string $nombre
+ * @property int $tipo_pin_id
  *
  * @property Modulos[] $modulos
+ * @property TiposPines $tipoPin
  */
 class TiposModulos extends \yii\db\ActiveRecord
 {
@@ -28,9 +30,12 @@ class TiposModulos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre'], 'required'],
+            [['nombre', 'tipo_pin_id'], 'required'],
+            [['tipo_pin_id'], 'default', 'value' => null],
+            [['tipo_pin_id'], 'integer'],
             [['nombre'], 'string', 'max' => 20],
             [['nombre'], 'unique'],
+            [['tipo_pin_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposPines::className(), 'targetAttribute' => ['tipo_pin_id' => 'id']],
         ];
     }
 
@@ -42,6 +47,7 @@ class TiposModulos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
+            'tipo_pin_id' => 'Tipo pin',
         ];
     }
 
@@ -51,5 +57,13 @@ class TiposModulos extends \yii\db\ActiveRecord
     public function getModulos()
     {
         return $this->hasMany(Modulos::className(), ['tipo_modulo_id' => 'id'])->inverseOf('tipo');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoPin()
+    {
+        return $this->hasOne(TiposPines::className(), ['id' => 'tipo_pin_id'])->inverseOf('tiposModulos');
     }
 }

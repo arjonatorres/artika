@@ -7,13 +7,13 @@ use common\helpers\UtilHelper;
 use kartik\daterange\DateRangePicker;
 use yii\bootstrap\ActiveForm;
 
-$js = <<<EOL
+$js = <<<JS
     $(document).ready(function() {
         if ($('#logssearch-created_at').val() == '') {
             $('#logssearch-created_at').val($('.text-muted').html());
         }
     });
-EOL;
+JS;
 
 $this->registerJs($js);
 ?>

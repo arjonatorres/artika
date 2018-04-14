@@ -15,7 +15,7 @@ use kartik\markdown\MarkdownEditor;
 /* @var $form yii\widgets\ActiveForm */
 $url = Url::to(['usuarios/lista-usuarios']);
 $directo = $model->destinatario_id !== null;
-$js = <<<EOL
+$js = <<<JS
     var formatUsuario = function (usuario) {
         console.log(usuario);
     if (usuario.loading) {
@@ -30,7 +30,7 @@ $js = <<<EOL
         '</div>';
     return markup;
     };
-EOL;
+JS;
 $this->registerJs($js, View::POS_HEAD);
 
 ?>
