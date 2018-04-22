@@ -13,15 +13,15 @@ use dosamigos\google\maps\Map;
 use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
-$css = <<<EOT
+$css = <<<JS
     .mapa {
         border: 1px solid #CCC;
     }
-EOT;
+JS;
 
 $this->registerCss($css);
 
-$js = <<<EOT
+$js = <<<JS
     function enviar(cadena) {
         $('#perfiles-localizacion').val(cadena);
         $('#perfil-form').submit();
@@ -45,7 +45,7 @@ $js = <<<EOT
             enviar('');
         }
     });
-EOT;
+JS;
 
 $this->registerJs($js);
 

@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 
 use yii\widgets\ListView;
-use yii\widgets\ActiveForm;
 
 use common\helpers\UtilHelper;
 ?>
@@ -59,7 +58,8 @@ use common\helpers\UtilHelper;
                 Html::img('/imagenes/disqus.png', [
                     'width' => '100%',
                 ]), 'https://disqus.com/', [
-                    'title' => 'https://disqus.com/'
+                    'title' => 'Disqus',
+                    'target' => '_blank',
                 ]
                 )
             ?>

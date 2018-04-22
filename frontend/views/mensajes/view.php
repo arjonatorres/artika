@@ -12,9 +12,9 @@ use kartik\dialog\Dialog;
 $this->title = UtilHelper::mostrarCorto($model->asunto, 100);
 $this->params['breadcrumbs'][] = ['label' => 'Mensajes', 'url' => ['recibidos']];
 $this->params['breadcrumbs'][] = $this->title;
-$js = <<<EOT
+$js = <<<JS
     $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
-EOT;
+JS;
 
 $this->registerJs($js);
 ?>

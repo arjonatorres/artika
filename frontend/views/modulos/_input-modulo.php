@@ -4,13 +4,18 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
+use common\models\Pines;
+use common\models\Modulos;
+
 use common\helpers\UtilHelper;
+use kartik\depdrop\DepDrop;
+
+use kartik\select2\Select2;
 
 $habitaciones = UtilHelper::getDropDownList($habitaciones);
 $model->icono_id = $model->icono_id ?: 1;
 
-$tipos = UtilHelper::getDropDownList($tipos);
-$model->tipo_id = $model->tipo_id ?: 1;
+$tipos_modulos = UtilHelper::getDropDownList($tipos_modulos);
 
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-modulo';
@@ -18,8 +23,13 @@ $esMod = $accion === 'modificar-modulo';
 $urlCrearModuloAjax = Url::to(['modulos/create-ajax']);
 $urlModificarModuloAjax = Url::to(['modulos/modificar-modulo-ajax']);
 $urlModulos = Url::to(['modulos/create']);
+$data = [];
+$data2 = [];
 
-$js = <<<EOL
+$js = <<<JS
+$('[data-toggle="tooltip"]').tooltip({
+        placement : 'right'
+    });
 
 $('.lista-iconos').on('click', function () {
     var id = $(this).data('id');
@@ -67,27 +77,32 @@ $('#cancelar-button').on('click', function () {
     volverCrearModulo();
 });
 
-EOL;
+JS;
 
 if ($esMod) {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#modulo-form').on('beforeSubmit', function () {
         var nombreModulo = $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value;
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
-        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_id').value;
+        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
         var idIcono = $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value;
+        var idPin1 = $('#modulo-form').yiiActiveForm('find', 'modulos-pin1_id').value;
+        var datos = {
+            'Modulos[nombre]': nombreModulo,
+            'Modulos[habitacion_id]': idHabitacion,
+            'Modulos[tipo_modulo_id]': idTipo,
+            'Modulos[icono_id]': idIcono,
+            'Modulos[pin1_id]': idPin1
+        };
+        if (idTipo == 2) {
+            datos['Modulos[pin2_id]'] = $('#modulo-form').yiiActiveForm('find', 'modulos-pin2_id').value;
+        }
         $.ajax({
             url: '$urlModificarModuloAjax' + '?id=$model->id',
             type: 'POST',
-            data: {
-                'Modulos[nombre]': nombreModulo,
-                'Modulos[habitacion_id]': idHabitacion,
-                'Modulos[tipo_id]': idTipo,
-                'Modulos[icono_id]': idIcono,
-            },
+            data: datos,
             success: function (data) {
                 if (data) {
-                    console.log(data);
                     var nombre = $('#it-modulo-nombre$model->id');
                     var icono = $('#it-modulo-icono$model->id');
                     var habitacionNueva = $('#p' + idHabitacion);
@@ -95,8 +110,6 @@ if ($esMod) {
                     elem.fadeOut(400, function() {
                         nombre.text(' ' + nombreModulo);
                         icono.attr('src', '/imagenes/iconos/modulos/' + idIcono + '.png');
-                        // $('#menu-casa-usuario').append(elem);
-                        habitacionNueva.append(elem);
                     }).fadeIn(400);
                 }
                 volverCrearSeccion();
@@ -104,24 +117,29 @@ if ($esMod) {
         });
         return false;
     });
-EOL;
+JS;
 } else {
-    $js .= <<<EOL
+    $js .= <<<JS
     $('#modulo-form').on('beforeSubmit', function () {
         var idHabitacion = $('#modulo-form').yiiActiveForm('find', 'modulos-habitacion_id').value;
-        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_id').value;
+        var idTipo = $('#modulo-form').yiiActiveForm('find', 'modulos-tipo_modulo_id').value;
+        var datos = {
+            'Modulos[nombre]': $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value,
+            'Modulos[habitacion_id]': idHabitacion,
+            'Modulos[tipo_modulo_id]': idTipo,
+            'Modulos[icono_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value,
+            'Modulos[pin1_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-pin1_id').value
+        };
+        if (idTipo == 2) {
+            datos['Modulos[pin2_id]'] = $('#modulo-form').yiiActiveForm('find', 'modulos-pin2_id').value;
+        }
+
         $.ajax({
             url: '$urlCrearModuloAjax',
             type: 'POST',
-            data: {
-                'Modulos[nombre]': $('#modulo-form').yiiActiveForm('find', 'modulos-nombre').value,
-                'Modulos[habitacion_id]': idHabitacion,
-                'Modulos[tipo_id]': idTipo,
-                'Modulos[icono_id]': $('#modulo-form').yiiActiveForm('find', 'modulos-icono_id').value,
-            },
+            data: datos,
             success: function (data) {
                 if (data) {
-                    console.log(data);
                     var elem = $('#p' + idHabitacion);
                     if (elem.find('.collapsed').length == 1) {
                         elem.find('a[data-toggle="collapse"]').trigger('click');
@@ -132,20 +150,17 @@ EOL;
                     it.hide();
                     it.css({opacity: 0.0})
                     it.slideDown(400).animate({opacity: 1.0}, 400);
-                    var padre = $('#modulos-nombre');
-                    padre.val('');
-                    padre.parent().removeClass('has-success');
-                    mostrarNumero();
                     funcionalidadBotones();
+                    volverCrearSeccion();
                 }
             }
         });
         return false;
     });
-EOL;
+JS;
 }
 $this->registerJs($js);
-
+;
 $a = array_filter(scandir('imagenes/iconos/modulos/'), function ($var) {
     return preg_match('/^\d+\.png$/', $var);
 });
@@ -217,12 +232,79 @@ $b = array_map(function ($var) {
                         'style' => 'display: block',
                         ]) ?>
 
-            <?= $form->field($model, 'habitacion_id')->dropDownList($habitaciones, [
-                'style'=>'width: 80%; margin-right: 10px;',
+            <?= $form->field($model, 'habitacion_id')->widget(Select2::classname(), [
+                'data' => $habitaciones,
+                'options' => [
+                    'placeholder' => 'Selecciona una habitación',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
             ]) ?>
-            <?= $form->field($model, 'tipo_id')->dropDownList($tipos, [
-                'style'=>'width: 80%; margin-right: 10px;',
+
+            <?= $form->field($model, 'tipo_modulo_id')->widget(Select2::classname(), [
+                'id' => 'modulos-tipo_modulo_id',
+                'data' => $tipos_modulos,
+                'options' => [
+                    'placeholder' => 'Selecciona un tipo',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
             ]) ?>
+            <?php
+                if ($esMod) {
+                    $pines_id = Modulos::pinesLibres($model->tipoModulo->tipoPin->id);
+                    $out = Pines::find()->select(['id', 'nombre'])
+                        ->where(['in', 'id', $pines_id])->asArray()->all();
+                    array_unshift($out, ['id' => $model->pin1_id, 'nombre' => $model->pin1->nombre]);
+                    $data = UtilHelper::getDropDownList($out);
+                    if ($model->pin2_id !== null) {
+                        array_shift($out);
+                        array_unshift($out, ['id' => $model->pin2_id, 'nombre' => $model->pin2->nombre]);
+                        $data2 = UtilHelper::getDropDownList($out);
+                    }
+                }
+            ?>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3 style="margin-top: 10px">
+                        <a href="https://www.arduino.cc/" target="_blank">
+                            <img src="imagenes/arduino_logo.png" title="Arduino logo" width="80px">
+                        </a>
+                    </h3>
+                    <hr>
+                    <?= $form->field($model, 'pin1_id')->widget(DepDrop::classname(), [
+                        'options'=>['id'=>'pin1-id'],
+                        'data'=> $data,
+                        'pluginOptions'=>[
+                            'loadingText' => '',
+                            'depends' => ['modulos-tipo_modulo_id'],
+                            'placeholder' => 'Selecciona un pin...',
+                            'url' => Url::to(['pin-principal']),
+                            'params' => ['mod1'],
+                        ]
+                        ])->label('Pin principal '
+                            . '<a href="#" data-toggle="tooltip" title="Cuando el tipo de módulo es de persiana, éste pin principal corresponde al de subida">'
+                            . UtilHelper::glyphicon('info-sign')
+                            . '</a>') ?>
+
+                        <?= $form->field($model, 'pin2_id')->widget(DepDrop::classname(), [
+                            'options'=>['id'=>'pin2-id'],
+                            'data'=> $data2,
+                            'pluginOptions'=>[
+                                'loadingText' => '',
+                                'depends' => ['pin1-id'],
+                                'placeholder' => 'Selecciona un pin...',
+                                'url' => Url::to(['pin-secundario']),
+                                'params' => ['modulos-tipo_modulo_id', 'mod2'],
+                            ]
+                            ])->label('Pin secundario '
+                                . '<a href="#" data-toggle="tooltip" title="Cuando el tipo de módulo es de persiana, éste pin secundario corresponde al de bajada">'
+                                . UtilHelper::glyphicon('info-sign')
+                                . '</a>') ?>
+                </div>
+            </div>
             <div class="form-group">
                 <?= Html::submitButton($esMod ? 'Modificar' : 'Añadir', [
                     'class' => 'btn btn-success',
@@ -233,6 +315,8 @@ $b = array_map(function ($var) {
                         'class' => 'btn btn-danger',
                         'id' => 'cancelar-button',
                     ]) ?>
+                    <?= Html::hiddenInput('mod1', $model->pin1_id, ['id'=>'mod1']) ?>
+                    <?= Html::hiddenInput('mod2', $model->pin2_id, ['id'=>'mod2']) ?>
                 <?php endif ?>
             </div>
         </div>

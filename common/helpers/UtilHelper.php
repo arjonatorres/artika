@@ -4,6 +4,8 @@ namespace common\helpers;
 
 use Yii;
 
+use yii\db\ActiveRecord;
+
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
@@ -197,7 +199,7 @@ class UtilHelper
         $modulos = '';
         $mod = Yii::$app->controller->action->id !== 'mi-casa';
 
-        foreach ($habitacion->modulos as $modulo) {
+        foreach ($habitacion->getModulos()->orderBy('id')->all() as $modulo) {
             $modulos .= self::itemSecundarioCasa($modulo, $mod, 'modulo', 'modulos/');
         }
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
@@ -250,5 +252,101 @@ class UtilHelper
             ->setTo($dest)
             ->setSubject($asunto)
             ->send();
+    }
+
+    /**
+     * Envía parámetros por Curl al servidor de la Raspberry
+     * @param  mixed $datos Los datos a enviar
+     * @return array        El array con la salida y el código de respuesta http
+     */
+    public static function envioCurl($datos)
+    {
+        $nombre = Yii::$app->user->identity->username;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            'nombre' => $nombre,
+            'password' => (getenv('PASSWORD_USUARIO')),
+            'datos' => $datos]);
+        curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
+        //curl_setopt($ch, CURLOPT_URL, 'https://yewnectb.p50.rt3.io/orden.php');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+        $res['output'] = curl_exec($ch);
+        $res['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return $res;
+    }
+
+    /**
+     * Muestra el módulo pasado por parámetro
+     * @param  ActiveRecord $modulo El módulo a mostrar
+     * @return mixed
+     */
+    public static function mostrarModulo($modulo)
+    {
+        ?>
+        <div class="row flex-parent">
+            <div class="col-md-6">
+                <?= Html::img("/imagenes/iconos/modulos/$modulo->icono_id.png") ?>
+            </div>
+            <div class="col-md-6 flex-child" data-id="<?= $modulo->id ?>" data-tipo="<?= $modulo->tipo_modulo_id ?>">
+                <?php switch ($modulo->tipo_modulo_id) :
+                    case 1: ?>
+                    <?= Html::button('ON', [
+                        'class' =>
+                        ($modulo->estado === 1 ? 'btn-success' : 'btn-default')
+                        . ' btn btn-orden margen-bottom-sm boton-on',
+                        'data-estado' => 1,
+                    ]) ?>
+                    <?= Html::button('OFF', [
+                        'class' =>
+                        ($modulo->estado === 0 ? 'btn-danger' : 'btn-default')
+                        . ' btn btn-orden margen-bottom-sm boton-off',
+                        'data-estado' => 0,
+                    ]) ?>
+                    <?php break; ?>
+                <?php case 2: ?>
+                <?= Html::button(
+                    UtilHelper::glyphicon('arrow-up'),
+                    [
+                        'class' =>
+                        ($modulo->estado === 1 ? 'btn-success' : 'btn-default')
+                        . ' btn btn-orden margen-bottom-sm boton-subir',
+                        'data-estado' => 1,
+                    ]
+                ) ?>
+                <?= Html::button(
+                    UtilHelper::glyphicon('arrow-down'),
+                    [
+                        'class' =>
+                        ($modulo->estado === 2 ? 'btn-success' : 'btn-default')
+                        . ' btn btn-orden margen-bottom-sm boton-bajar',
+                        'data-estado' => 2,
+                    ]
+                ) ?>
+                <?= Html::button(
+                    UtilHelper::glyphicon('stop'),
+                    [
+                        'class' =>
+                        ($modulo->estado === 0 ? 'btn-danger' : 'btn-default')
+                        . ' btn btn-orden margen-bottom-sm boton-parar',
+                        'data-estado' => 0,
+                    ]
+                ) ?>
+                    <?php break; ?>
+                    <?php case 3: ?>
+                    <?= Html::input('text', 'temp', $modulo->estado . ' ºC', [
+                        'readonly' => true,
+                        'class' => 'btn-temp text-center',
+                        'style' => 'color: black;',
+                    ]) ?>
+                    <?php break; ?>
+                <?php endswitch; ?>
+            </div>
+        </div>
+        <hr class="margen-bottom-sm">
+        <?php
     }
 }

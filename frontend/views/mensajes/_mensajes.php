@@ -12,9 +12,9 @@ use kartik\daterange\DateRangePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\MensajesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$js = <<<EOT
+$js = <<<JS
     $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
-EOT;
+JS;
 
 $this->registerJs($js);
 global $rec;

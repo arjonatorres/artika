@@ -270,6 +270,15 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModulos()
+    {
+        return $this->hasMany(Modulos::className(), ['habitacion_id' => 'id'])
+            ->via('habitaciones');
+    }
+
+    /**
     * @return \yii\db\ActiveQuery
     */
     public function getPosts()

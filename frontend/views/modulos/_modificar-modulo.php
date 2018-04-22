@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $title;
         <?= $this->render('_input-modulo', [
                 'model' => $model,
                 'habitaciones' => $habitaciones,
-                'tipos' => $tipos,
+                'tipos_modulos' => $tipos_modulos,
             ]);
         ?>
     </div>

@@ -6,9 +6,9 @@
 
 $this->title = 'Mensajes enviados';
 $this->params['breadcrumbs'][] = $this->title;
-$js = <<<EOT
+$js = <<<JS
     $('#menu-principal-user').children('li.mensajes-dropdown').addClass('active');
-EOT;
+JS;
 
 $this->registerJs($js);
 ?>

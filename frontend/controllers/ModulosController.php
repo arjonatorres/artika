@@ -9,10 +9,13 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+use yii\helpers\Json;
+
 use yii\widgets\ActiveForm;
 
 use common\models\Logs;
-use common\models\Tipos;
+use common\models\Pines;
+use common\models\TiposModulos;
 use common\models\Modulos;
 
 use common\helpers\UtilHelper;
@@ -53,25 +56,28 @@ class ModulosController extends \yii\web\Controller
             ->with('modulos')
             ->orderBy('nombre')
             ->all();
-        $tipos = Tipos::find()->all();
+        $tipos_modulos = TiposModulos::find()->all();
         $model = new Modulos();
 
         if (Yii::$app->request->isAjax) {
             if ($model->load(Yii::$app->request->post())) {
+                if ($model->tipo_modulo_id == 2) {
+                    $model->scenario = Modulos::SCENARIO_PERSIANA;
+                }
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             } else {
                 return $this->renderAjax('_create', [
                     'model' => $model,
                     'habitaciones' => $habitaciones,
-                    'tipos' => $tipos,
+                    'tipos_modulos' => $tipos_modulos,
                 ]);
             }
         }
         return $this->render('index', [
             'model' => $model,
             'habitaciones' => $habitaciones,
-            'tipos' => $tipos,
+            'tipos_modulos' => $tipos_modulos,
         ]);
     }
 
@@ -110,7 +116,7 @@ class ModulosController extends \yii\web\Controller
             ->with('modulos')
             ->orderBy('nombre')
             ->all();
-        $tipos = Tipos::find()->all();
+        $tipos_modulos = TiposModulos::find()->all();
 
         if ($model === null || !$model->esPropia) {
             return;
@@ -123,7 +129,7 @@ class ModulosController extends \yii\web\Controller
         return $this->renderAjax('_modificar-modulo', [
             'model' => $model,
             'habitaciones' => $habitaciones,
-            'tipos' => $tipos,
+            'tipos_modulos' => $tipos_modulos,
         ]);
     }
 
@@ -187,44 +193,132 @@ class ModulosController extends \yii\web\Controller
         }
         $id = Yii::$app->request->post('id');
         $orden = Yii::$app->request->post('orden');
-        $nombre = Yii::$app->user->identity->username;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'nombre' => $nombre,
-            'password' => $nombre . getenv('PASSWORD_USUARIO'),
-            'id' => $id,
+        // $id = 1;
+        // $orden = 1;
+        $modulo = Modulos::findOne($id);
+
+        if ($modulo === null || !$modulo->esPropia) {
+            return 'error';
+        }
+        $pin1 = $modulo->pin1->nombre;
+        $tipo = substr($pin1, 0, 1);
+        $pin1 = substr($pin1, 1);
+
+        if ($modulo->pin2 !== null) {
+            $pin2 = $modulo->pin2->nombre;
+            $pin2 = substr($pin2, 1);
+        } else {
+            $pin2 = null;
+        }
+
+        $datos = urlencode(json_encode([
+            'tipo' => $tipo,
             'orden' => $orden,
-        ]);
-        curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
-        $output = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+            'pin1' => $pin1,
+            'pin2' => $pin2
+        ]));
+
+        $res = UtilHelper::envioCurl($datos);
+        $output = $res['output'];
+        $code = $res['code'];
         Yii::$app->response->format = Response::FORMAT_JSON;
+
         if ($code == 200) {
-            if ($output == 'ok') {
-                $modulo = Modulos::findOne(['id' => $id]);
-                if ($modulo === null || !$modulo->esPropia) {
-                    $output = 'error';
+            if ($output == $orden) {
+                $modulo->estado = $orden;
+                if ($modulo->save()) {
+                    $res = 'ok';
+                    $log = new Logs(['usuario_id' => Yii::$app->user->id]);
+                    $log->descripcion = $modulo->nombre . '/'
+                        . $modulo->habitacion->nombre . '/'
+                        . $modulo->seccion->nombre . ' | '
+                        . 'Estado: ' . $modulo->estado;
+                    $log->save();
                 } else {
-                    $modulo->estado = $orden;
-                    if ($modulo->save()) {
-                        $log = new Logs(['usuario_id' => Yii::$app->user->id]);
-                        $log->descripcion = $modulo->nombre . '/'
-                            . $modulo->habitacion->nombre . '/'
-                            . $modulo->seccion->nombre . ' | '
-                            . 'Estado: ' . $modulo->estado;
-                        $log->save();
-                    } else {
-                        $output = 'error';
-                    }
+                    $res = 'error';
                 }
+            } else {
+                $res = 'error';
             }
-            return $output;
+            return $res;
         }
         return false;
+    }
+
+    /**
+     * Devuelve un array con los pines disponibles para el pin principal de Arduino
+     * @return array El array a devolver
+     */
+    public function actionPinPrincipal()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+                $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $tipo_modulo_id = $parents[0];
+                $tipo_pin_id = TiposModulos::find()->select('tipo_pin_id')
+                    ->where(['id' => $tipo_modulo_id])->scalar();
+                $pines_id = Modulos::pinesLibres($tipo_pin_id);
+                $selected = '';
+                if (isset($_POST['depdrop_params'])) {
+                    $params = $_POST['depdrop_params'];
+                    if ($params != null) {
+                        $pin1_id = $params[0];
+                        $tipo_pin_id_pines = Pines::find()->select('tipo_pin_id')
+                            ->where(['id' => $pin1_id])->scalar();
+                        if ($tipo_pin_id == $tipo_pin_id_pines) {
+                            array_unshift($pines_id, $pin1_id);
+                            $selected = $pin1_id;
+                        }
+                    }
+                }
+                $out = Pines::find()->select(['id', 'nombre AS name'])
+                    ->where(['in', 'id', $pines_id])->asArray()->all();
+                echo Json::encode(['output' => $out, 'selected' => $selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
+
+    /**
+     * Devuelve un array con los pines disponibles para el pin secundario de Arduino
+     * @return array El array a devolver
+     */
+    public function actionPinSecundario()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_params'])) {
+            $params = $_POST['depdrop_params'];
+            if ($params[0] != 2) {
+                return;
+            }
+        }
+        if (isset($_POST['depdrop_parents'])) {
+                $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                if ($parents[0] != '') {
+                    $pin1_id = $parents[0];
+                    $pines_id = Modulos::pinesLibres(1);
+                    $pines_id = array_diff($pines_id, [$pin1_id]);
+                    $selected = '';
+                    if (isset($_POST['depdrop_params'])) {
+                        $params = $_POST['depdrop_params'];
+                        if ($params != null) {
+                            if (isset($params[1])) {
+                                $pin2_id = $params[1];
+                                array_unshift($pines_id, $pin2_id);
+                                $selected = $pin2_id;
+                            }
+                        }
+                    }
+                    $out = Pines::find()->select(['id', 'nombre AS name'])
+                    ->where(['in', 'id', $pines_id])->asArray()->all();
+                    echo Json::encode(['output' => $out, 'selected' => $selected]);
+                    return;
+                }
+            }
+        }
+        return;
     }
 }

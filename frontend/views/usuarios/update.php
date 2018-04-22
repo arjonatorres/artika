@@ -9,9 +9,9 @@ use yii\bootstrap\Nav;
 $title = 'Configuración';
 $this->params['breadcrumbs'][] = $title;
 
-$js = <<<EOT
+$js = <<<JS
     $('#menu-principal-user').children('li.user-dropdown').addClass('active');
-EOT;
+JS;
 
 $this->registerJs($js);
 
