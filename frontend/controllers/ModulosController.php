@@ -196,16 +196,14 @@ class ModulosController extends \yii\web\Controller
         // $id = 1;
         // $orden = 1;
         $modulo = Modulos::findOne($id);
+
         if ($modulo === null || !$modulo->esPropia) {
             return 'error';
         }
-        if ($modulo->pin1 !== null) {
-            $pin1 = $modulo->pin1->nombre;
-            $tipo = substr($pin1, 0, 1);
-            $pin1 = substr($pin1, 1);
-        } else {
-            return 'nc';
-        }
+        $pin1 = $modulo->pin1->nombre;
+        $tipo = substr($pin1, 0, 1);
+        $pin1 = substr($pin1, 1);
+
         if ($modulo->pin2 !== null) {
             $pin2 = $modulo->pin2->nombre;
             $pin2 = substr($pin2, 1);
@@ -213,28 +211,16 @@ class ModulosController extends \yii\web\Controller
             $pin2 = null;
         }
 
-        $nombre = Yii::$app->user->identity->username;
-        $data_json = urlencode(json_encode([
+        $datos = urlencode(json_encode([
             'tipo' => $tipo,
             'orden' => $orden,
             'pin1' => $pin1,
             'pin2' => $pin2
         ]));
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'nombre' => $nombre,
-            'password' => ($nombre . getenv('PASSWORD_USUARIO')),
-            'datos' => $data_json]);
-        // curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
-        curl_setopt($ch, CURLOPT_URL, 'https://sqcatlew.p50.rt3.io/orden.php');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
-        $output = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $res = UtilHelper::envioCurl($datos);
+        $output = $res['output'];
+        $code = $res['code'];
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if ($code == 200) {

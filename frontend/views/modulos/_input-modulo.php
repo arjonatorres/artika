@@ -270,7 +270,7 @@ $b = array_map(function ($var) {
                 <div class="panel-body">
                     <h3 style="margin-top: 10px">
                         <a href="https://www.arduino.cc/" target="_blank">
-                            <img src="imagenes/arduino_logo.png" title="Arduino logo" width="100px">
+                            <img src="imagenes/arduino_logo.png" title="Arduino logo" width="80px">
                         </a>
                     </h3>
                     <hr>

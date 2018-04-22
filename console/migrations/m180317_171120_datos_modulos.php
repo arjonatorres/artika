@@ -32,15 +32,18 @@ class m180317_171120_datos_modulos extends Migration
             [
                 ['Horno', 1, 1, 6, 7, null],
                 ['Tostador', 1, 1, 9, 8, null],
+                ['Temperatura', 1, 3, 15, 1, null],
                 ['Lamparita', 2, 1, 1, 9, null],
                 ['Televisión', 3, 1, 10, 10, null],
                 // ['Luz lectura', 3, 1, 4, 11, null],
                 ['Aire acondicionado', 3, 1, 3, 12, null],
                 ['Persiana', 3, 2, 2, 13, 14],
                 ['Radio', 4, 1, 11, 15, null],
+                ['Temperatura', 4, 3, 15, 2, null],
                 ['Ventilador techo', 5, 1, 8, 16, null],
                 // ['Aire acondicionado', 5, 1, 3, 17, null],
                 ['Enchufe', 6, 1, 16, 18, null],
+                ['Temperatura', 6, 3, 15, 3, null],
             ]
         );
     }

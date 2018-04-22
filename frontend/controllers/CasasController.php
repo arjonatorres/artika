@@ -8,7 +8,9 @@ use yii\data\ActiveDataProvider;
 
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\widgets\ListView;
 use yii\widgets\ActiveForm;
+use common\models\Pines;
 use common\models\Secciones;
 use common\models\Habitaciones;
 use common\helpers\UtilHelper;
@@ -276,5 +278,65 @@ class CasasController extends \yii\web\Controller
         }
 
         return $model->delete();
+    }
+
+    /**
+     * Sincroniza el estado de los pines de arduino con la base de datos
+     * @return mixed
+     */
+    public function actionSincronizar()
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $datos = urlencode(json_encode(['tipo' => 'S']));
+        $res = UtilHelper::envioCurl($datos);
+        $output = json_decode($res['output']);
+        $code = $res['code'];
+
+        if ($code == 200) {
+            $usuario = Yii::$app->user->identity;
+            $modulos = $usuario->modulos;
+            $pines = UtilHelper::getDropDownList(Pines::find()->all());
+            $values = array_combine($pines, $output->values);
+            foreach ($modulos as $modulo) {
+                if ($modulo->tipo_modulo_id == 1) {
+                    if ($modulo->estado != $values[$pines[$modulo->pin1->id]]) {
+                        $modulo->estado = $values[$pines[$modulo->pin1->id]];
+                        $modulo->save();
+                    }
+                } elseif ($modulo->tipo_modulo_id == 2) {
+                    if ($values[$pines[$modulo->pin2->id]] == 1) {
+                        if ($modulo->estado != 2) {
+                            $modulo->estado = 2;
+                            $modulo->save();
+                        }
+                    } else {
+                        if ($modulo->estado != $values[$pines[$modulo->pin1->id]]) {
+                            $modulo->estado = $values[$pines[$modulo->pin1->id]];
+                            $modulo->save();
+                        }
+                    }
+                } elseif ($modulo->tipo_modulo_id == 3) {
+                    if ($modulo->estado != $values[$pines[$modulo->pin1->id]]) {
+                        $modulo->estado = $values[$pines[$modulo->pin1->id]];
+                        $modulo->save();
+                    }
+                }
+            }
+
+            $query = $usuario->getSecciones()->with('habitaciones')->orderBy('id');
+            $secciones = $query->all();
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query->joinWith('modulos', true, 'RIGHT JOIN'),
+            ]);
+            return ListView::widget([
+                'dataProvider' => $dataProvider,
+                'itemView' => '/casas/_mi-casa',
+                'summary' => '',
+            ]);
+        }
+        return false;
     }
 }

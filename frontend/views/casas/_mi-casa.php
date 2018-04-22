@@ -1,23 +1,28 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-
+use common\helpers\UtilHelper;
 use kartik\growl\GrowlAsset;
 
 GrowlAsset::register($this);
 $urlOrden = Url::to(['modulos/orden']);
+$urlSincronizar = Url::to(['casas/sincronizar']);
+
 $js = <<<JS
+    $('body').prepend('<div class="loading" style="display: block;"></div>');
     function mandarOrden() {
         var id = $(this).parent().data('id');
         var orden;
         var boton = $(this);
-        if (boton.hasClass('boton-on')) {
+        if (boton.hasClass('boton-on') || boton.hasClass('boton-subir')) {
             orden = 1;
+        } else if (boton.hasClass('boton-bajar')) {
+            orden = 2;
         } else {
             orden = 0;
         }
         $('.btn-orden').off();
-        $("body").css("cursor", "wait");
+        $('.loading').css({display: 'block'});
         $.ajax({
             url: '$urlOrden',
             type: 'POST',
@@ -27,7 +32,7 @@ $js = <<<JS
             },
             success: function (data) {
                 if (data == 'ok') {
-                    if (boton.hasClass('boton-off')) {
+                    if (boton.hasClass('boton-off') || boton.hasClass('boton-parar')) {
                         boton.removeClass('btn-default');
                         boton.addClass('btn-danger');
                         boton.siblings().removeClass('btn-success');
@@ -36,9 +41,10 @@ $js = <<<JS
                         boton.removeClass('btn-default');
                         boton.addClass('btn-success');
                         boton.siblings().removeClass('btn-danger');
+                        boton.siblings().removeClass('btn-success');
                         boton.siblings().addClass('btn-default');
                     }
-                    setTimeout(activar, 500);
+                    activar();
                 } else if (data == 'error') {
                     mostrarError('Error', 'La orden no ha podido llevarse a cabo');
                     setTimeout(activar, 2500);
@@ -54,7 +60,7 @@ $js = <<<JS
         });
     }
     function activar() {
-        $("body").css("cursor", "default");
+        $('.loading').css({display: 'none'});
         $('.btn-orden').on('click', mandarOrden);
     }
     function mostrarError(titulo, mensaje) {
@@ -66,7 +72,7 @@ $js = <<<JS
             },
             {
                 type: 'danger',
-                delay: 800,
+                delay: 1000,
                 placement: {
                     from: 'bottom',
                     align: 'right'
@@ -74,7 +80,31 @@ $js = <<<JS
             }
         );
     }
-    activar();
+
+    function sincronizar() {
+        $('.loading').css({display: 'block'});
+        $.ajax({
+            url: '$urlSincronizar',
+            type: 'POST',
+            data: {},
+            success: function (data) {
+                if (data) {
+                    $('#casa-usuario').html(data);
+                } else {
+                    mostrarError('Error', 'No se ha podido realizar la sincronización');
+                }
+            },
+            error: function() {
+                mostrarError('Error', 'No se ha podido realizar la sincronización');
+            },
+            complete: function() {
+                $('.loading').css({display: 'none'});
+                activar();
+            }
+        });
+    }
+    setTimeout(sincronizar, 50);
+
 JS;
 
 $this->registerJs($js);
@@ -115,24 +145,7 @@ $id = $model->id;
                                 </h4>
                             </div>
                             <div class="panel-body panel-body-modulo">
-                                <div class="row flex-parent">
-                                    <div class="col-md-6">
-                                        <?= Html::img("/imagenes/iconos/modulos/$modulo->icono_id.png") ?>
-                                    </div>
-                                    <div class="col-md-5 flex-child" data-id="<?= $modulo->id ?>">
-                                        <?= Html::button('ON', [
-                                            'class' =>
-                                            ($modulo->estado === 0 ? 'btn-default' : 'btn-success')
-                                            . ' btn btn-orden margen-bottom-sm boton-on'
-                                        ]) ?>
-                                        <?= Html::button('OFF', [
-                                            'class' =>
-                                            ($modulo->estado === 0 ? 'btn-danger' : 'btn-default')
-                                            . ' btn btn-orden margen-bottom-sm boton-off'
-                                        ]) ?>
-                                    </div>
-                                </div>
-                                <hr class="margen-bottom-sm">
+                                <?= UtilHelper::mostrarModulo($modulo) ?>
                             </div>
                         </div>
                     </div>
