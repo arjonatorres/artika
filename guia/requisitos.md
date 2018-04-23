@@ -649,6 +649,24 @@
 | **Entrega**     | v3             |
 | **Incidencia**  | [72](https://github.com/arjonatorres/artika/issues/72) |
 
+| **R93**     | **Transmitir órdenes de los módulos**           |
+| --------------: | :------------------- |
+| **Descripción** | Al pulsar en las órdenes(on/off) de los módulos se transmitirá la orden al controlador(raspberry pi) ubicado en la casa del cliente.             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Difícil         |
+| **Entrega**     | v2             |
+| **Incidencia**  | [93](https://github.com/arjonatorres/artika/issues/93) |
+
+| **R105**     | **Configurar URL Servidor Raspberry**           |
+| --------------: | :------------------- |
+| **Descripción** | La aplicación contendrá un formulario para configurar la URL del servidor de la Raspberry             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v2             |
+| **Incidencia**  | [105](https://github.com/arjonatorres/artika/issues/105) |
+
 
 ## Cuadro resumen
 
@@ -726,3 +744,5 @@
 | (**R70**) Comprobación en varios navegadores | Mínimo | Técnico | Fácil | v3 | [70](https://github.com/arjonatorres/artika/issues/70) |
 | (**R71**) Desplegar en un Host | Mínimo | Técnico | Fácil | v3 | [71](https://github.com/arjonatorres/artika/issues/71) |
 | (**R72**) Desplegar en un servidor local | Mínimo | Técnico | Media | v3 | [72](https://github.com/arjonatorres/artika/issues/72) |
+| (**R93**) Transmitir órdenes de los módulos | Importante | Funcional | Difícil | v2 | [93](https://github.com/arjonatorres/artika/issues/93) |
+| (**R105**) Configurar URL Servidor Raspberry | Importante | Funcional | Fácil | v2 | [105](https://github.com/arjonatorres/artika/issues/105) |

@@ -42,7 +42,7 @@
         "purrweb/yii2-heroku": "*",
 
         "yiisoft/yii2-shell": "dev-master",
-        "yiisoft/yii2-apidoc": "dev-master",
+        "yiisoft/yii2-apidoc": "dev-project",
         "squizlabs/php_codesniffer": "^2.0",
         "yiisoft/yii2-coding-standards": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.8",
