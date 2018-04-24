@@ -9,6 +9,8 @@ use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
+use common\models\Servidores;
+
 /**
  * Clase Helper
  */
@@ -262,13 +264,19 @@ class UtilHelper
     public static function envioCurl($datos)
     {
         $nombre = Yii::$app->user->identity->username;
+        $serv = Servidores::findOne(['usuario_id' => Yii::$app->user->id]);
+        if ($serv === null) {
+            $url = "http://{$nombre}artika.ddns.net:8082/orden.php";
+        } else {
+            $url = $serv->url . ':' . $serv->puerto . '/orden.php';
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
             'nombre' => $nombre,
             'password' => (getenv('PASSWORD_USUARIO')),
             'datos' => $datos]);
-        curl_setopt($ch, CURLOPT_URL, "http://{$nombre}artika.ddns.net:8082/orden.php");
+        curl_setopt($ch, CURLOPT_URL, $url);
         //curl_setopt($ch, CURLOPT_URL, 'https://yewnectb.p50.rt3.io/orden.php');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
