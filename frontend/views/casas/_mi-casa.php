@@ -22,7 +22,8 @@ $js = <<<JS
             orden = 0;
         }
         $('.btn-orden').off();
-        $('.loading').css({display: 'block'});
+        $("body").css("cursor", "wait");
+        //$('.loading').css({display: 'block'});
         $.ajax({
             url: '$urlOrden',
             type: 'POST',
@@ -60,6 +61,7 @@ $js = <<<JS
         });
     }
     function activar() {
+        $("body").css("cursor", "default");
         $('.loading').css({display: 'none'});
         $('.btn-orden').on('click', mandarOrden);
     }

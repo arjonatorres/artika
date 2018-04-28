@@ -100,6 +100,7 @@ $this->registerJs($js);
         <img src="/imagenes/seccion.png" alt="">
     </div>
     <div class="col-md-9">
+        <div class="col-md-10" style="padding-left: 0px;">
         <?php if ($esMod): ?>
         <h4><span class="label label-info">
             Sección: <?= Html::encode($model->nombre) ?>
@@ -109,7 +110,6 @@ $this->registerJs($js);
             'id' => 'seccion-form',
         ]);
         ?>
-        <div class="col-md-6" style="padding-left: 0px;">
             <?= $form->field($model, 'nombre', [
                 'enableAjaxValidation' => true,
                 'validateOnChange' => false,

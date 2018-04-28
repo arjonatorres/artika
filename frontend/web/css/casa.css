@@ -48,6 +48,13 @@
     padding: 7px 15px;
 }
 
+.icono-nombre span {
+    width: 100%;
+    word-wrap: break-word;
+    max-width: 135px;
+    display: inline-block;
+}
+
 .img-xs {
     margin-right: 4px;
 }

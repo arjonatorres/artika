@@ -151,7 +151,7 @@ $b = array_map(function ($var) {
         'validateOnBlur' => false,
     ]);
     ?>
-    <div class="col-md-5">
+    <div class="col-md-3">
         <?= $form->field($modelHab, 'icono_id', [
             'template' => "{label}\n",
             'options' => [],
@@ -191,20 +191,20 @@ $b = array_map(function ($var) {
                 ]) ?>
         </div>
     </div>
-    <div class="col-md-7">
-        <?php if ($esMod): ?>
-        <h4><span class="label label-info">
-            Habitación: <?= Html::encode($modelHab->nombre) ?>
-        </span></h4>
-        <?php endif ?>
-        <div class="col-md-10 col-md-offset-1" style="padding-left: 0px;">
+    <div class="col-md-9">
+        <div class="col-md-10" style="padding-left: 0px;">
+            <?php if ($esMod): ?>
+            <h4><span class="label label-info">
+                Habitación: <?= Html::encode($modelHab->nombre) ?>
+            </span></h4>
+            <?php endif ?>
             <?= $form->field($modelHab, 'nombre', [
                 ])->textInput([
                     'maxlength' => 20,
                     'style'=>'width: 80%; display: inline; margin-right: 10px;',
-                    ])->label('Nombre de la habitación', [
-                        'style' => 'display: block',
-                        ]) ?>
+                ])->label('Nombre de la habitación', [
+                    'style' => 'display: block',
+                ]) ?>
             <?= $form->field($modelHab, 'seccion_id')->dropDownList($secciones, [
                 'style'=>'width: 80%; margin-right: 10px;',
                 ]) ?>
@@ -218,7 +218,7 @@ $b = array_map(function ($var) {
                     <?= Html::button('Cancelar', [
                         'class' => 'btn btn-danger',
                         'id' => 'cancelarHab-button',
-                        ]) ?>
+                    ]) ?>
                 <?php endif ?>
             </div>
         </div>
