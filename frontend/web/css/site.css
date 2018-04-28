@@ -228,3 +228,12 @@ a.desc:after {
     font-size: 0.85em;
     margin-bottom: 5px;
 }
+
+.lista-pines h4 {
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.padding-bottom-sm {
+    padding-bottom: 40px;
+}
