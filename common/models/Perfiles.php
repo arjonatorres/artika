@@ -89,16 +89,11 @@ class Perfiles extends \yii\db\ActiveRecord
                     'provincia',
                     'pais',
                     'cpostal',
+                    'fecha_nac',
                 ],
                 'default'
             ],
             [['usuario_id', 'genero_id'], 'integer'],
-            [['fecha_nac'], 'filter', 'filter' => function ($value) {
-                if ($value == '') {
-                    return;
-                }
-                return Yii::$app->formatter->asDate($value, 'dd-MM-yyyy');
-            }],
             [['fecha_nac'], 'date'],
             [['updated_at', 'zona_horaria', 'localizacion'], 'safe'],
             [

@@ -17,7 +17,7 @@ return [
         ],
         'formatter' => [
             'datetimeFormat' => 'medium',//$params['datetimeFormat'],
-            // 'dateFormat' => $params['dateFormat'],
+            'dateFormat' => $params['dateFormat'],
         ],
         'user' => [
             'identityClass' => 'common\models\Usuarios',
