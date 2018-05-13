@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = 'Logs';
         </div>
         <hr>
         <div class="col-md-10 col-md-offset-1">
+            <div class="table-responsive">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = 'Logs';
                     'created_at:datetime',
                 ],
             ]); ?>
+            </div>
         </div>
     </div>
 </div>

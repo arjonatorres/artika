@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = 'Servidor';
     <div class="panel-body panel-body-gris padding-bottom-sm">
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="/imagenes/raspberry-logo.png" alt="" style="padding: 10px 0px 20px 0px">
+                <img src="/imagenes/raspberry-logo.png" alt=""
+                    class="img-servidor">
             </div>
             <?php $form = ActiveForm::begin(); ?>
             <div class="col-md-8 col-md-offset-2">
@@ -67,16 +68,16 @@ $this->params['breadcrumbs'][] = 'Servidor';
         </div>
         <hr>
         <div class="col-md-12 text-center">
-            <img src="/imagenes/arduino_slogan.png" alt="" style="padding: 10px 0px 20px 0px">
+            <img src="/imagenes/arduino_slogan.png" alt="" class="img-servidor">
         </div>
         <div class="row lista-pines">
             <div class="col-md-4 text-center">
                 <h3><span class="label label-primary">Pines Analógicos<span></h3>
                 <?php foreach ($pines->where(['tipo_pin_id' => 2])->all() as $pin): ?>
-                    <div class="col-md-5 text-right">
+                    <div class="col-md-5 col-xs-5 text-right">
                         <h4><span class="label label-default"><?= $pin['nombre'] ?></span></h4>
                     </div>
-                    <div class="col-md-7 text-left">
+                    <div class="col-md-7 col-xs-7 text-left">
                         <?php $modulo = array_filter($modulos, function($k) use($pin) {
                             return $k['pin1_id'] == $pin['id'];
                         });
@@ -112,10 +113,10 @@ $this->params['breadcrumbs'][] = 'Servidor';
                             $flecha = 'arrow-down';
                         }
                     }?>
-                    <div class="col-md-5 text-right">
+                    <div class="col-md-5 col-xs-5 text-right">
                         <h4><span class="label label-default"><?= $pin['nombre'] ?></span></h4>
                     </div>
-                    <div class="col-md-7 text-left">
+                    <div class="col-md-7 col-xs-7 text-left">
 
                     <?php if (!empty($modulo)): ?>
                         <h4><span class="label label-success"><?= $modulo['nombre']

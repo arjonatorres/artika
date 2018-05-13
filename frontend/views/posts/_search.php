@@ -21,7 +21,7 @@ use common\helpers\UtilHelper;
         ->textInput(['placeholder' => 'Texto a buscar'])
         ->label(false) ?>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 padding-l-0">
         <div class="form-group">
             <?= Html::submitButton(
                 UtilHelper::glyphicon('search'),

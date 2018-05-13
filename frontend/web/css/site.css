@@ -237,3 +237,13 @@ a.desc:after {
 .padding-bottom-sm {
     padding-bottom: 40px;
 }
+
+.img-servidor {
+    padding: 10px 0px 20px 0px;
+    width: 100%;
+    max-width: 418px
+}
+
+.padding-l-0 {
+    padding-left: 0px;
+}

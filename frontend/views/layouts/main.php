@@ -104,7 +104,7 @@ AppAsset::register($this);
                 'id' => 'menu-mensajes',
             ],
             'options' => [
-                'class' => 'mensajes-dropdown',
+                'class' => 'mensajes-dropdown text-center',
             ],
         ];
         $menuItems[] = [
@@ -146,7 +146,7 @@ AppAsset::register($this);
                 'id' => 'menu-usuario',
             ],
             'options' => [
-                'class' => 'user-dropdown',
+                'class' => 'user-dropdown text-center',
             ],
         ];
     }

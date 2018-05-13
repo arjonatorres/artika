@@ -165,11 +165,13 @@ $columns[] = [
 
     <div class="panel panel-principal">
         <div class="panel-body  panel-body-gris borde_sup_red">
+            <div class="table-responsive">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => $columns,
             ]) ?>
+            </div>
         </div>
     </div>
 </div>

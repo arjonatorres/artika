@@ -109,7 +109,8 @@ class UtilHelper
         return "<div id=\"p$id\" data-id=\"$id\" class=\"panel-seccion panel-group\" role=\"tablist\">"
             . '<div class="panel panel-default">'
                 . '<div class="panel-heading" role="tab">'
-                    . '<h4 class="panel-title">'
+                    . '<div class="row">'
+                    . '<div class="col-md-8 col-xs-8 padding-r-0"><h4 class="panel-title">'
                         . "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#p$id\" href=\"#p$id-collapse$id\" aria-expanded=\"true\" aria-controls=\"p$id-collapse$id\">"
                         . self::glyphicon(
                             'chevron-down',
@@ -118,26 +119,26 @@ class UtilHelper
                         . "<span id=\"it$id\">"
                         . Html::encode($nombre)
                         . '</span>'
-                        . '</a>'
-                        . ($mod ?
+                        . '</a></div>'
+                        . '<div class="col-md-4 col-xs-4 padding-0 text-right">' . ($mod ?
                         Html::a(
-                            self::glyphicon(
-                                'remove',
-                                ['class' => 'btn btn-xs btn-danger icon-sm i']
-                            ),
-                            ['casas/borrar-seccion'],
-                            ['class' => 'boton-borrar icon-derecha']
-                        )
-                        . Html::a(
                             self::glyphicon(
                                 'pencil',
                                 ['class' => 'btn btn-xs btn-success icon-sm']
                             ),
                             ['casas/modificar-seccion'],
                             ['class' => 'boton-editar icon-derecha']
-                        ) : '')
+                        )
+                        . Html::a(
+                            self::glyphicon(
+                                'remove',
+                                ['class' => 'btn btn-xs btn-danger icon-sm']
+                            ),
+                            ['casas/borrar-seccion'],
+                            ['class' => 'boton-borrar icon-derecha']
+                        ) : '') . '</div>'
                     . '</h4>'
-                . '</div>'
+                . '</div></div>'
                 . "<div id=\"p$id-collapse$id\" class=\"panel-collapse collapse in\" role=\"tabpanel\">"
                     . '<ul class="list-group">'
                     . $habitaciones
@@ -158,6 +159,8 @@ class UtilHelper
     public static function itemSecundarioCasa($item, $mod = true, $den = 'habitacion', $dir = '')
     {
         return "<li class=\"icono-nombre list-group-item\" data-id=\"$item->id\">"
+        . '<div class="row">'
+        . '<div class="col-md-8  col-xs-8 padding-r-0 padding-l-10">'
         . Html::img("/imagenes/iconos/$dir{$item->icono_id}.png", [
             'id' => "it-$den-icono$item->id",
             'class' => 'img-xs img-circle',
@@ -168,8 +171,8 @@ class UtilHelper
                 Html::encode($item->nombre),
                 "#$den-nombre$item->id"
             ): Html::encode($item->nombre))
-        . '</span>'
-        . ($mod ?
+        . '</span></div>'
+        . '<div class="col-md-4 padding-0 text-right">' . ($mod ?
         Html::a(
             self::glyphicon(
                 'remove',
@@ -185,8 +188,8 @@ class UtilHelper
             ),
             [($den == 'modulo' ? 'modulos': 'casas') . "/modificar-$den"],
             ['class' => "boton-editar-$den icon-derecha"]
-        ) : '')
-        . '</li>';
+        ) : '') . '</div>'
+        . '</div></li>';
     }
 
     /**
@@ -296,10 +299,10 @@ class UtilHelper
     {
         ?>
         <div class="row flex-parent">
-            <div class="col-md-6">
-                <?= Html::img("/imagenes/iconos/modulos/$modulo->icono_id.png") ?>
+            <div class="col-md-6 col-xs-6">
+                <?= Html::img("/imagenes/iconos/modulos/$modulo->icono_id.png", ['class' => ' img-modulo']) ?>
             </div>
-            <div class="col-md-6 flex-child" data-id="<?= $modulo->id ?>" data-tipo="<?= $modulo->tipo_modulo_id ?>">
+            <div class="col-md-6 col-xs-6 flex-child" data-id="<?= $modulo->id ?>" data-tipo="<?= $modulo->tipo_modulo_id ?>">
                 <?php switch ($modulo->tipo_modulo_id) :
                     case 1: ?>
                     <?= Html::button('ON', [

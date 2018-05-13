@@ -20,14 +20,14 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="posts-view">
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-8">
         <?=$this->render('_post', [
             'model' => $model,
             'searchModel' => $searchModel,
             'view' => true,
         ]); ?>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4">
         <?= $this->render('_lateral', [
             'searchModel' => $searchModel,
             'dataProviderLimit' => $dataProviderLimit,

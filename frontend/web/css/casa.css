@@ -4,7 +4,7 @@
 
 .panel-seccion .panel-heading {
     background-color: #EEE;
-
+    /* height: 40px; */
 }
 
 .panel-seccion a {
@@ -29,7 +29,7 @@
 }
 
 .i {
-    margin-left: 5px;
+    /* margin-left: 5px; */
 }
 
 .panel-body-principal {
@@ -37,7 +37,8 @@
 }
 
 .icon-derecha {
-    float: right;
+    /* float: right; */
+    padding-right: 5px;
 }
 
 .lista-iconos {
@@ -48,12 +49,12 @@
     padding: 7px 15px;
 }
 
-.icono-nombre span {
-    width: 100%;
+/* .icono-nombre .col-md-8 span {
+    margin-left: 50px;
+    /* width: 100%;
     word-wrap: break-word;
-    max-width: 135px;
-    display: inline-block;
-}
+    max-width: 135px; */
+
 
 .img-xs {
     margin-right: 4px;
@@ -119,6 +120,7 @@
 .btn-orden, .btn-temp {
     padding: 1px 6px;
     width: 75%;
+    max-width: 55px;
 }
 
 .loading {
@@ -131,3 +133,28 @@
 	z-index: 2;
 	background: url(../imagenes/loading.gif) center no-repeat #fff;
 }
+
+.padding-0 {
+    padding: 0px;
+}
+
+.padding-r-0 {
+    padding-right: 0px;
+}
+
+.padding-l-10 {
+    padding-left: 10px;
+}
+
+.img-modulo {
+    max-width: 100px;
+    width: 100%;
+}
+/*
+#menu-casa-usuario .panel-principal {
+    min-width: 262.5px;
+}
+
+#menu-casa-usuario {
+    min-width: 262.5px;
+} */

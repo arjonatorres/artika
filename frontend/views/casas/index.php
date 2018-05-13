@@ -17,12 +17,12 @@ $this->registerCssFile('/css/casa.css', [
 ?>
 <div class="conf-cuenta">
     <div class="row">
-        <div id="menu-casa-usuario" class="col-md-3" >
+        <div id="menu-casa-usuario" class="col-md-3 col-sm-12 col-xs-12" >
             <?= $this->render("_menu-casa", [
                 'secciones' => $secciones,
                 ]) ?>
         </div>
-        <div id="casa-usuario" class="col-md-9">
+        <div id="casa-usuario" class="col-md-9 col-sm-12 col-xs-12">
             <?php if ($accion === 'mi-casa'): ?>
                 <?= ListView::widget([
                     'dataProvider' => $dataProvider,
