@@ -82,6 +82,27 @@ class LoginForm extends Model
     }
 
     /**
+     * Logs in a user using the provided username and password at backend aplication.
+     *
+     * @return bool whether the user is logged in successfully
+     */
+    public function loginBackend()
+    {
+        if ($this->validate()) {
+            $user = $this->getUser();
+            if ($user->token_val === null && $user->id === 1) {
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
+            Yii::$app->session->setFlash(
+                'error',
+                'No tiene permiso para iniciar sesión.'
+            );
+        }
+
+        return false;
+    }
+
+    /**
      * Finds user by [[username]]
      *
      * @return Usuarios|null
