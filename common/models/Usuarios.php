@@ -85,7 +85,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'password_reset_token' => 'Token de recuperación de contraseña',
             'email' => 'Email',
             'token_val' => 'Token Val',
-            'created_at' => 'Created At',
+            'created_at' => 'Fecha de Alta',
             'updated_at' => 'Updated At',
         ];
     }

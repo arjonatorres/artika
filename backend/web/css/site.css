@@ -3,8 +3,6 @@ body {
     height: 100%;
     font-family: "Lato", sans-serif;
     background: #555;
-    background: url("/imagenes/fondo.jpg") no-repeat center center fixed;
-    background-size: cover;
 }
 
 .wrap {
@@ -12,6 +10,7 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    background: url("/imagenes/fondo.png") fixed;
     /* background-color: rgba(200,200,200,0.5); */
 }
 
@@ -130,4 +129,8 @@ a.desc:after {
 
 .titulo {
     border: 5px solid rgba(255,255,255,0.5);
+}
+
+.img-user {
+    width: 50px;
 }

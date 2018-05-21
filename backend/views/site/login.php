@@ -8,7 +8,18 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\UtilHelper;
+$css = <<<CSS
+    html, body {
+        background: url("/imagenes/fondo.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+    .wrap {
+        background: none;
+        background-color: rgba(255,255,255,0.5);
+    }
+CSS;
 
+$this->registerCss($css);
 ?>
 <div class="site-login">
     <div class="row">

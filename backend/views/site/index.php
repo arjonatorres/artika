@@ -1,7 +1,17 @@
 <?php
 
 /* @var $this yii\web\View */
+$css = <<<CSS
+    html, body {
+        background: url("/imagenes/fondo.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+    .wrap {
+        background: none;
+    }
+CSS;
 
+$this->registerCss($css);
 ?>
 <div class="site-index">
 
