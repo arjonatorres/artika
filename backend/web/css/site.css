@@ -1,6 +1,8 @@
 html,
 body {
     height: 100%;
+    font-family: "Lato", sans-serif;
+    background: #555;
 }
 
 .wrap {
@@ -8,6 +10,8 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    background: url("/imagenes/fondo.png") fixed;
+    /* background-color: rgba(200,200,200,0.5); */
 }
 
 .wrap > .container {
@@ -117,4 +121,16 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+#menu-admin a {
+    padding: 5px 15px;
+}
+
+.titulo {
+    border: 5px solid rgba(255,255,255,0.5);
+}
+
+.img-user {
+    width: 50px;
 }

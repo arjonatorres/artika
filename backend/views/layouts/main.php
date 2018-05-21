@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\helpers\UtilHelper;
+
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -19,8 +21,9 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => '/favicon.ico']); ?>
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>Artika Admin</title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -29,28 +32,44 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('/imagenes/atk-logo-admin.png', [
+            'alt' => 'Artika',
+            'width' => '30px;',
+            'style' => 'display: inline; margin-top: -3px;',
+        ]) . ' ' . Yii::$app->name . ' AdMiN',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
+    $menuItems = [];
+    if (!Yii::$app->user->isGuest) {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                UtilHelper::glyphicon('log-out') . ' Cerrar sesión',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
             . '</li>';
+        $menuCasa = [
+            [
+                'label' => '',
+            ],
+            UtilHelper::menuItem('Usuarios', 'user', 'usuarios/index'),
+        ];
+    } else {
+        $menuCasa = [];
     }
+
     echo Nav::widget([
+        'id' => 'menu-admin',
+        'options' => ['class' => 'navbar-nav navbar-left menu-item'],
+        'items' => $menuCasa,
+    ]);
+
+    echo Nav::widget([
+        'id' => 'menu-sesion',
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
@@ -65,14 +84,6 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>
