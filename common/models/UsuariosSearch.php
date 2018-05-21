@@ -56,10 +56,12 @@ class UsuariosSearch extends Usuarios
 
         $dataProvider->sort->defaultOrder = ['created_at' => SORT_DESC];
 
-        $query->andFilterWhere([
-            'CAST(created_at AS date)' =>
-            $this->created_at,
-        ]);
+        if ($this->created_at != null) {
+            $query->andFilterWhere([
+                'CAST(created_at AS date)' =>
+                date('Y-m-d', strtotime($this->created_at)),
+            ]);
+        }
 
         $query->andFilterWhere(['ilike', 'username', $this->username]);
         $query->andFilterWhere(['ilike', 'email', $this->email]);
