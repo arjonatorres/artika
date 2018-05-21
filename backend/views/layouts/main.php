@@ -21,7 +21,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => '/favicon.ico']); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => (YII_ENV_PROD ? '/backend': '') . '/favicon.ico']); ?>
     <?= Html::csrfMetaTags() ?>
     <title>Artika Admin</title>
     <?php $this->head() ?>
@@ -32,7 +32,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img('/imagenes/atk-logo-admin.png', [
+        'brandLabel' => Html::img((YII_ENV_PROD ? '/backend': '') . '/imagenes/atk-logo-admin.png', [
             'alt' => 'Artika',
             'width' => '30px;',
             'style' => 'display: inline; margin-top: -3px;',

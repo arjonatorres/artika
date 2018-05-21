@@ -1,6 +1,4 @@
 <?php
-use yii\web\View;
-
 use yii\grid\GridView;
 
 use yii\helpers\Html;
@@ -14,10 +12,10 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 $js = <<<JS
     $('.grid-view img').each(function() {
-        if ($(this).closest('tr').data('key') != 1) {
-            $(this).elevateZoom({zoomWindowPosition: 2, zoomWindowWidth: 308, zoomWindowHeight: 308});
-        } else {
+        if ($(this).attr('src').match(/\/0.png$/)) {
             $(this).elevateZoom({zoomWindowPosition: 2, zoomWindowWidth: 168, zoomWindowHeight: 168});
+        } else {
+            $(this).elevateZoom({zoomWindowPosition: 2, zoomWindowWidth: 308, zoomWindowHeight: 308});
 
         }
     });
@@ -48,7 +46,7 @@ $this->params['breadcrumbs'][] = 'Usuarios';
                         'content' => function ($model, $key, $index, $column) {
                             // return $index;
                             $usuario = Usuarios::findOne($key);
-                            $img = Html::img($usuario->perfil->rutaImagen, [
+                            $img = Html::img((YII_ENV_PROD ? '/backend': '') . $usuario->perfil->rutaImagen, [
                                 'class' => 'img-circle img-user',
                             ]);
                             return $img;

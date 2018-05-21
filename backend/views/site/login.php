@@ -8,9 +8,10 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\UtilHelper;
+$path = (YII_ENV_PROD ? '/backend': '');
 $css = <<<CSS
     html, body {
-        background: url("/imagenes/fondo.jpg") no-repeat center center fixed;
+        background: url("$path/imagenes/fondo.jpg") no-repeat center center fixed;
         background-size: cover;
     }
     .wrap {
