@@ -8,6 +8,8 @@ use yii\bootstrap\ActiveForm;
 
 use common\helpers\Timezone;
 
+use kartik\datecontrol\DateControl;
+
 use dosamigos\google\maps\LatLng;
 use dosamigos\google\maps\Map;
 use dosamigos\google\maps\overlays\Marker;
@@ -184,17 +186,15 @@ $this->registerJs($js);
         <?= $form->field($perfil, 'provincia')->textInput() ?>
         <?= $form->field($perfil, 'pais')->textInput() ?>
         <?= $form->field($perfil, 'cpostal')->textInput() ?>
-        <?= $form->field($perfil, 'fecha_nac')
-            ->textInput()
-            ->widget(DatePicker::classname(), [
-                'dateFormat' => 'dd-MM-yyyy',
-                'clientOptions' => [
-                    'showOn' => 'both',
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'buttonImage' => '/imagenes/calendar.png',
+        <?= $form->field($perfil, 'fecha_nac')->widget(DateControl::classname(), [
+            'type'=>DateControl::FORMAT_DATE,
+            'ajaxConversion'=>false,
+            'widgetOptions' => [
+                'pluginOptions' => [
+                    'autoclose' => true
                 ]
-                ]) ?>
+            ]
+        ]); ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-12">

@@ -68,7 +68,9 @@ class UsuariosController extends \yii\web\Controller
      */
     public function actionUpdate($id)
     {
-        $usuario = Usuarios::findOne(['id' => $id]);
+        if (($usuario = Usuarios::findOne($id)) === null || $id == 1) {
+            throw new NotFoundHttpException('La página solicitada no existe.');
+        }
         $perfil = Perfiles::findOne(['usuario_id' => $id]);
 
         if ($usuario->load(Yii::$app->request->post()) && $usuario->save()) {
