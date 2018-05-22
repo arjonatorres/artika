@@ -52,7 +52,12 @@ $this->params['breadcrumbs'][] = 'Usuarios';
                             return $img;
                         },
                     ],
-                    'username',
+                    [
+                        'attribute' => 'username',
+                        'content' => function ($model, $key, $index, $column) {
+                            return Html::a($model->username, ['/usuarios/update?id=' . $key]);
+                        },
+                    ],
                     'email',
                     [
                         'attribute' => 'created_at',
