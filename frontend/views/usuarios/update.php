@@ -28,14 +28,14 @@ $accion = Yii::$app->controller->action->id;
                     <?= Nav::widget([
                     'items' => [
                         [
-                            'label' => 'Cuenta',
-                            'url' => ['usuarios/mod-cuenta'],
-                            'active' => $accion == 'mod-cuenta',
-                        ],
-                        [
                             'label' => 'Perfil',
                             'url' => ['usuarios/mod-perfil'],
                             'active' => $accion == 'mod-perfil',
+                        ],
+                        [
+                            'label' => 'Cuenta',
+                            'url' => ['usuarios/mod-cuenta'],
+                            'active' => $accion == 'mod-cuenta',
                         ],
                         [
                             'label' => 'Avatar',

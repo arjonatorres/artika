@@ -59,7 +59,7 @@ class UsuariosSearch extends Usuarios
         if ($this->created_at != null) {
             $query->andFilterWhere([
                 'CAST(created_at AS date)' =>
-                date('Y-m-d', strtotime($this->created_at)),
+                $this->created_at,
             ]);
         }
 

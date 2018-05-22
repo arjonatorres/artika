@@ -126,7 +126,7 @@ AppAsset::register($this);
                         . '<br>'
                         . '<p>' . UtilHelper::mostrarCorto($usuario->email) . '</p>'
                         . Html::a(UtilHelper::glyphicon('cog') . ' Mi cuenta',
-                            ['usuarios/mod-cuenta'],
+                            ['usuarios/mod-perfil'],
                             ['class' => 'btn btn-sm btn-primary'])
                         . '</div>'
                     . '</div>',

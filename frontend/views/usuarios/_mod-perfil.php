@@ -1,23 +1,23 @@
 <?php
 
-use yii\jui\DatePicker;
-
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\Timezone;
 
+use kartik\datecontrol\DateControl;
+
 use dosamigos\google\maps\LatLng;
 use dosamigos\google\maps\Map;
 use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
-$css = <<<JS
+$css = <<<CSS
     .mapa {
         border: 1px solid #CCC;
     }
-JS;
+CSS;
 
 $this->registerCss($css);
 
@@ -147,17 +147,15 @@ $this->registerJs($js);
         <?= $form->field($model, 'provincia')->textInput() ?>
         <?= $form->field($model, 'pais')->textInput() ?>
         <?= $form->field($model, 'cpostal')->textInput() ?>
-        <?= $form->field($model, 'fecha_nac')
-            ->textInput()
-            ->widget(DatePicker::classname(), [
-                'dateFormat' => 'dd-MM-yyyy',
-                'clientOptions' => [
-                    'showOn' => 'both',
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'buttonImage' => '/imagenes/calendar.png',
+        <?= $form->field($model, 'fecha_nac')->widget(DateControl::classname(), [
+            'type'=>DateControl::FORMAT_DATE,
+            'ajaxConversion'=>false,
+            'widgetOptions' => [
+                'pluginOptions' => [
+                    'autoclose' => true
                 ]
-                ]) ?>
+            ]
+        ]); ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-12">

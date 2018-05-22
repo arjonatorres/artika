@@ -7,7 +7,7 @@ use common\models\Usuarios;
 
 use common\helpers\UtilHelper;
 
-use kartik\date\DatePicker;
+use kartik\datecontrol\DateControl;
 
 /* @var $this yii\web\View */
 $js = <<<JS
@@ -62,14 +62,16 @@ $this->params['breadcrumbs'][] = 'Usuarios';
                     [
                         'attribute' => 'created_at',
                         'value' => 'created_at',
-                        'filter' => DatePicker::widget([
+                        'filter' => DateControl::widget([
                             'model'=>$searchModel,
                             'attribute' => 'created_at',
-                            'layout' => '{remove}{input}',
-                            'pluginOptions' => [
-                                'format' => 'dd-mm-yyyy',
-                                'autoclose' => true,
-                            ],
+                            'type'=>DateControl::FORMAT_DATE,
+                            'ajaxConversion'=>false,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'autoclose' => true
+                                ]
+                            ]
                         ]),
                         'format' => 'datetime',
                     ],

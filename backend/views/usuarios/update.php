@@ -1,7 +1,5 @@
 <?php
 
-use yii\jui\DatePicker;
-
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
@@ -15,11 +13,11 @@ use dosamigos\google\maps\Map;
 use dosamigos\google\maps\overlays\Marker;
 use dosamigos\google\maps\overlays\InfoWindow;
 
-$css = <<<JS
+$css = <<<CSS
     .mapa {
         border: 1px solid #CCC;
     }
-JS;
+CSS;
 
 $this->registerCss($css);
 
