@@ -38,7 +38,7 @@ class UsuariosSearch extends Usuarios
      */
     public function search($params)
     {
-        $query = Usuarios::find();
+        $query = Usuarios::find()->where(['<>','id', '1']);
 
         // add conditions that should always apply here
 

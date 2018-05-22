@@ -94,7 +94,7 @@ class Perfiles extends \yii\db\ActiveRecord
                 'default'
             ],
             [['usuario_id', 'genero_id'], 'integer'],
-            [['fecha_nac'], 'date'],
+            [['fecha_nac'], 'date', 'format' => 'php:Y-m-d'],
             [['updated_at', 'zona_horaria', 'localizacion'], 'safe'],
             [
                 ['nombre_apellidos', 'direccion', 'ciudad', 'provincia', 'pais'],
