@@ -134,3 +134,7 @@ a.desc:after {
 .img-user {
     width: 50px;
 }
+
+.img-xss {
+    height: 20px;
+}

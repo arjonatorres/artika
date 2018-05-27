@@ -57,6 +57,7 @@ AppAsset::register($this);
                 'label' => '',
             ],
             UtilHelper::menuItem('Usuarios', 'user', 'usuarios/index'),
+            UtilHelper::menuItem('Blog', 'book', 'posts/index'),
         ];
     } else {
         $menuCasa = [];
