@@ -34,7 +34,7 @@ class PostsController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update'],
+                'only' => ['index', 'view', 'update', 'delete'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -93,37 +93,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Creates a new Posts model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Posts(['usuario_id' => Yii::$app->user->id]);
-        $searchModel = new PostsSearch();
-        $query = Posts::find()->with('usuario')
-            ->orderBy(['created_at' => SORT_DESC])
-            ->limit(4);
-        $dataProviderLimit = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => false,
-        ]);
-
-        if ($model->load(Yii::$app->request->post())) {
-            $model->foto = UploadedFile::getInstance($model, 'foto');
-            if ($model->save() && $model->upload()) {
-                return $this->redirect(['index']);
-            }
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProviderLimit' => $dataProviderLimit,
-        ]);
-    }
-
-    /**
      * Updates an existing Posts model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id
@@ -133,10 +102,6 @@ class PostsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->usuario_id !== Yii::$app->user->id) {
-            return $this->goHome();
-        }
 
         if ($model->load(Yii::$app->request->post())) {
             $model->foto = UploadedFile::getInstance($model, 'foto');
