@@ -106,6 +106,17 @@ $imagen = (YII_ENV_PROD ? '/backend': '') . $model->rutaImagen;
             <div class="col-md-1  padding-0">
                 <?= Html::a(
                     UtilHelper::glyphicon(
+                        'pencil',
+                        ['class' => 'btn btn-xs btn-success icon-xs']
+                    ),
+                    ['posts/update', 'id' => $model->id],
+                    [
+                        'class' => 'boton-editar icon-derecha',
+                        'title' => 'Modificar post',
+                    ]
+                ) ?>
+                <?= Html::a(
+                    UtilHelper::glyphicon(
                         'remove',
                         ['class' => 'btn btn-xs btn-danger icon-xs']
                     ),

@@ -295,7 +295,7 @@
 | **Prioridad**   | Opcional           |
 | **Tipo**        | Funcional                |
 | **Complejidad** | Media         |
-| **Entrega**     | v3             |
+| **Entrega**     | v2             |
 | **Incidencia**  | [33](https://github.com/arjonatorres/artika/issues/33) |
 
 | **R34**     | **El administrador podrá ver a los usuarios**           |
@@ -304,7 +304,7 @@
 | **Prioridad**   | Importante           |
 | **Tipo**        | Funcional                |
 | **Complejidad** | Fácil         |
-| **Entrega**     | v3             |
+| **Entrega**     | v2             |
 | **Incidencia**  | [34](https://github.com/arjonatorres/artika/issues/34) |
 
 | **R35**     | **El administrador podrá modificar a los usuarios**           |
@@ -313,7 +313,7 @@
 | **Prioridad**   | Importante           |
 | **Tipo**        | Funcional                |
 | **Complejidad** | Fácil         |
-| **Entrega**     | v3             |
+| **Entrega**     | v2             |
 | **Incidencia**  | [35](https://github.com/arjonatorres/artika/issues/35) |
 
 | **R36**     | **El administrador podrá borrar a los usuarios**           |
@@ -667,6 +667,15 @@
 | **Entrega**     | v2             |
 | **Incidencia**  | [105](https://github.com/arjonatorres/artika/issues/105) |
 
+| **R110**     | **El administrador podrá modificar las publicaciones de los usuarios**           |
+| --------------: | :------------------- |
+| **Descripción** | El administrador podrá modificar las publicaciones que los usuarios hayan realizado en el tablón.             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v3             |
+| **Incidencia**  | [110](https://github.com/arjonatorres/artika/issues/110) |
+
 
 ## Cuadro resumen
 
@@ -704,9 +713,9 @@
 | (**R30**) Los usuarios podrán mandar mensajes privados a otros usuarios | Importante | Funcional | Difícil | v2 | [30](https://github.com/arjonatorres/artika/issues/30) |
 | (**R31**) Los usuarios podrán consultar los mensajes privados enviados a  otros usuarios | Importante | Funcional | Media | v2 | [31](https://github.com/arjonatorres/artika/issues/31) |
 | (**R32**) Los usuarios podrán borrar los mensajes recibidos y enviados a otros usuarios | Opcional | Funcional | Media | v2 | [32](https://github.com/arjonatorres/artika/issues/32) |
-| (**R33**) Al usuario se le mandará un correo electrónico cada vez que reciba un mensaje privado | Opcional | Funcional | Media | v3 | [33](https://github.com/arjonatorres/artika/issues/33) |
-| (**R34**) El administrador podrá ver a los usuarios | Importante | Funcional | Fácil | v3 | [34](https://github.com/arjonatorres/artika/issues/34) |
-| (**R35**) El administrador podrá modificar a los usuarios | Importante | Funcional | Fácil | v3 | [35](https://github.com/arjonatorres/artika/issues/35) |
+| (**R33**) Al usuario se le mandará un correo electrónico cada vez que reciba un mensaje privado | Opcional | Funcional | Media | v2 | [33](https://github.com/arjonatorres/artika/issues/33) |
+| (**R34**) El administrador podrá ver a los usuarios | Importante | Funcional | Fácil | v2 | [34](https://github.com/arjonatorres/artika/issues/34) |
+| (**R35**) El administrador podrá modificar a los usuarios | Importante | Funcional | Fácil | v2 | [35](https://github.com/arjonatorres/artika/issues/35) |
 | (**R36**) El administrador podrá borrar a los usuarios | Importante | Funcional | Fácil | v3 | [36](https://github.com/arjonatorres/artika/issues/36) |
 | (**R37**) El administrador podrá borrar las publicaciones de los usuarios | Opcional | Funcional | Media | v3 | [37](https://github.com/arjonatorres/artika/issues/37) |
 | (**R38**) El administrador podrá mandar mensajes en grupo a todos los usuarios | Importante | Funcional | Difícil | v3 | [38](https://github.com/arjonatorres/artika/issues/38) |
@@ -746,3 +755,4 @@
 | (**R72**) Desplegar en un servidor local | Mínimo | Técnico | Media | v3 | [72](https://github.com/arjonatorres/artika/issues/72) |
 | (**R93**) Transmitir órdenes de los módulos | Importante | Funcional | Difícil | v2 | [93](https://github.com/arjonatorres/artika/issues/93) |
 | (**R105**) Configurar URL Servidor Raspberry | Importante | Funcional | Fácil | v2 | [105](https://github.com/arjonatorres/artika/issues/105) |
+| (**R110**) El administrador podrá modificar las publicaciones de los usuarios | Mínimo | Funcional | Fácil | v3 | [110](https://github.com/arjonatorres/artika/issues/110) |
