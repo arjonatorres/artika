@@ -29,15 +29,38 @@ $js = <<<JS
         '</div>';
     return markup;
     };
+
 JS;
 $this->registerJs($js, View::POS_HEAD);
+$js = <<<JS
+    $('#todos').on('click', function() {
+        if ($("#mensajes-destinatario_id").prop("disabled")) {
+            $("#mensajes-destinatario_id").prop("disabled", false);
+            $('.select2-selection__choice').remove();
+            $("#mensajes-destinatario_id option").remove();
+        } else {
+            $("#mensajes-destinatario_id").prop("disabled", true);
+            $('.select2-selection__choice').remove();
+            $("#mensajes-destinatario_id option").remove();
+            $("#mensajes-destinatario_id").append('<option value="0" selected>todos</option>');
+        }
+    });
 
+    $('#mensaje-form').on('beforeSubmit', function(e) {
+        e.preventDefault();
+        $("#mensajes-destinatario_id").prop('disabled', false);
+        $('#mensaje.form').submit();
+    });
+JS;
+$this->registerJs($js);
 ?>
 
 <div class="mensajes-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin(['id' => 'mensaje-form']); ?>
+    <label>
+        <?= Html::checkbox('todos', false, ['id' => 'todos']) ?> Enviar a todos
+    </label>
     <?php if ($directo): ?>
         <?php $data = [$model->destinatario_id => $model->destinatario->nombre] ?>
         <?= $form->field($model, 'destinatario_id')->widget(Select2::classname(), [
