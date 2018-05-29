@@ -138,3 +138,7 @@ a.desc:after {
 .img-xss {
     height: 20px;
 }
+
+.img-sm {
+    height: 32px;
+}
