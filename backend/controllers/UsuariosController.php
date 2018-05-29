@@ -30,7 +30,7 @@ class UsuariosController extends \yii\web\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'update', 'delete', 'lista-usuarios'],
+                        'actions' => ['index', 'update', 'delete', 'lista-usuarios', 'localizacion'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -142,5 +142,19 @@ class UsuariosController extends \yii\web\Controller
             ];
         }
         return $out;
+    }
+
+    /**
+     * Visualiza un mapa con todos los Usuarios.
+     *
+     * @return string
+     */
+    public function actionLocalizacion()
+    {
+        $perfiles = Perfiles::find()->where(['IS NOT', 'localizacion', null])->all();
+
+        return $this->render('localizacion', [
+            'perfiles' => $perfiles,
+        ]);
     }
 }
