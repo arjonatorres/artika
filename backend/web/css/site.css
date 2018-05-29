@@ -143,6 +143,10 @@ a.desc:after {
     height: 32px;
 }
 
+.img-m {
+    height: 50px;
+}
+
 .badge {
     background-color: #d9534f;
 }

@@ -86,6 +86,7 @@ AppAsset::register($this);
             ],
             UtilHelper::menuItem('Usuarios', 'user', 'usuarios/index'),
             UtilHelper::menuItem('Blog', 'book', 'posts/index'),
+            UtilHelper::menuItem('Localización', 'screenshot', 'usuarios/localizacion'),
         ];
     } else {
         $menuCasa = [];
