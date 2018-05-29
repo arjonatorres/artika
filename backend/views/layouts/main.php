@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\models\Mensajes;
+
 use common\helpers\UtilHelper;
 
 use backend\assets\AppAsset;
@@ -44,6 +46,32 @@ AppAsset::register($this);
     ]);
     $menuItems = [];
     if (!Yii::$app->user->isGuest) {
+        $etiqueta_mensaje = UtilHelper::glyphicon('envelope');
+        $no_leido = Mensajes::find()->where(['destinatario_id' => Yii::$app->user->id, 'estado_dest' => 0])->count();
+        if ($no_leido > 0) {
+            $etiqueta_mensaje .= ' <span class="badge">' . $no_leido . '</span>';
+        }
+        $menuItems[] = [
+            'label' => $etiqueta_mensaje,
+            'url' => '',
+            'visible' => !Yii::$app->user->isGuest, 'items' => [
+                [
+                    'label' => UtilHelper::glyphicon('inbox')
+                    . ' Recibidos'
+                    . ($no_leido > 0 ? ' (' . $no_leido . ')': ''),
+                    'url' => ['/mensajes/recibidos']
+                ],
+                ['label' => UtilHelper::glyphicon('send') . ' Enviados', 'url' => ['/mensajes/enviados']],
+                '<li class="divider"></li>',
+                ['label' => UtilHelper::glyphicon('plus') . ' Mensaje nuevo', 'url' => ['/mensajes/create']],
+            ],
+            'dropDownOptions' => [
+                'id' => 'menu-mensajes',
+            ],
+            'options' => [
+                'class' => 'mensajes-dropdown text-center',
+            ],
+        ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -72,6 +100,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'id' => 'menu-sesion',
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => $menuItems,
     ]);
     NavBar::end();

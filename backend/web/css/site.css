@@ -142,3 +142,7 @@ a.desc:after {
 .img-sm {
     height: 32px;
 }
+
+.badge {
+    background-color: #d9534f;
+}
