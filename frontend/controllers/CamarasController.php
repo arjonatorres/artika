@@ -159,9 +159,16 @@ class CamarasController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
 
-        return $this->redirect(['index']);
+        $model = Camaras::findOne([
+            'id' => $id,
+            'usuario_id' => Yii::$app->user->id,
+        ]);
+
+        return $model->delete();
     }
 
     /**

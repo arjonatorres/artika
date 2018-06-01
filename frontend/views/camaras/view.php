@@ -9,6 +9,24 @@ $urlArray = parse_url($model->url);
 $url = (isset($urlArray['scheme']) ? $urlArray['scheme'] : '') . '://'
     . (isset($urlArray['host']) ? $urlArray['host'] : '') . ':' . $model->puerto
     . (isset($urlArray['path']) ? $urlArray['path'] : '');
+
+$js = <<<JS
+    function botonesAcciones() {
+        var botonMod = $('#boton-mod-cam');
+        var botonBorrar = $('#boton-borrar-cam');
+        var nombre = '$model->nombre';
+        var id = $model->id;
+        botonMod.removeAttr('disabled');
+        botonBorrar.removeAttr('disabled');
+        botonMod.text('Modificar ' + nombre);
+        botonBorrar.text('Borrar ' + nombre);
+        botonMod.data('id', id);
+        botonBorrar.data('id', id);
+    }
+    botonesAcciones();
+JS;
+
+$this->registerJs($js);
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">

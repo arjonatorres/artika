@@ -368,7 +368,7 @@ class UtilHelper
      */
     public static function itemMenuCamara($camara)
     {
-        return '<ul class="list-group panel-camara">'
+        return "<ul class=\"list-group panel-camara\"data-id=\"$camara->id\">"
         . '<li class="list-group-item list-group-item-warning">'
         . Html::a($camara->nombre, ['view?id=' . $camara->id])
         . '</li></ul>';

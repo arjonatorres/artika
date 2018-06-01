@@ -1,5 +1,10 @@
 <?php
 use common\helpers\UtilHelper;
+$js = <<<JS
+deshabilitarAcciones();
+JS;
+
+$this->registerJs($js);
 
 ?>
 <div class="panel panel-primary panel-principal">

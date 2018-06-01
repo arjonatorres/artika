@@ -26,6 +26,7 @@ use common\helpers\UtilHelper;
 
 <?php
 $urlAnadirCamaras = Url::to(['camaras/index']);
+$urlBorrarCamara = Url::to(['camaras/delete']);
 
 $js = <<<JS
     function volverCrearCamara() {
@@ -39,59 +40,51 @@ $js = <<<JS
         });
     }
 
-    function funcionalidadBotones() {
-        $('.boton-borrar').off();
-        $('.boton-borrar').on('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var enlace = $(this);
-            var panelPropio = enlace.closest('.panel-seccion');
-            var camaraId = panelPropio.data('id');
-            var nombre = (enlace.closest('h4').text()).trim();
-            krajeeDialog.confirm('¿Estás seguro que quieres borrar la camara "'
-            + nombre +'"?', function (result) {
-                if (result) {
-                    $.ajax({
-                        url: enlace.attr('href') + '?id=' + camaraId,
-                        type: 'POST',
-                        data: {},
-                            success: function(data) {
-                                if (data) {
-                                    var idPropio = panelPropio.data('id');
-                                    panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
-                                        panelPropio.remove();
-                                    });
-                                    $('#habitaciones-seccion_id').find('option[value="' + idPropio + '"]').remove();
-                                    volverCrearCamara();
-                                } else {
-                                    krajeeDialog.alert('No se ha podido borrar la sección.');
-                                }
-                            }
-                    });
-                }
-            });
-        });
-        $('.boton-editar').off();
-        $('.boton-editar').on('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var camaraId = $(this).closest('.panel-seccion').data('id');
-            $.ajax({
-                url: $(this).attr('href') + '?id=' + camaraId,
-                type: 'GET',
-                data: {},
-                    success: function(data) {
-                        if (data) {
-                            $('#vista-camara').html(data);
-                        }
-                    }
-            });
-        });
-    }
-    funcionalidadBotones();
     $('#boton-anadir-cam').on('click', function() {
         volverCrearCamara();
     });
+    $('#boton-mod-cam').on('click', function() {
+        if ($(this).prop('disabled') == undefined) {
+            console.log('hola');
+        }
+    });
+    $('#boton-borrar-cam').on('click', function() {
+        if ($(this).prop('disabled') == undefined) {
+            var nombre = $(this).text().split(' ')[1];
+            var camaraId = $(this).data('id');
+            var panelPropio = $('.panel-camara[data-id=' + camaraId + ']');
+            krajeeDialog.confirm('¿Estás seguro que quieres borrar la camara "'
+                + nombre +'"?', function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: '$urlBorrarCamara' + '?id=' + camaraId,
+                            type: 'POST',
+                            data: {},
+                                success: function(data) {
+                                    if (data) {
+                                        panelPropio.animate({opacity: 0.0}, 400).slideUp(400, function() {
+                                            panelPropio.remove();
+                                        });
+                                        deshabilitarAcciones();
+                                        volverCrearCamara();
+                                    } else {
+                                        krajeeDialog.alert('No se ha podido borrar la sección.');
+                                    }
+                                }
+                        });
+                    }
+            });
+        }
+    });
+
+    function deshabilitarAcciones() {
+        var botonMod = $('#boton-mod-cam');
+        var botonBorrar = $('#boton-borrar-cam');
+        botonMod.attr('disabled', true);
+        botonBorrar.attr('disabled', true);
+        botonMod.text('Modificar');
+        botonBorrar.text('Borrar');
+    }
 
     $('#menu-camara').on('click', '.list-group-item-warning a', function(e) {
         e.preventDefault();
@@ -122,7 +115,17 @@ $this->registerJs($js, View::POS_END);
     <?= Html::a('<b>Añadir videocámara</b>', null, [
         'id' => 'boton-anadir-cam',
         'class' => 'btn btn-success',
-        'style' => 'width: 100%; font-size: 16px;',
+        'style' => 'width: 100%; font-size: 16px; margin-bottom: 5px;',
     ]) ?>
-
-<!-- TODO - Poner botón a pie de página para ir hacia arriba -->
+    <?= Html::a('<b>Modificar</b>', null, [
+        'id' => 'boton-mod-cam',
+        'disabled' => true,
+        'class' => 'btn btn-primary',
+        'style' => 'width: 100%; font-size: 16px; margin-bottom: 5px;',
+    ]) ?>
+    <?= Html::a('<b>Borrar</b>', null, [
+        'id' => 'boton-borrar-cam',
+        'disabled' => true,
+        'class' => 'btn btn-danger',
+        'style' => 'width: 100%; font-size: 16px; margin-bottom: 5px;',
+    ]) ?>
