@@ -175,19 +175,19 @@ class UtilHelper
         . '<div class="col-md-4 padding-0 text-right">' . ($mod ?
         Html::a(
             self::glyphicon(
-                'remove',
-                ['class' => 'btn btn-xs btn-default icon-sm secundario i', 'style' => 'color: #d9534f']
-            ),
-            [($den == 'modulo' ? 'modulos': 'casas') . "/borrar-$den"],
-            ['class' => "boton-borrar-$den icon-derecha"]
-        )
-        . Html::a(
-            self::glyphicon(
                 'pencil',
                 ['class' => 'btn btn-xs btn-default icon-sm secundario', 'style' => 'color: #5cb85c']
             ),
             [($den == 'modulo' ? 'modulos': 'casas') . "/modificar-$den"],
             ['class' => "boton-editar-$den icon-derecha"]
+        )
+        . Html::a(
+            self::glyphicon(
+                'remove',
+                ['class' => 'btn btn-xs btn-default icon-sm secundario i', 'style' => 'color: #d9534f']
+            ),
+            [($den == 'modulo' ? 'modulos': 'casas') . "/borrar-$den"],
+            ['class' => "boton-borrar-$den icon-derecha"]
         ) : '') . '</div>'
         . '</div></li>';
     }
@@ -359,5 +359,18 @@ class UtilHelper
         </div>
         <hr class="margen-bottom-sm">
         <?php
+    }
+
+    /**
+     * Devuelve un item de una cámara del menú
+     * @param  array  $camara La cámara
+     * @return string         El item
+     */
+    public static function itemMenuCamara($camara)
+    {
+        return '<ul class="list-group panel-camara">'
+        . '<li class="list-group-item list-group-item-warning">'
+        . Html::a($camara->nombre, ['view?id=' . $camara->id])
+        . '</li></ul>';
     }
 }
