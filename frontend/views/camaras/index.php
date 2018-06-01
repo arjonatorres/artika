@@ -21,7 +21,7 @@ $this->registerCssFile('/css/casa.css', [
         </div>
         <div id="vista-camara" class="col-md-9 col-sm-12 col-xs-12">
             <?php if (!empty($camaras)): ?>
-                <?= $this->render("view", [
+                <?= $this->render("_view", [
                     'model' => $camaras[0],
                 ]) ?>
             <?php else: ?>

@@ -87,31 +87,13 @@ class CamarasController extends Controller
         }
         $model = $this->findModel($id);
 
-        if ($model === null || $model->usuario_id !== Yii::$app->user->id) {
+        if ($model === null) {
             return;
         }
-        return $this->renderAjax('view', [
+        return $this->renderAjax('_view', [
             'model' => $model,
         ]);
     }
-
-    // /**
-    //  * Creates a new Camaras model.
-    //  * If creation is successful, the browser will be redirected to the 'view' page.
-    //  * @return mixed
-    //  */
-    // public function actionCreate()
-    // {
-    //     $model = new Camaras(['usuario_id' => Yii::$app->user->id]);
-    //
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    //         return $this->redirect(['view', 'id' => $model->id]);
-    //     }
-    //
-    //     return $this->render('create', [
-    //         'model' => $model,
-    //     ]);
-    // }
 
     /**
      * Crea una cámara vía Ajax
@@ -131,6 +113,30 @@ class CamarasController extends Controller
     }
 
     /**
+     * Modifica una cámara
+     * @param  int $id El id de la cámara a modificar vía Ajax
+     * @return mixed
+     */
+    public function actionModificarCamaraAjax($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
+        }
+
+        $model = $this->findModel($id);
+
+        if ($model === null) {
+            return;
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $model;
+        }
+        return;
+    }
+
+    /**
      * Updates an existing Camaras model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id
@@ -139,13 +145,21 @@ class CamarasController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (!Yii::$app->request->isAjax) {
+            return $this->goHome();
         }
 
-        return $this->render('update', [
+        $model = $this->findModel($id);
+
+        if ($model === null) {
+            return;
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        return $this->renderAjax('_mod-camara', [
             'model' => $model,
         ]);
     }
@@ -163,10 +177,11 @@ class CamarasController extends Controller
             return $this->goHome();
         }
 
-        $model = Camaras::findOne([
-            'id' => $id,
-            'usuario_id' => Yii::$app->user->id,
-        ]);
+        $model = $this->findModel($id);
+
+        if ($model === null) {
+            return;
+        }
 
         return $model->delete();
     }
@@ -180,7 +195,10 @@ class CamarasController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Camaras::findOne($id)) !== null) {
+        if (($model = Camaras::findOne([
+            'id' => $id,
+            'usuario_id' => Yii::$app->user->id,
+            ])) !== null) {
             return $model;
         }
 

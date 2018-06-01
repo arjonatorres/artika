@@ -26,6 +26,7 @@ use common\helpers\UtilHelper;
 
 <?php
 $urlAnadirCamaras = Url::to(['camaras/index']);
+$urlModCamara = Url::to(['camaras/update']);
 $urlBorrarCamara = Url::to(['camaras/delete']);
 
 $js = <<<JS
@@ -44,12 +45,22 @@ $js = <<<JS
         volverCrearCamara();
     });
     $('#boton-mod-cam').on('click', function() {
-        if ($(this).prop('disabled') == undefined) {
-            console.log('hola');
+        if ($(this).attr('disabled') != 'disabled') {
+            var camaraId = $(this).data('id');
+            $.ajax({
+                url: '$urlModCamara' + '?id=' + camaraId,
+                type: 'GET',
+                data: {},
+                    success: function(data) {
+                        if (data) {
+                            $('#vista-camara').html(data);
+                        }
+                    }
+            });
         }
     });
     $('#boton-borrar-cam').on('click', function() {
-        if ($(this).prop('disabled') == undefined) {
+        if ($(this).attr('disabled') != 'disabled') {
             var nombre = $(this).text().split(' ')[1];
             var camaraId = $(this).data('id');
             var panelPropio = $('.panel-camara[data-id=' + camaraId + ']');

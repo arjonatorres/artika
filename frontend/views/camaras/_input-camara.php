@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $accion = Yii::$app->controller->action->id;
-$esMod = $accion === 'modificar-camara';
+$esMod = $accion === 'update';
 
 $urlCrearCamaraAjax = Url::to(['camaras/crear-camara-ajax']);
 $urlModificarCamaraAjax = Url::to(['camaras/modificar-camara-ajax']);
@@ -54,9 +54,10 @@ if ($esMod) {
             },
             success: function (data) {
                 if (data) {
-                    var it = $('#it$model->id');
+                    var camaraId = data.id;
+                    var it = $('.panel-camara[data-id=' + camaraId + '] a');
                     it.fadeOut(400, function() {
-                        it.text(data);
+                        it.text(data.nombre);
                         it.hide();
                     }).fadeIn(400);
                 }
@@ -101,11 +102,6 @@ $this->registerJs($js);
     </div>
     <div class="col-md-9">
         <div class="col-md-10" style="padding-left: 0px;">
-        <?php if ($esMod): ?>
-        <h4><span class="label label-info">
-            Sección: <?= Html::encode($model->nombre) ?>
-        </span></h4>
-        <?php endif ?>
         <?php $form = ActiveForm::begin([
             'id' => 'camara-form',
             'enableAjaxValidation' => true,
