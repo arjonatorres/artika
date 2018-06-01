@@ -285,4 +285,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Posts::className(), ['usuario' => 'id'])->inverseOf('usuario');
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCamaras()
+    {
+        return $this->hasMany(Camaras::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
+    }
 }

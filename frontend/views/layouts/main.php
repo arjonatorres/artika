@@ -82,6 +82,7 @@ AppAsset::register($this);
             UtilHelper::menuItem('Módulos', 'off', 'modulos/create'),
             UtilHelper::menuItem('Logs', 'list-alt', 'logs/index'),
             UtilHelper::menuItem('Servidor', 'hdd', 'servidores/index'),
+            UtilHelper::menuItem('Videocámaras', 'facetime-video', 'camaras/index'),
             UtilHelper::menuItem('Blog', 'book', 'posts/index'),
         ];
         $usuario = Yii::$app->user->identity;

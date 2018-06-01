@@ -150,11 +150,13 @@
     max-width: 100px;
     width: 100%;
 }
-/*
-#menu-casa-usuario .panel-principal {
-    min-width: 262.5px;
+
+.list-group {
+    margin-bottom: 2px;
 }
 
-#menu-casa-usuario {
-    min-width: 262.5px;
-} */
+iframe {
+    width:644px;
+    height: 484px;
+    max-width: 100%;
+}
