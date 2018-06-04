@@ -8,6 +8,7 @@ return [
         '@avatar' => '@frontend/web/imagenes/avatar',
         '@avatar_s3' => 'avatar',
         '@post' => '@frontend/web/imagenes/post',
+        '@uploads' => '@frontend/web/uploads',
         '@post_s3' => 'post',
     ],
     'name' => 'ArTiKa',
