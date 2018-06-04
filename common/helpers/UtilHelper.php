@@ -373,4 +373,35 @@ class UtilHelper
         . Html::a($camara->nombre, ['view?id=' . $camara->id])
         . '</li></ul>';
     }
+
+    /*
+    Descripción: Cálculo de la distancia entre 2 puntos en función de su latitud/longitud
+    Autor: Michaël Niessen (2014)
+    Sito web: AssemblySys.com
+
+    Si este código le es útil, puede mostrar su
+    agradecimiento a Michaël ofreciéndole un café ;)
+    PayPal: https://www.paypal.me/MichaelNiessen
+
+    Mientras estos comentarios (incluyendo nombre y detalles del autor) estén
+    incluidos y SIN ALTERAR, este código se puede usar y distribuir libremente.
+    */
+
+    /**
+     * Cálculo de la distancia entre 2 puntos en función de su latitud/longitud
+     * @param  [type]  $point1_lat  Latitud del punto 1
+     * @param  [type]  $point1_long Longitud del punto 1
+     * @param  [type]  $point2_lat  Latitud del punto 2
+     * @param  [type]  $point2_long Longitud del punto 2
+     * @param  int $decimals        Número de decimales a mostrar
+     * @return float
+     */
+    public static function distancia($point1_lat, $point1_long, $point2_lat, $point2_long, $decimals = 2)
+    {
+        // Cálculo de la distancia en grados
+        $degrees = rad2deg(acos((sin(deg2rad($point1_lat))*sin(deg2rad($point2_lat))) + (cos(deg2rad($point1_lat))*cos(deg2rad($point2_lat))*cos(deg2rad($point1_long-$point2_long)))));
+
+        $distance = $degrees * 111.13384; // 1 grado = 111.13384 km, basándose en el diametro promedio de la Tierra (12.735 km)
+        return round($distance, $decimals);
+    }
 }
