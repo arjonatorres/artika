@@ -53,9 +53,21 @@ class ServidoresController extends Controller
         $modulos = $usuario->getModulos()->asArray()->all();
         $pines = Pines::find()->asArray();
         $habitaciones = UtilHelper::getDropDownList($usuario->getHabitaciones()->all());
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Los datos del servidor se han guardado correctamente.');
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->token_val == null) {
+                $model->token_val = Yii::$app->security->generateRandomString();
+            }
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Los datos del servidor se han
+                guardado correctamente. El token de seguridad deberá introducirlo
+                en una variable de entorno en la Raspberry tal y como está explicado
+                en el manual.');
+                Yii::$app->session->setFlash('danger', "Token de seguridad: $model->token_val");
+            } else {
+                Yii::$app->session->setFlash('danger', 'No se han podido guardar los datos del servidor.');
+            }
         }
 
         return $this->render('index', [

@@ -277,10 +277,9 @@ class UtilHelper
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
             'nombre' => $nombre,
-            'password' => (getenv('PASSWORD_USUARIO')),
+            'password' => $serv->token_val,
             'datos' => $datos]);
         curl_setopt($ch, CURLOPT_URL, $url);
-        //curl_setopt($ch, CURLOPT_URL, 'https://yewnectb.p50.rt3.io/orden.php');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -370,7 +369,7 @@ class UtilHelper
     {
         return "<ul class=\"list-group panel-camara\"data-id=\"$camara->id\">"
         . '<li class="list-group-item list-group-item-warning">'
-        . Html::a($camara->nombre, ['view?id=' . $camara->id])
+        . Html::a(Html::encode($camara->nombre), ['view?id=' . $camara->id])
         . '</li></ul>';
     }
 

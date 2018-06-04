@@ -9,12 +9,12 @@ $urlArray = parse_url($model->url);
 $url = (isset($urlArray['scheme']) ? $urlArray['scheme'] : '') . '://'
     . (isset($urlArray['host']) ? $urlArray['host'] : '') . ':' . $model->puerto
     . (isset($urlArray['path']) ? $urlArray['path'] : '');
-
+$nombre = Html::encode($model->nombre);
 $js = <<<JS
     function botonesAcciones() {
         var botonMod = $('#boton-mod-cam');
         var botonBorrar = $('#boton-borrar-cam');
-        var nombre = '$model->nombre';
+        var nombre = '$nombre';
         var id = $model->id;
         botonMod.removeAttr('disabled');
         botonBorrar.removeAttr('disabled');
@@ -32,8 +32,8 @@ $this->registerJs($js);
     <div class="panel-heading panel-heading-principal">
         <h3 class="panel-title">
             <?= UtilHelper::glyphicon('facetime-video', ['class' => 'icon-sm']) ?>
-            <?= ' ' . $model->nombre ?>
-         </h3>
+            <?= ' ' . Html::encode($model->nombre) ?>
+        </h3>
     </div>
     <div class="panel-body panel-body-gris">
         <div class="row">

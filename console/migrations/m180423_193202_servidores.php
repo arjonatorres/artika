@@ -16,6 +16,7 @@ class m180423_193202_servidores extends Migration
             'id' => $this->bigPrimaryKey(),
             'url' => $this->string(255)->notNull(),
             'puerto' => $this->smallInteger()->notNull(),
+            'token_val' => $this->string(255)->notNull(),
             'usuario_id' => $this->bigInteger()->notNull(),
         ]);
 
