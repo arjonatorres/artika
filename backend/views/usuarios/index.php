@@ -4,26 +4,24 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 use common\models\Usuarios;
-
 use common\helpers\UtilHelper;
-
 use kartik\datecontrol\DateControl;
+use backend\assets\EzAsset;
 
+EzAsset::register($this);
 /* @var $this yii\web\View */
+
 $js = <<<JS
     $('.grid-view img').each(function() {
         if ($(this).attr('src').match(/\/0.png$/)) {
-            $(this).elevateZoom({zoomWindowPosition: 2, zoomWindowWidth: 168, zoomWindowHeight: 168});
+            $(this).ezPlus({zoomWindowPosition: 2, zoomWindowWidth: 168, zoomWindowHeight: 168});
         } else {
-            $(this).elevateZoom({zoomWindowPosition: 2, zoomWindowWidth: 308, zoomWindowHeight: 308});
+            $(this).ezPlus({zoomWindowPosition: 2, zoomWindowWidth: 308, zoomWindowHeight: 308});
 
         }
     });
 JS;
 $this->registerJs($js);
-$this->registerJsFile('@web/js/elevatezoom-master/jquery.elevatezoom.js',[
-    'depends' => [\yii\web\JqueryAsset::className()]
-]);
 $this->params['breadcrumbs'][] = 'Usuarios';
 ?>
 

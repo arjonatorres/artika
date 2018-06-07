@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "754d5d6833254c9efc2a358c330a6414",
+    "content-hash": "ed505bbf324809ab64e91d9dbf38c3c4",
     "packages": [
         {
             "name": "2amigos/yii2-disqus-widget",
@@ -219,7 +219,7 @@
             "version": "v1.35.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nakupanda/bootstrap3-dialog.git",
+                "url": "git@github.com:nakupanda/bootstrap3-dialog.git",
                 "reference": "3dd11d586f78de75356af418907ec6e3b347377c"
             },
             "dist": {
@@ -1649,6 +1649,25 @@
                 "jsonpath"
             ],
             "time": "2016-12-03T22:08:25+00:00"
+        },
+        {
+            "name": "npm-asset/ez-plus",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:igorlino/elevatezoom-plus.git",
+                "reference": "1e70883a63ccfa47366b8a35b396172e8f2096b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/igorlino/elevatezoom-plus/zipball/1e70883a63ccfa47366b8a35b396172e8f2096b3",
+                "reference": "1e70883a63ccfa47366b8a35b396172e8f2096b3",
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "psr/http-message",
