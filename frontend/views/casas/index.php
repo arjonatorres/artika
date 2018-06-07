@@ -4,6 +4,22 @@
 /* @var $model \common\models\LoginForm */
 use yii\widgets\ListView;
 
+$js = <<<JS
+    window.onscroll = function() {
+        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+            $('.scrollTop').css({display: 'block'});
+        } else {
+            $('.scrollTop').css({display: 'none'});
+        }
+    };
+
+    $('.scrollTop').on('click', function() {
+        $('html, body').animate({scrollTop: 0});
+    });
+JS;
+
+$this->registerJs($js);
+
 $accion = Yii::$app->controller->action->id;
 $this->params['breadcrumbs'][] = $accion !== 'mi-casa' ? [
     'label' => 'Mi casa',

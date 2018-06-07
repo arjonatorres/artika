@@ -178,6 +178,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
+    <button class='scrollTop btn-circle btn-top'><?= UtilHelper::glyphicon('chevron-up') ?></button>
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
     </div>
