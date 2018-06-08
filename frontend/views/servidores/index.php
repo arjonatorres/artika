@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = 'Servidor';
                         });
                         $modulo = array_pop($modulo)?>
                         <?php if (!empty($modulo)): ?>
-                            <h4><span class="label label-success"><?= $modulo['nombre'] ?></span></h4><a href="#" data-toggle="tooltip" title="Habitación: <?= $habitaciones[$modulo['habitacion_id']] ?>">
+                            <h4><span class="label label-success"><?= Html::encode($modulo['nombre']) ?></span></h4><a href="#" data-toggle="tooltip" title="Habitación: <?= $habitaciones[$modulo['habitacion_id']] ?>">
                                 <?= UtilHelper::glyphicon('info-sign') ?>
                             </a>
 
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = 'Servidor';
                     <div class="col-md-7 col-xs-7 text-left">
 
                     <?php if (!empty($modulo)): ?>
-                        <h4><span class="label label-success"><?= $modulo['nombre']
+                        <h4><span class="label label-success"><?= Html::encode($modulo['nombre'])
                             . ($persiana ? ' ' . UtilHelper::glyphicon($flecha) : '') ?></span></h4>
                         <a href="#" data-toggle="tooltip" title="Habitación: <?= $habitaciones[$modulo['habitacion_id']] ?>">
                             <?= UtilHelper::glyphicon('info-sign') ?>

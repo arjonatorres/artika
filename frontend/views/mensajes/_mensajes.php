@@ -29,9 +29,9 @@ $columns = [
         'value' => function ($mensaje) {
             $rec = $GLOBALS['rec'];
             if ($rec) {
-                $nombre = $mensaje->remitente->nombre;
+                $nombre = Html::encode($mensaje->remitente->nombre);
             } else {
-                $nombre = $mensaje->destinatario->nombre;
+                $nombre = Html::encode($mensaje->destinatario->nombre);
             }
             if ($rec) {
                 if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
@@ -88,7 +88,7 @@ $columns = [
         'format' => 'raw',
         'value' => function ($mensaje) {
             $rec = $GLOBALS['rec'];
-            $asunto = $mensaje->asunto;
+            $asunto = Html::encode($mensaje->asunto);
             if ($rec) {
                 if ($mensaje->estado_dest == Mensajes::ESTADO_NO_LEIDO) {
                     $asunto = '<strong>' . $asunto . '</strong>';
@@ -99,7 +99,6 @@ $columns = [
                 [
                     'view',
                     'id' => $mensaje->id,
-                    // 'enviados' => !$rec,
                 ]
             );
         },

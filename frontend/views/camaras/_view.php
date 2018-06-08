@@ -11,10 +11,14 @@ $url = (isset($urlArray['scheme']) ? $urlArray['scheme'] : '') . '://'
     . (isset($urlArray['path']) ? $urlArray['path'] : '');
 $nombre = Html::encode($model->nombre);
 $js = <<<JS
+    function htmlDecode(value){
+      return $('<div/>').html(value).text();
+    }
+
     function botonesAcciones() {
         var botonMod = $('#boton-mod-cam');
         var botonBorrar = $('#boton-borrar-cam');
-        var nombre = '$nombre';
+        var nombre = htmlDecode('$nombre');
         var id = $model->id;
         botonMod.removeAttr('disabled');
         botonBorrar.removeAttr('disabled');

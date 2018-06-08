@@ -74,10 +74,12 @@ AppAsset::register($this);
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
+            .'<div class="text-center">'
             . Html::submitButton(
                 UtilHelper::glyphicon('log-out') . ' Cerrar sesión',
-                ['class' => 'btn btn-link logout']
+                ['class' => 'btn btn-link logout', 'style' => 'padding: 15px;']
             )
+            .'</div>'
             . Html::endForm()
             . '</li>';
         $menuCasa = [

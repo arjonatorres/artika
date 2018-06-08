@@ -42,7 +42,6 @@ $this->params['breadcrumbs'][] = 'Usuarios';
                     [
                         'label' => 'Foto',
                         'content' => function ($model, $key, $index, $column) {
-                            // return $index;
                             $usuario = Usuarios::findOne($key);
                             $img = Html::img((YII_ENV_PROD ? '/backend': '') . $usuario->perfil->rutaImagen, [
                                 'class' => 'img-circle img-user',
@@ -53,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Usuarios';
                     [
                         'attribute' => 'username',
                         'content' => function ($model, $key, $index, $column) {
-                            return Html::a($model->username, ['/usuarios/update?id=' . $key]);
+                            return Html::a(Html::encode($model->username), ['/usuarios/update?id=' . $key]);
                         },
                     ],
                     'email',

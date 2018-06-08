@@ -82,7 +82,9 @@ JS;
                     it.slideDown(400).animate({opacity: 1.0}, 400);
                     padre.val('');
                     padre.parent().removeClass('has-success');
-                    $('#habitaciones-seccion_id').append('<option value="' + it.data('id') + '">' + it.text() + '</option>');
+                    var nuevaOpcion = $('<option value="' + it.data('id') + '"></option>');
+                    nuevaOpcion.text(it.text());
+                    $('#habitaciones-seccion_id').append(nuevaOpcion);
                     mostrarNumero();
                     funcionalidadBotones();
                 }

@@ -150,3 +150,7 @@ a.desc:after {
 .badge {
     background-color: #d9534f;
 }
+
+.panel-body-gris {
+    background-color: #EEE;
+}

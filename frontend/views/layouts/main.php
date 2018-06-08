@@ -55,10 +55,16 @@ AppAsset::register($this);
             [
                 'label' => 'Login',
                 'url' => ['/site/login'],
+                'options' => [
+                    'class' => 'text-center',
+                ],
             ],
             [
                 'label' => 'Registrarse',
                 'url' => ['usuarios/registro'],
+                'options' => [
+                    'class' => 'text-center',
+                ],
             ],
         ];
         $menuCasa = [
@@ -123,10 +129,10 @@ AppAsset::register($this);
                         . '</div>'
                         . '<div style="margin-top: 8px;">'
                         . '<strong>' . UtilHelper::mostrarCorto(
-                            $usuario->perfil->nombre_apellidos ?: $usuario->username)
+                            Html::encode($usuario->perfil->nombre_apellidos) ?: Html::encode($usuario->username))
                         . '</strong>'
                         . '<br>'
-                        . '<p>' . UtilHelper::mostrarCorto($usuario->email) . '</p>'
+                        . '<p>' . UtilHelper::mostrarCorto(Html::encode($usuario->email)) . '</p>'
                         . Html::a(UtilHelper::glyphicon('cog') . ' Mi cuenta',
                             ['usuarios/mod-perfil'],
                             ['class' => 'btn btn-sm btn-primary'])

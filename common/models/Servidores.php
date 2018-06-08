@@ -34,6 +34,7 @@ class Servidores extends \yii\db\ActiveRecord
             [['usuario_id'], 'integer'],
             [['puerto'], 'number', 'min' => 1],
             [['url', 'token_val'], 'string', 'max' => 255],
+            [['url'], 'url'],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
     }
