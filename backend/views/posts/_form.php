@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-use kartik\markdown\MarkdownEditor;
+use yii2mod\markdown\MarkdownEditor;
 
 use kartik\file\FileInput;
 
@@ -21,10 +21,11 @@ use kartik\file\FileInput;
         'tabIndex' => 1
         ]) ?>
         <hr>
-    <?= $form->field($model, 'contenido')->widget(MarkdownEditor::className(), [
-            'name' => 'markdown',
-            'options' => ['tabIndex' => 2]
-        ]) ?>
+        <?= $form->field($model, 'contenido')->widget(MarkdownEditor::class, [
+            'editorOptions' => [
+                'showIcons' => ["code", "table"],
+            ],
+        ]); ?>
         <hr>
         <blockquote cite="">
             <p>Nota: La foto deberá tener un formato apaisado</p>

@@ -27,13 +27,13 @@
         "kartik-v/yii2-dialog": "*",
         "kartik-v/yii2-widget-growl": "*",
         "kartik-v/yii2-date-range": "*",
-        "kartik-v/yii2-markdown": "dev-master",
         "2amigos/yii2-disqus-widget": "~1.0",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-depdrop": "@dev",
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-datecontrol": "dev-master",
-        "npm-asset/ez-plus": "^1.2"
+        "npm-asset/ez-plus": "^1.2",
+        "yii2mod/yii2-markdown": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

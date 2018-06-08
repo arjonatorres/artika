@@ -1,15 +1,15 @@
 <?php
 
-use yii\web\View;
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
+use cebe\markdown\GithubMarkdown;
 
 use common\helpers\UtilHelper;
 
 use kartik\dialog\Dialog;
 
-use kartik\markdown\Markdown;
+// use kartik\markdown\Markdown;
 
 use dosamigos\disqus\Comments;
 use dosamigos\disqus\CommentsCount;
@@ -69,7 +69,7 @@ $imagen = $model->rutaImagen;
                             ['class' => 'img-xss img-circle']
                         ) ?>
                         <strong>
-                            &nbsp;<?= Html::a('' . UtilHelper::mostrarCorto($nombre), ['/posts/index'], [
+                            &nbsp;<?= Html::a('' . UtilHelper::mostrarCorto(Html::encode($nombre), 20), ['/posts/index'], [
                                 'data' => [
                                     'method' => 'get',
                                 ],
@@ -97,12 +97,11 @@ $imagen = $model->rutaImagen;
                 <h3>
                     <?= Html::a(Html::encode($model->titulo), ['view', 'id' => $model->id]) ?>
                 </h3>
-                <?= Markdown::convert(Html::encode(
+                <?= (new GithubMarkdown())->parse(Html::encode(
                     !$view ?
                     UtilHelper::mostrarCorto($model->contenido, 400) :
                     $model->contenido
-                    )
-                ) ?>
+                )) ?>
                 <hr>
             </div>
             <div class="col-md-1  padding-0">

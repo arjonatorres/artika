@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 use kartik\select2\Select2;
-use kartik\markdown\MarkdownEditor;
+use yii2mod\markdown\MarkdownEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Mensajes */
@@ -95,9 +95,11 @@ $this->registerJs($js);
 
     <?= $form->field($model, 'asunto')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'contenido')->widget(MarkdownEditor::className(), [
-            'name' => 'markdown',
-        ]) ?>
+    <?= $form->field($model, 'contenido')->widget(MarkdownEditor::class, [
+        'editorOptions' => [
+            'showIcons' => ["code", "table"],
+        ],
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>

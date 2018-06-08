@@ -1,9 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use cebe\markdown\GithubMarkdown;
+
 use common\helpers\UtilHelper;
 
-use kartik\markdown\Markdown;
 use kartik\dialog\Dialog;
 
 /* @var $this yii\web\View */
@@ -36,7 +37,7 @@ $this->registerJs($js);
             <h4><?= Html::encode($model->asunto) ?></h4>
         </div>
         <div class="panel-body">
-            <?= Markdown::convert(Html::encode($model->contenido)) ?>
+            <?= (new GithubMarkdown())->parse(Html::encode($model->contenido)) ?>
             <hr>
             <p class="pie">De <strong><?= Html::encode($model->remitente->nombre) ?></strong> para <strong><?= ($model->destinatario_id != null ? Html::encode($model->destinatario->nombre) : 'Todos') ?></strong></p>
             <p class="pie">Fecha envío: <strong><?= Yii::$app->formatter->asDatetime($model->created_at) ?></strong></p>
