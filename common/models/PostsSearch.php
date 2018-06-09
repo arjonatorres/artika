@@ -51,6 +51,10 @@ class PostsSearch extends Posts
             ],
         ]);
 
+        if (isset($params['usuario']) && ($model = Usuarios::findOne(['username' => $params['usuario']])) !== null) {
+            $params['usuario_id'] = $model->id;
+        }
+
         $this->load($params);
 
         if (!$this->validate()) {

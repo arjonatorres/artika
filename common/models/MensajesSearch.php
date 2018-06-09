@@ -71,6 +71,9 @@ class MensajesSearch extends Mensajes
             'query' => $query,
         ]);
 
+        if (isset($params['remitente_nombre'])) {
+            $params['remitente.nombre'] = $params['remitente_nombre'];
+        }
         $this->load($params);
 
         if (!$this->validate()) {

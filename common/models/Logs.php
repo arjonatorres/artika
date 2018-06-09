@@ -25,6 +25,11 @@ class Logs extends \yii\db\ActiveRecord
         return 'logs';
     }
 
+    public function formName()
+    {
+        return '';
+    }
+
     /**
      * @inheritdoc
      */

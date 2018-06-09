@@ -21,7 +21,7 @@ use common\helpers\UtilHelper;
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <?= Html::a(
                         UtilHelper::glyphicon('search') . ' Mis Posts',
-                        ['index', 'PostsSearch[usuario_id]' => Yii::$app->user->id],
+                        ['index', 'usuario' => Yii::$app->user->identity->username],
                         [
                             'class' => 'btn btn-info',
                             'title' => 'Buscar mis posts',

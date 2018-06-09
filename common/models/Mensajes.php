@@ -48,6 +48,11 @@ class Mensajes extends ActiveRecord
         return 'mensajes';
     }
 
+    public function formName()
+    {
+        return '';
+    }
+
     public function behaviors()
     {
         return [

@@ -9,9 +9,14 @@ use yii\bootstrap\ActiveForm;
 
 $js = <<<JS
     $(document).ready(function() {
-        if ($('#logssearch-created_at').val() == '') {
-            $('#logssearch-created_at').val($('.text-muted').html());
+        if ($('#created_at').val() == '') {
+            $('#created_at').val($('.text-muted').html());
         }
+    });
+
+    $('#logs-form').submit(function() {
+        window.location = $(this).attr('action') + '/' + $('#created_at').val().replace(/ /g, '+');
+        return false;
     });
 JS;
 
@@ -21,7 +26,8 @@ $this->registerJs($js);
 <div class="logs-search col-md-10">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'id' => 'logs-form',
+        'action' => ['/logs'],
         'method' => 'get',
     ]); ?>
 

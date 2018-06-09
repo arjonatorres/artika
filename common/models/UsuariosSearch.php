@@ -20,6 +20,11 @@ class UsuariosSearch extends Usuarios
         ];
     }
 
+    public function formName()
+    {
+        return '';
+    }
+
     /**
      * @inheritdoc
      */

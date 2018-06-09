@@ -45,6 +45,11 @@ class Posts extends \yii\db\ActiveRecord
         return 'posts';
     }
 
+    public function formName()
+    {
+        return '';
+    }
+
     public function behaviors()
     {
         return [
