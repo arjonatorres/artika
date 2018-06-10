@@ -4,7 +4,6 @@
 
 .panel-seccion .panel-heading {
     background-color: #EEE;
-    /* height: 40px; */
 }
 
 .panel-seccion a {
@@ -28,16 +27,11 @@
     margin-right: 5px;
 }
 
-.i {
-    /* margin-left: 5px; */
-}
-
 .panel-body-principal {
     padding: 2px;
 }
 
 .icon-derecha {
-    /* float: right; */
     padding-right: 5px;
 }
 
@@ -49,13 +43,6 @@
     padding: 7px 15px;
 }
 
-/* .icono-nombre .col-md-8 span {
-    margin-left: 50px;
-    /* width: 100%;
-    word-wrap: break-word;
-    max-width: 135px; */
-
-
 .img-xs {
     margin-right: 4px;
 }
@@ -63,7 +50,6 @@
 .lista-iconos {
     margin: 20px 10px;
     border: 2px solid transparent;
-
 }
 
 .lista-iconos:hover {

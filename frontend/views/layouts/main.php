@@ -187,6 +187,7 @@ AppAsset::register($this);
     <button class='scrollTop btn-circle btn-top'><?= UtilHelper::glyphicon('chevron-up') ?></button>
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-right"><a target="_blank" href="https://arjonatorres.github.io/artika/manual.html">Manual de usuario</a></p>
     </div>
 </footer>
 
