@@ -383,3 +383,8 @@ span.big {
     display: inline-block;
     font-size: 0px;
 }
+
+.nombrex {
+    width: 210px;
+    margin: 20px auto 10px auto;
+}

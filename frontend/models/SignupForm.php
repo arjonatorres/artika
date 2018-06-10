@@ -25,6 +25,12 @@ class SignupForm extends Model
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\Usuarios', 'message' => 'Este nombre de usuario ya ha sido usado.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
+            [
+                ['username'],
+                'match',
+                'pattern' => '/^[a-zA-Z0-9]+([_\-\.]?[a-zA-Z0-9])*$/',
+                'message' => 'El nombre de usuario sólo puede contener los siguientes carácteres (A-z 0-9) separados por (-_.)',
+            ],
 
             ['email', 'trim'],
             ['email', 'required'],
