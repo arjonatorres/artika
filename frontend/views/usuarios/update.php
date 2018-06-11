@@ -42,6 +42,11 @@ $accion = Yii::$app->controller->action->id;
                             'url' => ['usuarios/mod-avatar'],
                             'active' => $accion == 'mod-avatar',
                         ],
+                        [
+                            'label' => 'Cambiar contraseña',
+                            'url' => ['usuarios/mod-password'],
+                            'active' => $accion == 'mod-password',
+                        ],
                     ],
                     'options' => ['class' =>'nav nav-pills nav-stacked'], // set this to nav-tab to get tab-styled navigation
                 ]);

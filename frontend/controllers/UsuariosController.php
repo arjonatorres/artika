@@ -24,6 +24,7 @@ use common\models\Usuarios;
 use common\helpers\UtilHelper;
 
 use frontend\models\SignupForm;
+use frontend\models\ChangePasswordForm;
 
 class UsuariosController extends \yii\web\Controller
 {
@@ -37,7 +38,7 @@ class UsuariosController extends \yii\web\Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar', 'delete', 'lista-usuarios'],
+                        'actions' => ['mod-cuenta', 'mod-perfil', 'mod-avatar','mod-password', 'delete', 'lista-usuarios'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -90,6 +91,30 @@ class UsuariosController extends \yii\web\Controller
             Yii::$app->session->setFlash('success', 'Tu cuenta ha sido actualizada correctamente.');
             return $this->redirect(['mod-cuenta']);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Actualiza la contraseña de la cuenta del usuario
+     * @return mixed
+     */
+    public function actionModPassword()
+    {
+        $model = new ChangePasswordForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = Usuarios::findOne(Yii::$app->user->id);
+            $user->setPassword($model->password);
+            if ($user->save()) {
+                Yii::$app->session->setFlash('success', 'Tu contraseña ha sido cambiada correctamente.');
+            } else {
+                Yii::$app->session->setFlash('danger', 'Ha ocurrido un error al cambiar tu contraseña.');
+            }
+            return $this->redirect(['mod-password']);
+        }
+        $model->old_password = $model->password = $model->password_repeat = '';
 
         return $this->render('update', [
             'model' => $model,
