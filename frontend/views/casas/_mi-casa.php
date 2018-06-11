@@ -121,7 +121,7 @@ $id = $model->id;
             <span id="seccion-nombre<?= $id ?>"><?= Html::encode($nombre) ?></span>
         </h4>
     </div>
-    <div class="panel-body panel-body-principal">
+    <div class="panel-body panel-body-principal" itemscope itemtype="http://schema.org/Room">
         <?php foreach (
             $model->getHabitaciones()
                 ->joinWith('modulos', true, 'RIGHT JOIN')->orderBy('id')->all()
@@ -129,12 +129,12 @@ $id = $model->id;
         <div class="panel panel-default panel-seccion margen-bottom-sm">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a id="habitacion-nombre<?= $habitacion->id ?>"></a>
-                        <?= Html::img("/imagenes/iconos/{$habitacion->icono_id}.png", [
+                    <span itemprop="identifier"><a id="habitacion-nombre<?= $habitacion->id ?>"></a></span>
+                        <span itemprop="logo"><?= Html::img("/imagenes/iconos/{$habitacion->icono_id}.png", [
                             // 'id' => "it-$den-icono$item->id",
                             'class' => 'img-xs img-circle',
-                        ]) ?>
-                        <?= Html::encode($habitacion->nombre) ?>
+                        ]) ?></span>
+                        <span itemprop="name"><?= Html::encode($habitacion->nombre) ?></span>
                 </h4>
             </div>
             <div class="panel-body">
