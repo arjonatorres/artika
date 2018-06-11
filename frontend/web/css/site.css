@@ -388,3 +388,11 @@ span.big {
     width: 210px;
     margin: 20px auto 10px auto;
 }
+
+video {
+    width: 100%;
+}
+
+.inicial h3 {
+    margin-top: 10px;
+}

@@ -3,8 +3,11 @@
 /* @var $this yii\web\View */
 $js = <<<JS
     $('.nombrex').hover(function() {
-        $(this).animate({width: 550}, 500);
-        $('.medio').animate({'font-size': '1em'}, 500);
+        console.log($(window).width());
+        if ($(window).width() > 600) {
+            $(this).animate({width: 550}, 500);
+            $('.medio').animate({'font-size': '1em'}, 500);
+        }
     },
     function() {
         $(this).animate({width: 210}, 500);
@@ -36,22 +39,24 @@ if (Yii::$app->user->isGuest) {
                 </h1>
             </div>
         <?php else: ?>
-            <h1 class="nombrex">
-                <span class="big">Ar</span><div class="medio">jona domó</div><span class="big">TiKa</span>
-            </h1>
-            <h3>Domótica al alcance de todos usando Raspberry y Arduino</h3>
+            <div class="inicial">
+                <h1 class="nombrex">
+                    <span class="big">Ar</span><span class="medio">jona domó</span><span class="big">TiKa</span>
+                </h1>
+                <h3>Domótica al alcance de todos usando Raspberry y Arduino</h3>
+            </div>
         <?php endif ?>
     </div>
-    <div class="text-center">
+    <div class="col-md-6 col-md-offset-3">
         <?php if (!Yii::$app->user->isGuest): ?>
             <img src="/imagenes/iot.png" alt="" style="margin: 10px auto" class="img-thumbnail">
         <?php else: ?>
-            <div class="panel panel-primary" style="width: 524px;margin: 0px auto;">
+            <div class="panel panel-primary" style="margin: 0px auto;">
                 <div class="panel-heading panel-heading-principal inicio">
                     <h4 style="margin: 0px; text-align: left; font-size: 16px;">¿Qué es la domótica?</h4>
                 </div>
                 <div class="panel-body" style="padding: 0px; background-color: #555">
-                    <video src="videos/domo.mp4" autoplay controls muted loop width="520"></video>
+                    <video id="video-domo" src="videos/domo.mp4" autoplay controls muted loop></video>
                 </div>
             </div>
         <?php endif ?>

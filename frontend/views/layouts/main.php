@@ -38,7 +38,7 @@ AppAsset::register($this);
         'id' => 'menu-principal',
         'brandLabel' => Html::img('/imagenes/atk-logo.png', [
             'alt' => 'Artika',
-            'width' => '30px;',
+            'width' => '30',
             'style' => 'display: inline; margin-top: -3px;',
         ]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
