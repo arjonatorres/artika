@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Servidor';
                 <img src="/imagenes/raspberry-logo.png" alt=""
                     class="img-servidor">
             </div>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['id' => 'servidores-form']); ?>
             <div class="col-md-8 col-md-offset-2">
                 <div class="col-md-7">
                     <?= $form->field($model, 'url', [
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Servidor';
                         'options' => [
                             'style' => 'width: 100%'
                         ],
-                    ])->textInput() ?>
+                    ])->textInput()->label('Puerto (1-65535)') ?>
                 </div>
             </div>
             <div class="col-md-8 col-md-offset-2">
