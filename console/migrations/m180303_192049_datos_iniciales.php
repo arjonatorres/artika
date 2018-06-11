@@ -21,7 +21,10 @@ class m180303_192049_datos_iniciales extends Migration
                 1,
                 'admin',
                 'arjonatika@gmail.com',
-                Yii::$app->security->generatePasswordHash(getenv('ADMIN_PASS')),
+                (YII_ENV_PROD ?
+                    Yii::$app->security->generatePasswordHash(getenv('ADMIN_PASS')):
+                    Yii::$app->security->generatePasswordHash('admin')
+                ),
                 Yii::$app->security->generateRandomString(), date('Y-m-d H:i:s')
             ],
             [

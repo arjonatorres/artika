@@ -6,8 +6,12 @@ return yii\helpers\ArrayHelper::merge(
     [
         'components' => [
             'db' => [
-                'dsn' => 'mysql:host=localhost;dbname=yii2advanced_test',
-            ]
+                'class' => 'yii\db\Connection',
+                'dsn' => 'pgsql:host=localhost;dbname=artika_test',
+                'username' => 'artika',
+                'password' => 'artika',
+                'charset' => 'utf8',
+            ],
         ],
     ]
 );

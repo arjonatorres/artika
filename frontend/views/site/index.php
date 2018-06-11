@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 $js = <<<JS
     $('.nombrex').hover(function() {
-        $(this).animate({width: 500}, 500);
+        $(this).animate({width: 550}, 500);
         $('.medio').animate({'font-size': '1em'}, 500);
     },
     function() {

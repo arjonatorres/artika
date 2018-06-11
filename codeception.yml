@@ -1,6 +1,6 @@
 # global codeception file to run tests from all apps
 include:
-    - common
+    # - common
     - frontend
     - backend
 paths:

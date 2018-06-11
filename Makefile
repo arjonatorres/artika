@@ -3,7 +3,7 @@
 
 all: test
 
-test tests: codecept phpcs
+test tests: codecept
 
 codecept: pre_codecept run_codecept post_codecept
 

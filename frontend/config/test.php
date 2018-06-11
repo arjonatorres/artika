@@ -8,5 +8,12 @@ return [
         'urlManager' => [
             'showScriptName' => true,
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=localhost;dbname=artika_test',
+            'username' => 'artika',
+            'password' => 'artika',
+            'charset' => 'utf8',
+        ],
     ],
 ];
