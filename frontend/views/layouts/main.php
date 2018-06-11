@@ -68,9 +68,6 @@ AppAsset::register($this);
             ],
         ];
         $menuCasa = [
-            [
-                'label' => '',
-            ],
             UtilHelper::menuItem('Blog', 'book', 'posts/index'),
         ];
     } else {

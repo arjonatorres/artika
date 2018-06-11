@@ -33,6 +33,10 @@ hr {
     background-color: #337ab7!important;
 }
 
+.navbar-header a.navbar-brand {
+    margin-right: 30px;
+}
+
 .panel-heading-principal {
     background: linear-gradient(#255986, #3a8bd0);
     border-top-left-radius: 8px;
