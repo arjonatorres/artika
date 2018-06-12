@@ -6,6 +6,9 @@ use Yii;
 use yii\web\UploadedFile;
 use yii\base\Model;
 
+/**
+ * Rutas form
+ */
 class RutasForm extends Model
 {
     /**

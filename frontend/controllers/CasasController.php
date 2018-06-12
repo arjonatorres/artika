@@ -15,6 +15,9 @@ use common\models\Secciones;
 use common\models\Habitaciones;
 use common\helpers\UtilHelper;
 
+/**
+ * CasasController implements the CRUD actions for Secciones and Habitaciones model.
+ */
 class CasasController extends \yii\web\Controller
 {
     /**

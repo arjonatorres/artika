@@ -26,6 +26,9 @@ use common\helpers\UtilHelper;
 use frontend\models\SignupForm;
 use frontend\models\ChangePasswordForm;
 
+/**
+ * UsuariosController implements the CRUD actions for Usuarios model.
+ */
 class UsuariosController extends \yii\web\Controller
 {
     /**

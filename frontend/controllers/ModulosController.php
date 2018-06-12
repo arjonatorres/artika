@@ -20,6 +20,9 @@ use common\models\Modulos;
 
 use common\helpers\UtilHelper;
 
+/**
+ * ModulosController implements the CRUD actions for Modulos model.
+ */
 class ModulosController extends \yii\web\Controller
 {
     /**

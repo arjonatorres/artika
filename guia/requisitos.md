@@ -676,6 +676,15 @@
 | **Entrega**     | v3             |
 | **Incidencia**  | [110](https://github.com/arjonatorres/artika/issues/110) |
 
+| **R116**     | **Uso de microdatos**           |
+| --------------: | :------------------- |
+| **Descripción** |              |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Técnico                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v3             |
+| **Incidencia**  | [116](https://github.com/arjonatorres/artika/issues/116) |
+
 
 ## Cuadro resumen
 
@@ -756,3 +765,4 @@
 | (**R93**) Transmitir órdenes de los módulos | Importante | Funcional | Difícil | v2 | [93](https://github.com/arjonatorres/artika/issues/93) |
 | (**R105**) Configurar URL Servidor Raspberry | Importante | Funcional | Fácil | v2 | [105](https://github.com/arjonatorres/artika/issues/105) |
 | (**R110**) El administrador podrá modificar las publicaciones de los usuarios | Mínimo | Funcional | Fácil | v3 | [110](https://github.com/arjonatorres/artika/issues/110) |
+| (**R116**) Uso de microdatos | Mínimo | Técnico | Fácil | v3 | [116](https://github.com/arjonatorres/artika/issues/116) |

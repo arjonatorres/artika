@@ -18,6 +18,9 @@ use common\models\Perfiles;
 use common\models\Usuarios;
 use common\models\UsuariosSearch;
 
+/**
+ * Usuarios controller
+ */
 class UsuariosController extends \yii\web\Controller
 {
     /**

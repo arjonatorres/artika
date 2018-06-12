@@ -1,7 +1,6 @@
 <?php
 
 use yii\db\Migration;
-use yii\db\Expression;
 
 /**
  * Class m180303_192049_datos_iniciales

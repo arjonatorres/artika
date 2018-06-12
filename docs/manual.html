@@ -48,7 +48,94 @@
 <a class="list-group-item" href="#navigation-32" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-32" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
 <a class="list-group-item" href="#navigation-33" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-33" class="submenu panel-collapse collapse"><a class="list-group-item" href="./anexos.html">Anexos</a></div></div>    </div>
     <div class="col-md-9 guide-content" role="main">
-        <h1>Manual de usuario <span id="manual-de-usuario"></span><a href="#manual-de-usuario" class="hashlink">&para;</a></h1><p>Explicar, incluyendo capturas de pantalla.</p>
+        <h1>Manual de usuario <span id="manual-de-usuario"></span><a href="#manual-de-usuario" class="hashlink">&para;</a></h1><blockquote><p><strong>Nota:</strong> Aparte de la aplicación web <a href="https://github.com/arjonatorres/artika">ArTiKa</a>, para que funcionen todos los módulos de domótica deberemos tener una Raspberry y un Arduino Uno. Para configurarlos seguir las instrucciones <a href="https://github.com/arjonatorres/artika-raspberry">aquí</a>.</p>
+</blockquote>
+<hr />
+<h3>Página de inicio sin loguearse <span id="pagina-de-inicio-sin-loguearse"></span><a href="#pagina-de-inicio-sin-loguearse" class="hashlink">&para;</a></h3><p><img src="images/manual/index.png" alt="Página de inicio sin loguearse" /></p>
+<p>En la página de inicio antes de loguearnos podemos acceder al blog de seguridad (sólo lectura), tenemos los típicos botones para hacer <strong><em>Login</em></strong> o <strong><em>Registrarse</em></strong> en caso de que aún no lo estemos.</p>
+<p>También podemos encontrar un video de corta duración explicando qué es la domótica para aquellos que estén empezando en este fascinante mundo.</p>
+<p>En el pie de página tenemos un enlace a este manual de usuario que nos ayudará al manejo de la página y a la configuración tanto de la Raspberry como del Arduino.</p>
+<hr />
+<h3>Página de inicio <span id="pagina-de-inicio"></span><a href="#pagina-de-inicio" class="hashlink">&para;</a></h3><p><img src="images/manual/index_login.png" alt="Página de inicio" /></p>
+<p>En esta página podemos encontrar el logotipo de la web y todas las opciones en la barra de menú superior. Entre ellas se encuentran: <strong><em>Mi casa</em></strong>, <strong><em>Secciones</em></strong>, <strong><em>Módulos</em></strong>, <strong><em>Logs</em></strong>, <strong><em>Servidor</em></strong>, <strong><em>Videocámaras</em></strong>, <strong><em>Rutas</em></strong> y <strong><em>Blog</em></strong>. En la parte derecha del menú superior encontramos dos opciones: <strong><em>mensajes privados</em></strong> y <strong><em>configuración</em></strong> de la cuenta de usuario.</p>
+<p>A continuación explicaremos las diferentes opciones disponibles en el menú superior.</p>
+<hr />
+<h3>Página de Mi casa <span id="pagina-de-mi-casa"></span><a href="#pagina-de-mi-casa" class="hashlink">&para;</a></h3><p><img src="images/manual/mi_casa.png" alt="Página de Mi casa" /></p>
+<p>Esta es la página principal de la aplicación y es donde se llevarán a cabo las acciones sobre los módulos de domótica. En la zona izquierda encontramos un menú con las diferentes <em>secciones</em> de la casa y dentro de cada sección sus correspondientes <em>habitaciones</em>. Si hacemos click en el nombre de dicha habitación nos llevará directamente a ella en la parte derecha del página y podremos acceder directamente a sus módulos.</p>
+<p>En la parte derecha encontramos el despliegue de todas las habitaciones con sus correspondientes módulos, si estos son del <em>tipo interruptor</em> aparecerán dos botones, uno de <strong><em>on</em></strong> y otro de <strong><em>off</em></strong>, si son de <em>tipo persiana </em>aparecerán tres botones, <strong><em>subir</em></strong>, <strong><em>bajar</em></strong> y <strong><em>stop</em></strong>, si el <em>tipo es de sensor de temperatura</em> aparecerá simplemente la temperatura sin que se pueda realizar ninguna acción sobre dicho módulo.</p>
+<hr />
+<h3>Página de Secciones <span id="pagina-de-secciones"></span><a href="#pagina-de-secciones" class="hashlink">&para;</a></h3><p><img src="images/manual/secciones.png" alt="Página de Secciones" /></p>
+<p>En esta página podemos añadir, modificar y borrar las distintas secciones y habitaciones de la casa.</p>
+<p>Para añadir una sección simplemente introduce su nombre donde pone <strong><em>Nombre de la sección</em></strong> y pulsa en <strong><em>Añadir</em></strong>. Dicha sección se añadirá al menú de la parte izquierda y al desplegable de las secciones disponibles al añadir una habitación.</p>
+<p>Para añadir una habitación debemos haber creado previamente por lo menos una sección de la casa. Elige un icono para la habitación, introduce el nombre de la habitación donde pone <strong><em>Nombre de la habitación</em></strong>, elige un sección de la casa en el desplegable <strong><em>Sección</em></strong> y pulsa en añadir.</p>
+<p>De este modo podemos configurar nuestra casa con todas las secciones y habitaciones que ésta disponga.</p>
+<hr />
+<h3>Página de Módulos <span id="pagina-de-modulos"></span><a href="#pagina-de-modulos" class="hashlink">&para;</a></h3><p><img src="images/manual/modulos.png" alt="Página de Módulos" /></p>
+<p>En esta página podemos añadir, modificar y borrar los módulos de domótica que vayamos a utilizar.</p>
+<p>En la parte izquierda tenemos un menú con todas las habitaciones y los módulos que hay en cada una.</p>
+<p>En la parte derecha podemos elegir el icono correspondiente al módulo, indicar el nombre, elegir la habitación a la cual pertenece, seleccionar el tipo de módulo (<strong><em>Interruptor</em></strong>, <strong><em>Persiana</em></strong> o <strong><em>Sensor de temperatura</em></strong>) y configurar los pines del Arduino.</p>
+<p>Dependiendo el tipo de módulo la configuración de pines es diferente:</p>
+<ol>
+<li>Tipo interruptor:<ul>
+<li>Solo se habilitarán los <em>pines digitales</em> del Arduino, el <strong><em>Pin principal</em></strong> que será el que actúe de <strong><em>On-Off</em></strong>.</li>
+</ul>
+</li>
+<li>Tipo persiana:<ul>
+<li>En este caso solo se habilitarán los <em>pines digitales</em> del Arduino, el <strong><em>Pin principal</em></strong> será el pin de subida del motor de la persiana, el <strong><em>Pin secundario</em></strong> será el pin de bajada del motor de la persiana.</li>
+</ul>
+</li>
+<li>Tipo sensor de temperatura:<ul>
+<li>En este caso estarán disponibles los <em>pines analógicos</em> del Arduino donde conectaremos el módulo de sensor de temperatura.</li>
+</ul>
+</li>
+</ol>
+<p>Por último pulsamos en añadir para agregar el nuevo módulo a la habitación.</p>
+<hr />
+<h3>Página de Logs <span id="pagina-de-logs"></span><a href="#pagina-de-logs" class="hashlink">&para;</a></h3><p><img src="images/manual/logs.png" alt="Página de Logs" /></p>
+<p>Aquí podemos encontrar los registros(logs) de todas las órdenes que hayamos ejecutado sobre los módulos que disponemos. Se indica el nombre del módulo, la habitación a la que pertenece, la sección en la que está dicha habitación, su nuevo estado, y la fecha y hora de la acción.</p>
+<p>Arriba disponemos de un <em>buscador</em> por rango de fechas por si queremos hacer una búsqueda más concreta de ciertos días. Eligiremos el día de origen y el día final.</p>
+<hr />
+<h3>Página de Servidor <span id="pagina-de-servidor"></span><a href="#pagina-de-servidor" class="hashlink">&para;</a></h3><p><img src="images/manual/servidor.png" alt="Página de Servidor" /></p>
+<p>En esta página podemos configurar la <strong><em>Url</em></strong> de nuestro servidor(Raspberry) y el <strong><em>puerto</em></strong> asociado. Para guardar los cambios pulsamos en el botón <strong><em>Guardar</em></strong>.</p>
+<p>En la zona inferior de la página encontramos un dibujo con los diferentes pines del Arduino y de cómo los tenemos configurados, para que a la hora de conectarlos nos sea mucho más fácil identificar para qué es cada pin.</p>
+<hr />
+<h3>Página de Videocámaras <span id="pagina-de-videocamaras"></span><a href="#pagina-de-videocamaras" class="hashlink">&para;</a></h3><p><img src="images/manual/camaras.png" alt="Página de Videocámaras" /></p>
+<p>En esta página en la parte izquierda podemos encontrar las cámaras que tenemos y los botones para <strong><em>Añadir</em></strong>, <strong><em>Modificar</em></strong> y <strong><em>Borrar</em></strong>.</p>
+<p>Para añadir una nueva videocámara indicamos su <strong><em>Nombre</em></strong>, la <strong><em>Url</em></strong> con la dirección y el <strong><em>Puerto</em></strong> de dicha dirección. A continuación pulsamos en el botón de <strong><em>Añadir</em></strong>.</p>
+<hr />
+<h3>Página de Rutas <span id="pagina-de-rutas"></span><a href="#pagina-de-rutas" class="hashlink">&para;</a></h3><p><img src="images/manual/rutas.png" alt="Página de Rutas" /></p>
+<p>En esta página podemos visualizar una ruta de seguimiento guardada en un archivo en formato <strong><em>.gpx</em></strong>. Pulse en examinar y seleccione el archivo, a continuación pulse en <strong><em>Visualiza ruta</em></strong>. En la zona inferior aparecerá el mapa con dicha ruta indicando el punto de inicio y de fin. En la zona derecha podemos ver diferentes datos de la ruta, como el <em>nombre del archivo</em>, <em>la hora de inicio</em>, <em>la hora de fin</em>, <em>la distancia total</em> y la <em>duración</em>.</p>
+<hr />
+<h3>Página de Blog <span id="pagina-de-blog"></span><a href="#pagina-de-blog" class="hashlink">&para;</a></h3><p><img src="images/manual/blog.png" alt="Página de Blog" /></p>
+<p>Aquí tenemos el blog con los diferentes posts que pueden publicar los usuarios de la aplicación con diferentes temáticas, como pueden ser la seguridad, nuevas tecnologías de control domótico, nuevos módulos...</p>
+<p>En la parte izquierda podemos ver los últimos posts por orden cronológico, en la parte derecha encontramos un botón de <strong><em>Nuevo Post</em></strong> para crear uno nuevo, <strong><em>Mis Posts</em></strong> para hacer una búsqueda de los posts que hayamos publicado, y un <em>buscador</em> de texto que busca tanto en el título como en el contenido de los posts.</p>
+<p>Un poco más abajo en la parte derecha encontramos unos enlaces a los últimos posts y un enlace a <a href="https://disqus.com/">Disqus</a>, que deberemos darnos de alta si queremos hacer comentarios a los diferentes posts.</p>
+<hr />
+<h3>Página de Mensajes <span id="pagina-de-mensajes"></span><a href="#pagina-de-mensajes" class="hashlink">&para;</a></h3><p><img src="images/manual/mensajes.png" alt="Página de Mensajes" /></p>
+<p>Aquí encontramos los diferentes mensajes privados que nos han mandado los demás usuarios o el administrador. También podemos consultar los mensajes que hemos enviado nosotros.</p>
+<p>En la parte superior encontramos enlaces a <strong><em>Recibidos</em></strong>, <strong><em>Enviados</em></strong> y <strong><em>Mensaje Nuevo</em></strong> para poder enviar un nuevo mensaje.</p>
+<hr />
+<h3>Página de Perfil <span id="pagina-de-perfil"></span><a href="#pagina-de-perfil" class="hashlink">&para;</a></h3><p><img src="images/manual/perfil.png" alt="Página de Perfil" /></p>
+<p>En esta página podremos configurar todo lo relacionado con la cuenta del usuario. En el menú de la izquierda encontramos los diferentes apartados:</p>
+<ol>
+<li><strong>Perfil</strong><ul>
+<li>Aquí configuraremos los datos personales del usuario, y al agregar su dirección se guardará automáticamente la localización de sus coordenadas GPS.</li>
+</ul>
+</li>
+<li><strong>Cuenta</strong><ul>
+<li>Aquí se podrá configurar el nombre de usuario y su dirección de email.</li>
+</ul>
+</li>
+<li><strong>Avatar</strong><ul>
+<li>Aquí se eligirá la foto de perfil del usuario.</li>
+</ul>
+</li>
+<li><strong>Cambiar contraseña</strong><ul>
+<li>Aquí se podrá cambiar la contraseña de acceso a la aplicación. Por seguridad se pedirá la contraseña antigua y por duplicado la nueva.</li>
+</ul>
+</li>
+</ol>
+<hr />
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -57,7 +144,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Mon, 23 Apr 2018 18:56:31 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 12 Jun 2018 11:45:36 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

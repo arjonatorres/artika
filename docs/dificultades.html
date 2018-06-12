@@ -48,8 +48,16 @@
 <a class="list-group-item" href="#navigation-8" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-8" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
 <a class="list-group-item" href="#navigation-9" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-9" class="submenu panel-collapse collapse"><a class="list-group-item" href="./anexos.html">Anexos</a></div></div>    </div>
     <div class="col-md-9 guide-content" role="main">
-        <h1>Dificultades encontradas <span id="dificultades-encontradas"></span><a href="#dificultades-encontradas" class="hashlink">&para;</a></h1><p>Explicar, indicando también las soluciones adoptadas en cada caso.</p>
-<p>Incluir aquí el elemento de innovación que se indicó en la propuesta.</p>
+        <h1>Dificultades encontradas <span id="dificultades-encontradas"></span><a href="#dificultades-encontradas" class="hashlink">&para;</a></h1><h4><strong>Envío de órdenes al servidor</strong> <span id="envio-de-ordenes-al-servidor"></span><a href="#envio-de-ordenes-al-servidor" class="hashlink">&para;</a></h4><p>A la hora de enviar una orden (on, off, subir y bajar persiana...) desde la aplicación al servidor (Raspberry) me encontré con la duda de cómo hacerlo. Después de mucho investigar decidí usar Curl, que hace el envío de una petición y permite el proceso de la respuesta.</p>
+<p>El envío de los datos se hacen en formato JSON al igual que la respuesta dada por el servidor. Al final el servidor es un mero "puente" entre la aplicación y el Arduino, que es el que finalmente lleva a cabo la ejecución de la orden dada por la aplicación.</p>
+<h4><strong>Sincronización de la base de datos con el estado real de los módulos</strong> <span id="sincronizacion-de-la-base-de-datos-con-el-estado-real-de-los-modulos"></span><a href="#sincronizacion-de-la-base-de-datos-con-el-estado-real-de-los-modulos" class="hashlink">&para;</a></h4><p>Cada vez que se manda una orden y ésta es llevada a cabo con éxito se actualiza la base de datos con el nuevo estado del módulo, pero si ese estado se modifica en la casa del usuario, la aplicación no se "entera" y se produce una ambigüedad en el estado.</p>
+<p>Para solucionar este problema cada vez que se accede a la página "mi-casa" de la aplicación ésta conecta con el Arduino y actualiza el estado de todos los módulos en la base de datos, llevándose a cabo así la sincronización.</p>
+<hr />
+<h1>Elementos de innovación <span id="elementos-de-innovacion"></span><a href="#elementos-de-innovacion" class="hashlink">&para;</a></h1><h4><strong>Plantilla avanzada de Yii2</strong> <span id="plantilla-avanzada-de-yii2"></span><a href="#plantilla-avanzada-de-yii2" class="hashlink">&para;</a></h4><p>Se decidió el uso de esta plantilla ya que divide la aplicación en dos aplicaciones con partes en común, la parte de frontend y de backend. Debido a la naturaleza de mi aplicación esta división era ideal, al tener una parte para los usuarios y otra para el administrador.</p>
+<p>Su configuración inicial fue un poco compleja, sobretodo para su despliegue en Heroku, ya que había que configurar muchos archivos para separar la parte de frontend con la de backend.</p>
+<h4><strong>Uso de migraciones</strong> <span id="uso-de-migraciones"></span><a href="#uso-de-migraciones" class="hashlink">&para;</a></h4><p>De inicio la plantilla avanzada usa migraciones, y aprovechando esto decidí investigar por mi cuenta y usarlas en la aplicación. En seguida agradecí haber tomado esta decisión ya que permite la modificación de partes de la base de datos como si fueran módulos separados, permitiendo así una forma mucho más dinámica de incorporar nuevas tablas y datos sin modificar lo anterior.</p>
+<h4><strong>Uso de Curl</strong> <span id="uso-de-curl"></span><a href="#uso-de-curl" class="hashlink">&para;</a></h4><p>A la hora de enviar las órdenes al servidor se decidió por esta tecnología debido a su facilidad de uso y porque se adaptaba perfectamente a lo que requería la aplicación en esa funcionalidad.</p>
+<h4><strong>Uso de archivos con extensión GPX</strong> <span id="uso-de-archivos-con-extension-gpx"></span><a href="#uso-de-archivos-con-extension-gpx" class="hashlink">&para;</a></h4><p>Existe un apartado opcional en la aplicación que al final se llevó a cabo en la cual se permite visualizar una ruta en el Google Maps contenida en un fichero GPX, que es el formato estandar para guardar rutas. Al investigar pude descubrir que el archivo contiene información en formato XML de cada coordenada GPS, con su altitud y su instante de tiempo. Procesando esa información y trasladándola al Google Maps conseguí dibujar dicha ruta en el mapa.</p>
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -58,7 +66,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Mon, 23 Apr 2018 18:56:31 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 12 Jun 2018 11:45:36 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

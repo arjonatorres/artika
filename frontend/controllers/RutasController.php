@@ -8,6 +8,9 @@ use yii\web\UploadedFile;
 use yii\filters\AccessControl;
 use common\models\RutasForm;
 
+/**
+ * RutasController implements the index action for .gpx files.
+ */
 class RutasController extends \yii\web\Controller
 {
     /**

@@ -51,8 +51,73 @@
         <h1>Instrucciones de instalación y despliegue <span id="instrucciones-de-instalacion-y-despliegue"></span><a href="#instrucciones-de-instalacion-y-despliegue" class="hashlink">&para;</a></h1>
 <div class="toc"><ol><li><a href="#en-local">En local</a></li>
 <li><a href="#en-la-nube">En la nube</a></li></ol></div>
-<h2>En local <span id="en-local"></span><a href="#en-local" class="hashlink">&para;</a></h2><p>Explicar.</p>
-<h2>En la nube <span id="en-la-nube"></span><a href="#en-la-nube" class="hashlink">&para;</a></h2><p>Explicar.</p>
+<h2>En local <span id="en-local"></span><a href="#en-local" class="hashlink">&para;</a></h2><h4>Debes tener: <span id="debes-tener"></span><a href="#debes-tener" class="hashlink">&para;</a></h4><ul>
+<li><strong> PHP 7.1.0 </strong></li>
+<li><strong> PostgreSQL 9.5 o superior </strong></li>
+<li><strong> Composer </strong></li>
+<li><strong> Cuenta en Amazon S3 </strong></li>
+<li><strong> Cuenta de email </strong></li>
+</ul>
+<h4>Instalación: <span id="instalacion"></span><a href="#instalacion" class="hashlink">&para;</a></h4><ol>
+<li><p>Crear un directorio <code>web/artika</code> y nos cambiamos a ese directorio.</p>
+</li>
+<li>Ejecutamos los siguientes comandos:<pre><code class="hljs javascript">~<span class="hljs-regexp">/web/</span>artika ᐅ git clone https:<span class="hljs-comment">//github.com/arjonatorres/artika .</span>
+~<span class="hljs-regexp">/web/</span>artika ᐅ composer install
+~<span class="hljs-regexp">/web/</span>artika ᐅ ./init --env=Development --overwrite=n
+</code></pre>
+</li>
+<li>Cambiar la dirección de correo en <code>/common/config/params.php</code><pre><code class="hljs php"><span class="hljs-string">'adminEmail'</span> =&gt; <span class="hljs-string">'nueva dirección de correo'</span>,
+</code></pre>
+</li>
+<li><p>Crear varias variable de entorno en el archivo <code>.env</code>:</p>
+<ul>
+<li><code>ADMIN_PASS</code> con la contraseña del administrador.</li>
+<li><code>SMTP_PASS</code> con la contraseña de la dirección de correo.</li>
+<li><code>AWS_KEY</code> Con la key de Amazon S3</li>
+<li><code>AWS_SECRET</code> Con el password de Amazon S3</li>
+<li><code>GMAPS_KEY</code> Con la key de Google Maps</li>
+</ul>
+</li>
+<li>Creamos la base de datos y las respectivas tablas para hacer funcionar la aplicación:<pre><code class="hljs sql">db/<span class="hljs-operator"><span class="hljs-keyword">create</span>.sh
+./yii migrate
+</span></code></pre>
+</li>
+<li>Ejecutamos los siguientes comandos:<pre><code class="hljs javascript">~<span class="hljs-regexp">/web/</span>artika ᐅ make servef
+~<span class="hljs-regexp">/web/</span>artika ᐅ make serveb
+</code></pre>
+</li>
+<li>Para acceder al frontend introducimos en el navegador <code>localhost:8080</code>.</li>
+<li>Para acceder al backend introducimos en el navegador <code>localhost:8081</code>.</li>
+</ol>
+<h2>En la nube <span id="en-la-nube"></span><a href="#en-la-nube" class="hashlink">&para;</a></h2><h4>Requisitos: <span id="requisitos"></span><a href="#requisitos" class="hashlink">&para;</a></h4><ul>
+<li><strong> Heroku cli </strong></li>
+</ul>
+<h4>Despliegue: <span id="despliegue"></span><a href="#despliegue" class="hashlink">&para;</a></h4><ol>
+<li><p>Hacemos la instalación en local arriba indicada.</p>
+</li>
+<li><p>Creamos una aplicación en heroku</p>
+</li>
+<li><p>Añadiremos el add-on <strong>Heroku Postgres</strong></p>
+</li>
+<li>Nos vamos al directorio donde hemos clonado la aplicación y ejecutamos:<pre><code class="hljs nginx"><span class="hljs-title">heroku</span> login
+heroku git:remote -a nombre_app_heroku
+git push heroku master
+heroku run bash
+./yii migrate
+</code></pre>
+</li>
+<li><p>Configuramos las variables de entorno:</p>
+<ul>
+<li>ADMIN_PASS: La contraseña del administrador</li>
+<li>AWS_KEY: La key de Amazon S3</li>
+<li>AWS_SECRET: La clave secreta de Amazon S3</li>
+<li>GMAPS_KEY: La key de Google Maps</li>
+<li>SMTP_PASS: Contraseña de la cuenta de correo</li>
+</ul>
+</li>
+<li><p>La aplicación está lista para funcionar</p>
+</li>
+</ol>
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -61,7 +126,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Mon, 23 Apr 2018 18:56:31 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 12 Jun 2018 11:45:36 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {

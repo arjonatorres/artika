@@ -8,6 +8,9 @@ use yii\filters\AccessControl;
 
 use common\models\LogsSearch;
 
+/**
+ * LogsController implements the index action for Logs model.
+ */
 class LogsController extends \yii\web\Controller
 {
     /**

@@ -48,7 +48,22 @@
 <a class="list-group-item" href="#navigation-56" data-toggle="collapse" data-parent="#navigation">Conclusiones <b class="caret"></b></a><div id="navigation-56" class="submenu panel-collapse collapse"><a class="list-group-item" href="./conclusiones.html">Conclusiones</a></div>
 <a class="list-group-item" href="#navigation-57" data-toggle="collapse" data-parent="#navigation">Anexos <b class="caret"></b></a><div id="navigation-57" class="submenu panel-collapse collapse"><a class="list-group-item" href="./anexos.html">Anexos</a></div></div>    </div>
     <div class="col-md-9 guide-content" role="main">
-        <h1>Decisiones adoptadas <span id="decisiones-adoptadas"></span><a href="#decisiones-adoptadas" class="hashlink">&para;</a></h1><p>Explicar, indicando en cada caso su justificación.</p>
+        <h1>Decisiones adoptadas <span id="decisiones-adoptadas"></span><a href="#decisiones-adoptadas" class="hashlink">&para;</a></h1><h4>Uso de Amazon S3 <span id="uso-de-amazon-s3"></span><a href="#uso-de-amazon-s3" class="hashlink">&para;</a></h4><ul>
+<li>En principio iba a usar la API de Dropbox vista en clase, pero debido al retardo que se producía en cada petición he decidido usar este servicio de Amazon. Se usa para alojar tanto las imágenes de perfil de los usuarios como las imágenes subidas al blog.</li>
+</ul>
+<hr />
+<h4>Uso de widgets para Yii2 de Kartik <span id="uso-de-widgets-para-yii2-de-kartik"></span><a href="#uso-de-widgets-para-yii2-de-kartik" class="hashlink">&para;</a></h4><ul>
+<li>Para agilizar el desarrollo y con la idea de reutilizar código se han usado varios widgets ya desarrollados por <em>Kartik</em>, tales como: <code>FileInput</code>, <code>Dialog</code>, <code>Growl</code>, <code>DateRange</code>, <code>Select2</code>, <code>DepDrop</code>, <code>DatePicker</code> y <code>DateControl</code>. También se han usado widgets de otros propietarios como <em>Dos amigos</em>, usando <code>GoogleMapsLibrary</code> y <code>Disqus</code>.</li>
+</ul>
+<hr />
+<h4>Implementar nuevos requisitos <span id="implementar-nuevos-requisitos"></span><a href="#implementar-nuevos-requisitos" class="hashlink">&para;</a></h4><ul>
+<li>A lo largo del desarrollo he ido añadiendo nuevos requisitos que completaban los ya existentes en la propuesta inicial:<ul>
+<li><a href="https://github.com/arjonatorres/artika/issues/93">(93) Transmitir órdenes de los módulos</a>: Era una implementación tan compleja que tuve que crear un nuevo requisito para llevarlo a cabo. Al final se hizo usando Curl y el formato JSON.</li>
+<li><a href="https://github.com/arjonatorres/artika/issues/105">(R105) Configurar URL Servidor Raspberry</a>: Al principio iba a hacer una configuración propia para cada usuario pero vi conveniente que cada usuario pudiera configurar la Url del servidor (Raspberry) a su antojo.</li>
+<li><a href="https://github.com/arjonatorres/artika/issues/110">(R110) El administrador podrá modificar las publicaciones de los usuarios</a>: De entrada solo se había previsto que el administrador pudiera borrar las publicaciones de los usuario, pero también vi necesario que pudiera modificar las publicaciones que se hacen en el blog.</li>
+</ul>
+</li>
+</ul>
         <div class="toplink"><a href="#" class="h1" title="go to top"><span class="glyphicon glyphicon-arrow-up"></a></div>
     </div>
 </div>
@@ -57,7 +72,7 @@
 </div>
 
 <footer class="footer">
-        <p class="pull-right"><small>Page generated on Mon, 23 Apr 2018 18:56:31 +0000</small></p>
+        <p class="pull-right"><small>Page generated on Tue, 12 Jun 2018 11:45:36 +0000</small></p>
     Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
 
 <script>jQuery(function ($) {
