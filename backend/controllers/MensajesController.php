@@ -123,8 +123,8 @@ class MensajesController extends Controller
         }
 
         if (($post = Yii::$app->request->post())) {
-            if (is_array($post['Mensajes']['destinatario_id']) && isset($post['Mensajes']['destinatario_id'])) {
-                if ($post['Mensajes']['destinatario_id'][0] == 0) {
+            if (is_array($post['destinatario_id']) && isset($post['destinatario_id'])) {
+                if ($post['destinatario_id'][0] == 0) {
                     $usuarios = Usuarios::find()->where(['<>','id', '1'])->all();
                     foreach ($usuarios as $usuario) {
                         $model = new Mensajes([
@@ -143,7 +143,7 @@ class MensajesController extends Controller
                         );
                     }
                 } else {
-                    foreach ($post['Mensajes']['destinatario_id'] as $dest) {
+                    foreach ($post['destinatario_id'] as $dest) {
                         $model = new Mensajes([
                             'remitente_id' => Yii::$app->user->id,
                             'estado_dest' => 0,

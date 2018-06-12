@@ -122,15 +122,15 @@ class MensajesController extends Controller
         }
 
         if (($post = Yii::$app->request->post())) {
-            if (is_array($post['Mensajes']['destinatario_id']) && isset($post['Mensajes']['destinatario_id'])) {
-                foreach ($post['Mensajes']['destinatario_id'] as $dest) {
+            if (is_array($post['destinatario_id']) && isset($post['destinatario_id'])) {
+                foreach ($post['destinatario_id'] as $dest) {
                     $model = new Mensajes([
                         'remitente_id' => Yii::$app->user->id,
                         'destinatario_id' => $id,
                         'estado_dest' => 0,
                         'estado_rem' => 0,
                     ]);
-                    $post['Mensajes']['destinatario_id'] = $dest;
+                    $post['destinatario_id'] = $dest;
                     $model->load($post);
                     $model->save();
                     UtilHelper::enviarMail(
