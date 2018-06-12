@@ -5,7 +5,9 @@ use yii\web\JsExpression;
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+
+use common\helpers\UtilHelper;
 
 use kartik\select2\Select2;
 use yii2mod\markdown\MarkdownEditor;
@@ -40,7 +42,9 @@ $this->registerJs($js, View::POS_HEAD);
 
     <?php if ($directo): ?>
         <?php $data = [$model->destinatario_id => $model->destinatario->nombre] ?>
-        <?= $form->field($model, 'destinatario_id')->widget(Select2::classname(), [
+        <?= $form->field($model, 'destinatario_id', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->widget(Select2::classname(), [
             'data' => $data,
             'pluginOptions' => [
                 'allowClear' => false,
@@ -49,7 +53,9 @@ $this->registerJs($js, View::POS_HEAD);
         ]); ?>
         <?= $form->field($model, 'destinatario_id')->hiddenInput() ?>
     <?php else: ?>
-        <?= $form->field($model, 'destinatario_id')->widget(Select2::classname(), [
+        <?= $form->field($model, 'destinatario_id', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->widget(Select2::classname(), [
             'options' => ['placeholder' => 'Buscar un usuario ...', 'multiple' => true],
             'maintainOrder' => true,
             'showToggleAll' => false,
@@ -70,7 +76,9 @@ $this->registerJs($js, View::POS_HEAD);
     <?php endif ?>
 
 
-    <?= $form->field($model, 'asunto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'asunto', [
+        'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
+        ])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'contenido')->widget(MarkdownEditor::class, [
         'editorOptions' => [

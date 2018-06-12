@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 $js = <<<JS
     $('.nombrex').hover(function() {
-        console.log($(window).width());
         if ($(window).width() > 600) {
             $(this).animate({width: 550}, 500);
             $('.medio').animate({'font-size': '1em'}, 500);
@@ -23,11 +22,16 @@ $css = <<<CSS
     }
     .wrap {
         background: none;
+    }
+CSS;
+$css2 = <<<CSS
+    .wrap {
         background-color: rgba(0,0,0,0.7);
     }
 CSS;
+$this->registerCss($css);
 if (Yii::$app->user->isGuest) {
-    $this->registerCss($css);
+    $this->registerCss($css2);
 }
 ?>
 <div class="site-index">

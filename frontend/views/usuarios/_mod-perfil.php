@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\Timezone;
+use common\helpers\UtilHelper;
 
 use kartik\datecontrol\DateControl;
 
@@ -67,22 +68,32 @@ $this->registerJs($js);
         ]);
         ?>
 
-        <?= $form->field($model, 'nombre_apellidos')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'genero_id')->dropDownList(
+        <?= $form->field($model, 'nombre_apellidos', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
+            ])->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'genero_id', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->dropDownList(
             $listaGeneros,
             [
                 'id' => 'lista',
                 'prompt' => 'Seleccione un género',
             ]) ?>
-        <?= $form->field($model, 'zona_horaria')->textInput()->dropDownList(
+        <?= $form->field($model, 'zona_horaria', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('time'),
+            ])->textInput()->dropDownList(
             ArrayHelper::map(
                 Timezone::getAll(),
                 'timezone',
                 'name'
             ), ['prompt' => 'Seleccione una zona horaria (Por defecto: Europe/Madrid)']
         ) ?>
-        <?= $form->field($model, 'direccion')->textInput() ?>
-        <?= $form->field($model, 'ciudad')->textInput() ?>
+        <?= $form->field($model, 'direccion', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('screenshot'),
+            ])->textInput() ?>
+        <?= $form->field($model, 'ciudad', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('map-marker'),
+            ])->textInput() ?>
         <!-- <div class="row"> -->
             <div class="form-group" style="margin-bottom: 0px;">
                 <label class="control-label col-md-3">Localización</label>
@@ -144,9 +155,15 @@ $this->registerJs($js);
             </div>
         <!-- </div> -->
         <?= $form->field($model, 'localizacion')->hiddenInput()->label(false) ?>
-        <?= $form->field($model, 'provincia')->textInput() ?>
-        <?= $form->field($model, 'pais')->textInput() ?>
-        <?= $form->field($model, 'cpostal')->textInput() ?>
+        <?= $form->field($model, 'provincia', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('map-marker'),
+            ])->textInput() ?>
+        <?= $form->field($model, 'pais', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('globe'),
+            ])->textInput() ?>
+        <?= $form->field($model, 'cpostal', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('envelope'),
+            ])->textInput() ?>
         <?= $form->field($model, 'fecha_nac')->widget(DateControl::classname(), [
             'type'=>DateControl::FORMAT_DATE,
             'ajaxConversion'=>false,

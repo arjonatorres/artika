@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+
+use common\helpers\UtilHelper;
 
 use yii2mod\markdown\MarkdownEditor;
 
@@ -16,7 +18,9 @@ use kartik\file\FileInput;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'titulo')->textInput([
+    <?= $form->field($model, 'titulo', [
+        'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
+        ])->textInput([
         'maxlength' => true,
         'tabIndex' => 1
         ]) ?>

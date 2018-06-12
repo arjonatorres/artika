@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+
+use common\helpers\UtilHelper;
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
@@ -20,9 +22,15 @@ use yii\bootstrap\ActiveForm;
         ]);
         ?>
 
-        <?= $form->field($model, 'old_password')->passwordInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'password_repeat')->passwordInput() ?>
+        <?= $form->field($model, 'old_password', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
+            ])->passwordInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
+            ])->passwordInput() ?>
+        <?= $form->field($model, 'password_repeat', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('lock'),
+            ])->passwordInput() ?>
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">

@@ -8,6 +8,17 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 use common\helpers\UtilHelper;
+$css = <<<CSS
+    html, body {
+        background: url("../imagenes/fondo.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+    .wrap {
+        background: none;
+        background-color: rgba(0,0,0,0.7);
+    }
+CSS;
+$this->registerCss($css);
 
 $title = 'Registrarse';
 $this->params['breadcrumbs'][] = $title;

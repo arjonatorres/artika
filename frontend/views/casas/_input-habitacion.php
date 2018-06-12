@@ -199,6 +199,7 @@ $b = array_map(function ($var) {
             </span></h4>
             <?php endif ?>
             <?= $form->field($modelHab, 'nombre', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
                 ])->textInput([
                     'maxlength' => 20,
                     'style'=>'width: 80%; display: inline; margin-right: 10px;',

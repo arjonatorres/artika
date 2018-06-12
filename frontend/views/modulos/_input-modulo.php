@@ -225,6 +225,7 @@ $b = array_map(function ($var) {
         <?php endif ?>
         <div class="col-md-10 col-md-offset-1" style="padding-left: 0px;">
             <?= $form->field($model, 'nombre', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
                 ])->textInput([
                     'maxlength' => 20,
                     'style'=>'width: 80%; display: inline; margin-right: 10px;',

@@ -4,6 +4,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use common\helpers\UtilHelper;
+
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'modificar-seccion';
 
@@ -113,6 +115,7 @@ $this->registerJs($js);
         ]);
         ?>
             <?= $form->field($model, 'nombre', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
                 'enableAjaxValidation' => true,
                 'validateOnChange' => false,
                 'validateOnBlur' => false,

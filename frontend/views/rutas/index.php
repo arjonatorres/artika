@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 use yii\bootstrap\Alert;
 
@@ -54,7 +54,9 @@ $this->registerCss($css);
             </div>
             <div class="col-md-6 col-md-offset-3">
 
-                <?= $form->field($model, 'ruta')->widget(FileInput::classname(), [
+                <?= $form->field($model, 'ruta', [
+                    'inputTemplate' => UtilHelper::inputGlyphicon('map-marker'),
+                    ])->widget(FileInput::classname(), [
                     'options' => ['accept' => '.gpx'],
                     'pluginOptions' => [
                         'showPreview' => false,

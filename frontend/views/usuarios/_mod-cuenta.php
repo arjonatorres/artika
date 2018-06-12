@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+
+use common\helpers\UtilHelper;
 ?>
 <div class="panel panel-primary panel-principal">
     <div class="panel-heading panel-heading-principal">
@@ -20,9 +22,13 @@ use yii\bootstrap\ActiveForm;
         ]);
         ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->textInput(['autofocus' => true]) ?>
 
-        <?= $form->field($model, 'email')->textInput() ?>
+        <?= $form->field($model, 'email', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('envelope'),
+        ])->textInput() ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-9">

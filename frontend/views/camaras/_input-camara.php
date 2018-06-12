@@ -4,6 +4,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use common\helpers\UtilHelper;
+
 $accion = Yii::$app->controller->action->id;
 $esMod = $accion === 'update';
 
@@ -107,20 +109,26 @@ $this->registerJs($js);
             'enableAjaxValidation' => true,
         ]);
         ?>
-            <?= $form->field($model, 'nombre')
+            <?= $form->field($model, 'nombre', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
+                ])
             ->textInput([
                 'maxlength' => 20,
                 'style'=>'width: 80%; display: inline; margin-right: 10px;',
             ])->label('Nombre', [
                 'style' => 'display: block',
             ]) ?>
-            <?= $form->field($model, 'url')
+            <?= $form->field($model, 'url', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('link'),
+                ])
             ->textInput([
                 'style'=>'width: 100%; display: inline; margin-right: 10px;',
             ])->label('Url', [
                 'style' => 'display: block',
             ]) ?>
-            <?= $form->field($model, 'puerto')
+            <?= $form->field($model, 'puerto', [
+                'inputTemplate' => UtilHelper::inputGlyphicon('transfer'),
+                ])
             ->textInput([
                 'style'=>'width: 30%; display: inline; margin-right: 10px;',
             ])->label('Puerto', [

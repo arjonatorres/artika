@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 use common\helpers\UtilHelper;
 
@@ -41,14 +41,16 @@ $this->params['breadcrumbs'][] = 'Servidor';
             <div class="col-md-8 col-md-offset-2">
                 <div class="col-md-7">
                     <?= $form->field($model, 'url', [
+                        'inputTemplate' => UtilHelper::inputGlyphicon('link'),
                         'options' => [
                             'style' => 'width: 100%',
 
                         ],
-                    ])->textInput(['maxlength' => true, 'placeholder' => 'http://',]) ?>
+                    ])->textInput(['maxlength' => true, 'placeholder' => 'http://']) ?>
                 </div>
                 <div class="col-md-5">
                     <?= $form->field($model, 'puerto', [
+                        'inputTemplate' => UtilHelper::inputGlyphicon('transfer'),
                         'options' => [
                             'style' => 'width: 100%'
                         ],

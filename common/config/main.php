@@ -56,7 +56,7 @@ return [
                 'servidor' => 'servidores/index',
                 'camaras' => 'camaras/index',
                 'rutas' => 'rutas/index',
-                'mensajes/recibidos' => 'mensajes/recibidos',
+                'mensajes/nuevo' => 'mensajes/create',
                 'posts/<id:\d+>' => 'posts/view',
                 'cuenta' => 'usuarios/mod-cuenta',
                 'perfil' => 'usuarios/mod-perfil',

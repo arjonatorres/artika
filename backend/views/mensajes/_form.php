@@ -5,7 +5,9 @@ use yii\web\JsExpression;
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+
+use common\helpers\UtilHelper;
 
 use kartik\select2\Select2;
 use yii2mod\markdown\MarkdownEditor;
@@ -34,21 +36,22 @@ JS;
 $this->registerJs($js, View::POS_HEAD);
 $js = <<<JS
     $('#todos').on('click', function() {
-        if ($("#mensajes-destinatario_id").prop("disabled")) {
-            $("#mensajes-destinatario_id").prop("disabled", false);
+        console.log('dentro');
+        if ($("#destinatario_id").prop("disabled")) {
+            $("#destinatario_id").prop("disabled", false);
             $('.select2-selection__choice').remove();
-            $("#mensajes-destinatario_id option").remove();
+            $("#destinatario_id option").remove();
         } else {
-            $("#mensajes-destinatario_id").prop("disabled", true);
+            $("#destinatario_id").prop("disabled", true);
             $('.select2-selection__choice').remove();
-            $("#mensajes-destinatario_id option").remove();
-            $("#mensajes-destinatario_id").append('<option value="0" selected>todos</option>');
+            $("#destinatario_id option").remove();
+            $("#destinatario_id").append('<option value="0" selected>todos</option>');
         }
     });
 
     $('#mensaje-form').on('beforeSubmit', function(e) {
         e.preventDefault();
-        $("#mensajes-destinatario_id").prop('disabled', false);
+        $("#destinatario_id").prop('disabled', false);
         $('#mensaje.form').submit();
     });
 JS;
@@ -63,7 +66,9 @@ $this->registerJs($js);
     </label>
     <?php if ($directo): ?>
         <?php $data = [$model->destinatario_id => $model->destinatario->nombre] ?>
-        <?= $form->field($model, 'destinatario_id')->widget(Select2::classname(), [
+        <?= $form->field($model, 'destinatario_id', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->widget(Select2::classname(), [
             'data' => $data,
             'pluginOptions' => [
                 'allowClear' => false,
@@ -72,7 +77,9 @@ $this->registerJs($js);
         ]); ?>
         <?= $form->field($model, 'destinatario_id')->hiddenInput() ?>
     <?php else: ?>
-        <?= $form->field($model, 'destinatario_id')->widget(Select2::classname(), [
+        <?= $form->field($model, 'destinatario_id', [
+            'inputTemplate' => UtilHelper::inputGlyphicon('user'),
+            ])->widget(Select2::classname(), [
             'options' => ['placeholder' => 'Buscar un usuario ...', 'multiple' => true],
             'maintainOrder' => true,
             'showToggleAll' => false,
@@ -93,7 +100,9 @@ $this->registerJs($js);
     <?php endif ?>
 
 
-    <?= $form->field($model, 'asunto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'asunto', [
+        'inputTemplate' => UtilHelper::inputGlyphicon('tag'),
+        ])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'contenido')->widget(MarkdownEditor::class, [
         'editorOptions' => [
