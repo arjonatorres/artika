@@ -31,8 +31,10 @@ $js = <<<JS
         e.preventDefault();
         var dir = $('#perfiles-direccion').val();
         var ciu = $('#perfiles-ciudad').val();
-        if (dir !== '' || ciu !== '') {
-            var address = dir + ' ' + ciu;
+        var pro = $('#perfiles-provincia').val();
+        var pai = $('#perfiles-pais').val();
+        if (dir !== '' || ciu !== '' || pro !== '' || pai !== '') {
+            var address = dir + ' ' + ciu + ' ' + pro + ' ' + pai;
             geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
                 if (results.length == 0) {
