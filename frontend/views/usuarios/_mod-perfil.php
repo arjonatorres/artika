@@ -158,7 +158,7 @@ $this->registerJs($js);
         ]); ?>
 
         <div class="form-group">
-            <div class="col-md-offset-3 col-md-12">
+            <div class="col-md-offset-3 col-md-9">
                 <?= Html::submitButton('Guardar', [
                     'class' => 'btn btn-success',
                     'id' => 'guardar',

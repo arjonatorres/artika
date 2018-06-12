@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
         <?= $form->field($model, 'email')->textInput() ?>
 
         <div class="form-group">
-            <div class="col-md-offset-3 col-md-12">
+            <div class="col-md-offset-3 col-md-9">
                 <?= Html::submitButton('Guardar', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
             </div>
         </div>

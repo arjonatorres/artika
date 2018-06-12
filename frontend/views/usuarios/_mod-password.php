@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 
         <div class="form-group">
-            <div class="col-md-offset-4 col-md-12">
+            <div class="col-md-offset-4 col-md-8">
                 <?= Html::submitButton('Guardar', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
             </div>
         </div>
