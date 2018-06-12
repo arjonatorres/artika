@@ -17,7 +17,7 @@ JS;
 $this->registerJs($js);
 $css = <<<CSS
     html, body {
-        background: url("imagenes/fondo.jpg") no-repeat center center fixed;
+        background: url("/imagenes/fondo.jpg") no-repeat center center fixed;
         background-size: cover;
     }
     .wrap {
@@ -60,7 +60,7 @@ if (Yii::$app->user->isGuest) {
                     <h4 style="margin: 0px; text-align: left; font-size: 16px;">¿Qué es la domótica?</h4>
                 </div>
                 <div class="panel-body" style="padding: 0px; background-color: #555">
-                    <video id="video-domo" src="videos/domo.mp4" autoplay controls muted loop></video>
+                    <video id="video-domo" src="/videos/domo.mp4" autoplay controls muted loop></video>
                 </div>
             </div>
         <?php endif ?>
